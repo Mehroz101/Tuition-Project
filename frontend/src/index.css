@@ -1,0 +1,26 @@
+:root {
+  /* Primary Colors */
+  --primary-color: #2baffc;
+  --secondary-color: #054bb4;
+
+  /* Background Colors */
+  --light-background: #f4f7fa;
+
+  /* Text Colors */
+  --primary-text: #1a1a1a;
+  --secondary-text: #3e3e3e;
+
+  /* Border Colors */
+  --light-border: #d1e4f1;
+  --dark-border: #054bb4;
+
+  /* Button Colors */
+  --primary-button-bg: #054bb4;
+  --primary-button-text: #ffffff;
+  --secondary-button-bg: #2baffc;
+  --secondary-button-text: #ffffff;
+
+  /* Additional Colors */
+  --accent-color: #f56342;
+  --muted-background: #ebf2fa;
+}
