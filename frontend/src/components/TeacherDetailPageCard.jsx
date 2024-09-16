@@ -1,11 +1,9 @@
-// TeacherCard.js
-
 import React from "react";
-import "../styles/TeacherCard.css"; // Importing CSS for the component
 import teacherImg from "../assets/teacher-1.jpg";
-const TeacherCard = () => {
+
+const TeacherDetailPageCard = () => {
   return (
-    <div className="teacher-card">
+    <>
       {/* Top Row: Left and Right Parts */}
       <div className="teacher-card-top">
         {/* Left Part */}
@@ -13,11 +11,18 @@ const TeacherCard = () => {
           <img src={teacherImg} className="teacher-image" />
           <div className="teacher-info">
             <h3>Mehroz Farooq</h3>
+            <p>Spreading knowledge everywhere that's all I do</p>
             <div className="rating_location">
               <p className="teacher-reviews">
                 <span className="rating">5.0</span>
                 <i class="fa-solid fa-star"></i>
                 <span className="total_review_count">(453)</span>
+              </p>
+              <p className="teacher-satisfaction">
+                <i class="fa-solid fa-check"></i>
+                <span className="satisfaction_rate">
+                  <span className="rate">95%</span> Job Satisfaction
+                </span>
               </p>
               <p className="teacher-location">
                 <i class="fa-solid fa-location-dot"></i>
@@ -63,10 +68,10 @@ const TeacherCard = () => {
         <button className="chat-button">
           <i class="fa-solid fa-comment-dots"></i> Let's Chat
         </button>
-        <button className="profile-button">View Profile</button>
+        <button className="profile-button">Book a tuition</button>
       </div>
-    </div>
+    </>
   );
 };
 
-export default TeacherCard;
+export default TeacherDetailPageCard;

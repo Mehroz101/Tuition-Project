@@ -195,7 +195,7 @@ const Home = () => {
               approaches and unparalleled expertise.
             </p>
             <div class="teachers-grid">
-              <div class="teacher-card">
+              <div class="teacher-card-home">
                 <img src={Teacher_1} alt="Teacher Name" class="teacher-image" />
                 <div class="teacher-info">
                   <h3 class="teacher-name">John Doe</h3>
@@ -225,7 +225,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div class="teacher-card">
+              <div class="teacher-card-home">
                 <img src={Teacher_1} alt="Teacher Name" class="teacher-image" />
                 <div class="teacher-info">
                   <h3 class="teacher-name">John Doe</h3>
@@ -255,7 +255,7 @@ const Home = () => {
                 </div>
               </div>
 
-              <div class="teacher-card">
+              <div class="teacher-card-home">
                 <img src={Teacher_1} alt="Teacher Name" class="teacher-image" />
                 <div class="teacher-info">
                   <h3 class="teacher-name">John Doe</h3>

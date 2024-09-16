@@ -1,0 +1,262 @@
+/* TeacherCard.css */
+
+.teacher-card {
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 100%;
+  margin: 20px 0;
+  transition: all 0.2s ease;
+}
+.teacher-card:hover {
+  box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.04), 0px 3px 16px rgba(0, 0, 0, 0.04);
+}
+
+.teacher-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.teacher-card-left {
+  display: flex;
+  gap: 15px;
+}
+
+.teacher-image {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.teacher-info h3 {
+  margin: 0;
+  font-size: 18px;
+  color: var(--primary-text);
+  font-weight: 600;
+}
+.rating_location {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
+}
+.teacher-reviews,
+.teacher-location {
+  font-size: 14px;
+  color: var(--secondary-text);
+  font-size: 16px;
+  align-items: center;
+}
+.teacher-reviews {
+  display: flex;
+  gap: 5px;
+}
+.teacher-reviews .rating {
+  font-weight: 500;
+}
+.teacher-reviews .total_review_count {
+  font-weight: 300;
+}
+.teacher-reviews i {
+  color: orange;
+}
+.teacher-reviews .icon,
+.teacher-location .icon {
+  margin-right: 5px;
+  color: gold;
+}
+
+.teacher-location {
+  display: flex;
+  gap: 5px;
+}
+.teacher-location i {
+  color: #999;
+}
+.teacher-location address {
+  font-weight: 300;
+}
+.teacher-card-right h4 {
+  margin: 0;
+  font-size: 16px;
+  color: #666;
+}
+
+.teacher-price {
+  font-size: 30px;
+  color: var(--primary-color);
+  font-weight: bold;
+}
+
+.teacher-card-middle {
+  margin-bottom: 20px;
+  border-bottom: 1px dashed #ddd;
+  padding-bottom: 20px;
+}
+
+.teacher-card-middle p {
+  font-size: 16px;
+  color: #666;
+  margin-bottom: 15px;
+  word-spacing: 1px;
+  line-height: 22px;
+}
+
+.teacher-offers {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.teacher-offers p {
+  color: var(--secondary-text);
+  font-weight: 500;
+}
+.teacher-offers div {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.teacher-offers span {
+  flex: 1;
+  padding: 10px 15px;
+  background-color: #f7f8fc;
+  color: var(--secondary-text);
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  max-width: 300px;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.teacher-offers span i {
+  margin-right: 5px;
+}
+.teacher-offers span i.home {
+  color: #10bf10;
+}
+
+.teacher-offers span i.location {
+  color: #1f5db3;
+}
+
+.teacher-offers span i.online {
+  color: rgb(231, 164, 41);
+}
+
+.teacher-offers button:hover {
+  background-color: var(--primary-color);
+}
+
+/* Bottom Row: Chat and View Profile Buttons */
+.teacher-card-bottom {
+    display: flex;
+    justify-content: flex-end;
+    gap: 20px;
+}
+
+.teacher-card-bottom button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: var(--primary-color);
+  color: var(--secondary-text);
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.teacher-card-bottom button i {
+  margin-right: 5px;
+  color:#003b8b;
+}
+
+.teacher-card-bottom .chat-button {
+  background-color: transparent;
+  border: 2px solid #ddd;
+}
+.teacher-card-bottom .profile-button {
+  color: #fff;
+}
+
+.teacher-card-bottom button:hover {
+  background-color: #003b8b;
+  color: white;
+  border-color: #003b8b;
+}
+
+/* Media Query for Responsiveness */
+@media (max-width: 768px) {
+  .teacher-card {
+    padding: 15px;
+  }
+  .teacher-card-middle p{
+    display: none;
+  }
+
+  .teacher-card-top {
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .teacher-card-left {
+    margin-bottom: 20px;
+  }
+
+  .teacher-card-right {
+    margin-bottom: 20px;
+    background-color: #f7f8fc;
+    width: 100%;
+    display: flex;
+    gap: 5px;
+    margin-bottom: 0;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+
+  .teacher-card-bottom {
+    justify-content: center;
+  }
+
+
+  .teacher-offers {
+    flex-direction: column;
+  }
+
+  .teacher-card-bottom {
+    flex-direction: column;
+  }
+}
+@media(max-width:500px){
+  .teacher-card-left {
+    margin-bottom: 20px;
+    flex-direction: column;
+    width: 100%;
+  }
+  .teacher-card-left .teacher-image{
+    object-fit: cover;
+    height: auto;
+    aspect-ratio: 4/2;
+    width: 100%;
+
+  }
+  .teacher-info{
+    align-items: flex-start;
+  }
+}

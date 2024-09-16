@@ -1,0 +1,128 @@
+/* Updated TeacherListing.css */
+
+.teacher-listing-page {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+.listing_page_top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+  margin-bottom: 20px;
+}
+.search-filter-bar {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
+
+  flex-wrap: wrap; /* Ensures responsiveness */
+}
+.search-filter-bar .input_box {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  background-color: white;
+  padding-left: 15px;
+}
+.search-filter-bar .input_box i {
+  color: #333;
+}
+/* Search Input Styling */
+.search-filter-bar input {
+  flex: 1;
+  padding: 15px 15px;
+  font-size: 16px;
+  max-width: 100%;
+  outline: none;
+  border: none;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Button Styling */
+.search-filter-bar button {
+  padding: 15px 20px;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.search-filter-bar button:hover {
+  background-color: #003b8b; /* Darker primary color */
+}
+
+/* Dropdown Styling */
+.search-filter-bar select {
+  padding: 15px;
+  font-size: 16px;
+  outline: none;
+  background-color: white;
+  appearance: none;
+  width: 200px;
+  border: none;
+  border-left: 1px solid #ccc;
+  cursor: pointer;
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+/* Sort Dropdown Styling */
+.sort-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sort-filter label {
+  font-size: 16px;
+}
+
+.sort-filter select {
+  padding: 15px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  outline: none;
+  cursor: pointer;
+  appearance: none;
+  background-color: white;
+  transition: box-shadow 0.3s ease-in-out;
+}
+.teacher-listings {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .search-filter-bar {
+    flex-direction: column;
+  }
+  .search-filter-bar .input_box {
+    flex: 1;
+    width: 100%;
+  }
+  .search-filter-bar select {
+    flex: 1;
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ccc;
+  }
+  .search-filter-bar button {
+    width: 100%;
+  }
+  .sort-filter {
+    justify-content: space-between;
+    width: 100%;
+  }
+  .teacher-listings {
+    flex-direction: column;
+    width: 100%;
+  }
+}

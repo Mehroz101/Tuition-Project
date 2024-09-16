@@ -1,0 +1,354 @@
+.profile {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 50px 40px;
+}
+.profile_left_nav {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 300px;
+  flex: 1;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.profile_left_nav_img {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.left_img {
+  position: relative;
+}
+.profile_left_nav_img i {
+  position: absolute;
+  bottom: 8px;
+  right: 2px;
+  font-size: 20px;
+  color: var(--secondary-text);
+
+  background-color: white;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.profile_left_nav_img img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.profile_left_nav .upload_btn {
+  width: 100%;
+}
+.profile_left_nav .upload_btn button {
+  background-color: var(--secondary-color);
+  border: none;
+  outline: none;
+  padding: 10px 10px;
+  font-size: 16px;
+  color: white;
+  width: 100%;
+  border-radius: 4px;
+  font-weight: 500;
+}
+.profile_left_nav_items ul {
+  display: flex;
+  flex-direction: column;
+}
+.profile_left_nav_items ul li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 20px;
+  border-top: 1px solid #ddd;
+  border-left: 4px solid transparent;
+}
+.profile_left_nav_items ul li.active {
+  border-left: 4px solid var(--secondary-color);
+  background-color: #fcfcfc;
+}
+.profile_left_nav_items ul li:hover {
+  border-left: 4px solid var(--secondary-color);
+  background-color: #fcfcfc;
+}
+
+.profile_left_nav_items ul li i {
+  font-size: 18px;
+  color: var(--secondary-text);
+}
+.profile_left_nav_items ul li a {
+  color: var(--secondary-text);
+  cursor: pointer;
+}
+.profile_right_form {
+  background-color: white;
+  flex: 1;
+  height: 100%;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.profile_right_form .right_box_heading{
+    padding: 20px;
+  font-size: 22px;
+  font-weight: 500;
+  border-bottom: 2px dashed #ddd;
+}
+.personal_details {
+  width: 100%;
+}
+
+.personal_details_form {
+  padding: 20px;
+  height: 100%;
+}
+.personal_details_form form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  height: 100%;
+}
+.personal_details_form .input_box #country {
+  border: none;
+  width: 100%;
+  outline: none;
+  font-size: 16px;
+  padding: 4px;
+}
+.personal_details_form .option span {
+  font-size: 18px;
+  font-weight: 600;
+}
+.personal_details_form .option .combo_box {
+  margin-top: 20px;
+}
+.personal_details_form .option .combo_box > div {
+  background-color: #f6f6f6;
+  padding: 16px;
+  border-radius: 4px;
+  border: 2px solid #edecec;
+  color: var(--secondary-color);
+  display: flex;
+  gap: 10px;
+  cursor: pointer;
+  align-items: center;
+}
+.personal_details_form .option .combo_box > div.checked {
+  background-color: #fff;
+}
+.input_box textarea {
+  resize: none;
+  outline: none;
+  border: none;
+  font-size: 16px;
+  width: 100%;
+  border-radius: 4px;
+}
+.profile_right_form .submit_btn {
+  background-color: var(--primary-color);
+  border: none;
+  outline: none;
+  padding: 10px 10px;
+  font-size: 16px;
+  color: white;
+  width: 100px;
+  border-radius: 4px;
+  font-weight: 500;
+  justify-self: flex-end;
+  align-self: flex-end;
+  cursor: pointer;
+}
+.contact_information {
+  display: flex;
+  flex-direction: column;
+}
+.contact_information .contact_information_top {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  border-bottom: 2px dashed #ddd;
+}
+.contact_information .contact_information_top h3 {
+  font-size: 22px;
+  font-weight: 500;
+}
+.contact_information .contact_information_top a {
+  font-size: 15px;
+  color: var(--primary-color);
+  cursor: pointer;
+}
+.education_details_container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.education_details_container .education_detail {
+  display: flex;
+  flex-direction: column;
+  padding:20px;
+  border-bottom: 1px solid #ddd;
+}
+.education_details_container .education_detail h2.degree_name {
+  font-size: 20px;
+  color: var(--primary-text);
+  font-weight: 500;
+}
+.degree_detail_btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  margin-top: 10px;
+}
+.degree_detail {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 20px;
+}
+.degree_detail > div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 14px;
+}
+.degree_detail > div i {
+  color: #999;
+  font-weight: 600;
+
+}
+.degree_detail > div span {
+  color: #999;
+  font-weight: 600;
+
+}
+.degree_btn {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+.degree_btn i {
+  color: var(--secondary-color);
+  cursor: pointer;
+}
+.education_detail .description_text {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.55;
+  
+}
+
+.education_form form{
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.education_form .combo_box.date{
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+}
+.education_form .input_date_box{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.education_form .input_date_box >div{
+    flex: 1;
+    width: 100%;
+}
+.education_form .input_date_box >div input{
+    flex: 1;
+    width: 100%;
+}
+.icanteach_information {
+    display: flex;
+    flex-direction: column;
+  }
+  .icanteach_information .icanteach_information_top {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    align-items: center;
+    border-bottom: 2px dashed #ddd;
+  }
+  .icanteach_information .icanteach_information_top h3 {
+    font-size: 22px;
+    font-weight: 500;
+  }
+  .icanteach_information .icanteach_information_top a {
+    font-size: 15px;
+    color: var(--primary-color);
+    cursor: pointer;
+  }
+  .icanteach_container {
+   padding: 20px;
+  }
+  .icanteach_container .subjects {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .icanteach_container .subject {
+    padding: 5px 10px;
+    border-radius: 4px;
+    color: var(--secondary-color);
+    background-color: #f6f6f6;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .icanteach_container .subject .title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--primary-text);
+  }
+  .icanteach_container .subject .level {
+    font-size: 12px;
+    color: var(--secondary-text);    
+  }
+  .icanteach_container .subject i{
+    cursor: pointer;
+    color: var(--secondary-color);
+
+  }
+  .addnew_icanteach .icanteach_form form{
+    padding: 20px;
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+
+  }
+  .addnew_icanteach .input select{
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    outline: none;
+  } 
+  @media (max-width: 768px) {
+    .profile{
+        flex-direction: column;
+    }
+    .profile_left_nav{
+        min-width: 100% ;
+    }
+    .degree_detail_btn{
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .degree_detail{
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+  }
