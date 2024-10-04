@@ -1,0 +1,81 @@
+/* TeacherSchedule.css */
+.teacher-schedule {
+  background-color: white;
+  flex: 1;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.availability-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+.availability-form .slots {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.day-slot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.day-slot .input_box{
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.day-slot label {
+  font-weight: bold;
+  flex: 1;
+  min-width: 100px;
+}
+
+.day-slot input {
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+
+.availability-list {
+  list-style: none;
+  padding: 0;
+}
+
+.availability-list li {
+  margin: 5px 0;
+  padding: 10px;
+  background-color: #e7f3ff;
+  border-radius: 4px;
+}
+
+.teacher-schedule button {
+  background-color: var(--primary-color);
+  border: none;
+  outline: none;
+  padding: 10px 10px;
+  font-size: 16px;
+  align-self: flex-end;
+  color: white;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--secondary-color); /* Primary color */
+}
+@media(max-width:768px){
+  .day-slot .input_box{
+    /* flex-direction: column; */
+  }
+}

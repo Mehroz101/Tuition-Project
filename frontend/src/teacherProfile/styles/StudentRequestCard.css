@@ -1,6 +1,6 @@
-/* TeacherCard.css */
+/* studentCard.css */
 
-.teacher-card {
+.student-card {
   background-color: white;
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -12,97 +12,115 @@
   margin: 20px 0;
   transition: all 0.2s ease;
 }
-.teacher-card:hover {
+.student-card:hover {
   box-shadow: 0px 5px 6px rgba(0, 0, 0, 0.04), 0px 3px 16px rgba(0, 0, 0, 0.04);
 }
 
-.teacher-card-top {
+.student-card-top {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: wrap;
   margin-bottom: 20px;
 }
 
-.teacher-card-left {
+.student-card-left {
   display: flex;
   gap: 15px;
 }
 
-.teacher-image {
+.student-image {
   width: 80px;
   height: 80px;
   object-fit: cover;
   border-radius: 4px;
 }
-
-.teacher-info h3 {
+.student-info{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+.student-info h3 {
   margin: 0;
   font-size: 18px;
   color: var(--primary-text);
   font-weight: 600;
 }
-.rating_location {
+.location {
   display: flex;
   gap: 20px;
   align-items: center;
   margin-top: 10px;
 }
-.teacher-reviews,
-.teacher-location {
+
+.student-location {
   font-size: 14px;
   color: var(--secondary-text);
   font-size: 16px;
   align-items: center;
 }
-.teacher-reviews {
-  display: flex;
-  gap: 5px;
-}
-.teacher-reviews .rating {
-  font-weight: 500;
-}
-.teacher-reviews .total_review_count {
-  font-weight: 300;
-}
-.teacher-reviews i {
-  color: orange;
-}
-.teacher-reviews .icon,
-.teacher-location .icon {
-  margin-right: 5px;
-  color: gold;
-}
 
-.teacher-location {
+.student-location {
   display: flex;
   gap: 5px;
 }
-.teacher-location i {
+.student-location i {
   color: #999;
 }
-.teacher-location address {
+.student-location address {
   font-weight: 300;
 }
-.teacher-card-right h4 {
+.student-card-right h4 {
   margin: 0;
   font-size: 16px;
   color: #666;
 }
+/* Status Styles */
+.student-card-top .status {
+  color: white; /* Default text color for all statuses */
+  padding: 5px 15px;
+  align-self: first baseline;
+  border-radius: 20px;
+  font-weight: bold;
+  /* text-transform: uppercase; */
+}
 
-.teacher-price {
+.student-card-top .status.pending {
+  background-color: #ffc107; /* Softer yellow */
+  color: #000; /* Dark text for contrast */
+}
+
+.student-card-top .status.accepted {
+  background-color: #28a745; /* Calm green */
+  color: white; /* White text for contrast */
+}
+
+.student-card-top .status.rejected {
+  background-color: #dc3545; /* Bright red */
+  color: white; /* White text for contrast */
+}
+
+.student-card-top .status.finished {
+  background-color: #007bff; /* Rich blue */
+  color: white; /* White text for contrast */
+}
+
+.student-price {
   font-size: 30px;
   color: var(--primary-color);
   font-weight: bold;
 }
 
-.teacher-card-middle {
+.student-card-middle {
   margin-bottom: 20px;
   border-bottom: 1px dashed #ddd;
   padding-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.teacher-card-middle p {
+.student-card-middle p {
   font-size: 16px;
   color: #666;
   margin-bottom: 15px;
@@ -110,22 +128,22 @@
   line-height: 22px;
 }
 
-.teacher-offers {
+.student-offers {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-.teacher-offers p {
+.student-offers p {
   color: var(--secondary-text);
   font-weight: 500;
 }
-.teacher-offers div {
+.student-offers div {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
   gap: 5px;
 }
-.teacher-offers span {
+.student-offers span {
   flex: 1;
   padding: 10px 15px;
   background-color: #f7f8fc;
@@ -141,33 +159,36 @@
   transition: background-color 0.3s ease;
 }
 
-.teacher-offers span i {
+.student-offers span i {
   margin-right: 5px;
 }
-.teacher-offers span i.home {
+.student-offers span i.home {
   color: #10bf10;
 }
 
-.teacher-offers span i.location {
+.student-offers span i.student {
   color: #1f5db3;
 }
 
-.teacher-offers span i.online {
+.student-offers span i.online {
   color: rgb(231, 164, 41);
 }
+.student-offers span i.clock {
+  color: rgb(41, 136, 231);
+}
 
-.teacher-offers button:hover {
+.student-offers button:hover {
   background-color: var(--primary-color);
 }
 
 /* Bottom Row: Chat and View Profile Buttons */
-.teacher-card-bottom {
-    display: flex;
-    justify-content: flex-end;
-    gap: 20px;
+.student-card-bottom {
+  display: flex;
+  justify-content: flex-end;
+  gap: 20px;
 }
 
-.teacher-card-bottom button {
+.student-card-bottom button {
   padding: 10px 15px;
   font-size: 16px;
   background-color: var(--primary-color);
@@ -179,22 +200,30 @@
   transition: background-color 0.3s ease;
 }
 
-.teacher-card-bottom button i {
+.student-card-bottom button i {
   margin-right: 5px;
-  color:#003b8b;
+  color: #003b8b;
 }
 
-.teacher-card-bottom .chat-button {
+.student-card-bottom .chat-button {
   background-color: transparent;
   border: 2px solid #ddd;
 }
-.teacher-card-bottom .profile-button {
+.student-card-bottom .accept-button {
   color: #fff;
 }
-.teacher-card-bottom button:hover i{
+.student-card-bottom .reject-button {
+  color: #fff;
+  background-color: rgb(210, 2, 2);
+}
+.student-card-bottom .reject-button:hover {
+  color: #fff;
+  background-color: rgb(202, 4, 4);
+}
+.student-card-bottom button:hover i {
   color: white;
 }
-.teacher-card-bottom button:hover {
+.student-card-bottom button:hover {
   background-color: #003b8b;
   color: white;
   border-color: #003b8b;
@@ -202,63 +231,60 @@
 
 /* Media Query for Responsiveness */
 @media (max-width: 768px) {
-  .teacher-card {
+  .student-card {
     padding: 15px;
   }
-  .teacher-card-middle p{
-    display: none;
-  }
 
-  .teacher-card-top {
+  .student-card-top {
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
   }
 
-  .teacher-card-left {
+  .student-card-left {
     margin-bottom: 20px;
   }
 
-  .teacher-card-right {
+  .student-card-right {
     margin-bottom: 20px;
     background-color: #f7f8fc;
     width: 100%;
     display: flex;
     gap: 5px;
     margin-bottom: 0;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: column;
+    padding: 20px 10px;
+    border-radius: 4px;
+    flex-direction: row;
   }
 
-
-  .teacher-card-bottom {
+  .student-card-bottom {
     justify-content: center;
   }
 
-
-  .teacher-offers {
+  .student-offers {
     flex-direction: column;
   }
 
-  .teacher-card-bottom {
+  .student-card-bottom {
     flex-direction: column;
   }
 }
-@media(max-width:500px){
-  .teacher-card-left {
+@media (max-width: 500px) {
+  .student-card-left {
     margin-bottom: 20px;
     flex-direction: column;
     width: 100%;
   }
-  .teacher-card-left .teacher-image{
+
+  .student-card-left .student-image {
     object-fit: cover;
     height: auto;
     aspect-ratio: 4/2;
     width: 100%;
-
   }
-  .teacher-info{
+  .student-info {
     align-items: flex-start;
   }
 }

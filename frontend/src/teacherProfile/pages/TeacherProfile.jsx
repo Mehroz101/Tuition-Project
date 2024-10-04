@@ -22,21 +22,79 @@ const TeacherProfile = () => {
           </div>
           <div className="profile_left_nav_items">
             <ul>
-              <li className={activeLink === "personalinformation" ? "active" : ""} onClick={() => setActiveLink("personalinformation")}>
+              <li
+                className={activeLink === "personalinformation" ? "active" : ""}
+              >
                 <i class="fa-solid fa-user"></i>
-                <Link to="/profile/personalinformation">Personal details</Link>
+                <Link
+                  to="personalinformation"
+                  onClick={() => setActiveLink("personalinformation")}
+                >
+                  Personal details
+                </Link>
               </li>
-              <li className={activeLink === "education" ? "active" : ""} onClick={() => setActiveLink("education")}>
+              <li className={activeLink === "education" ? "active" : ""}>
                 <i class="fa-solid fa-user-graduate"></i>
-                <Link to="/profile/educationinformation">Education</Link>
+                <Link
+                  to="educationinformation"
+                  onClick={() => setActiveLink("education")}
+                >
+                  Education
+                </Link>
               </li>
-              <li className={activeLink === "contactdetails" ? "active" : ""} onClick={() => setActiveLink("contactdetails")}>
+              <li className={activeLink === "contactdetails" ? "active" : ""}>
                 <i class="fa-solid fa-phone"></i>
-                <Link to="/profile/contactdetail">Contact details</Link>
+                <Link
+                  to="contactdetail"
+                  onClick={() => setActiveLink("contactdetails")}
+                >
+                  Contact details
+                </Link>
               </li>
-              <li className={activeLink === "subjectiteach" ? "active" : ""} onClick={() => setActiveLink("subjectiteach")}>
+              <li className={activeLink === "subjectiteach" ? "active" : ""}>
                 <i class="fa-solid fa-book"></i>
-                <Link to="/profile/icanteach">Subject I teach</Link>
+                <Link
+                  to="icanteach"
+                  onClick={() => setActiveLink("subjectiteach")}
+                >
+                  Subject I teach
+                </Link>
+              </li>
+              <li className={activeLink === "availability" ? "active" : ""}>
+                <i class="fa-solid fa-business-time"></i>
+                <Link
+                  to="availability"
+                  onClick={() => setActiveLink("availability")}
+                >
+                  Set Availability
+                </Link>
+              </li>
+              <li className={activeLink === "student" ? "active" : ""}>
+                <i class="fa-solid fa-user-graduate"></i>
+                <Link
+                  to="managestudents"
+                  onClick={() => setActiveLink("student")}
+                >
+                  Manage Students
+                </Link>
+              </li>
+              <li className={activeLink === "payment" ? "active" : ""}>
+                <i class="fa-solid fa-money-check-dollar"></i>{" "}
+                <Link to="payment" onClick={() => setActiveLink("payment")}>
+                  Payments
+                </Link>
+              </li>
+              <li className={activeLink === "review" ? "active" : ""}>
+                <i class="fa-solid fa-comments"></i>{" "}
+                <Link to="reviews" onClick={() => setActiveLink("review")}>
+                  Reviews
+                </Link>
+              </li>
+              <li className={activeLink === "message" ? "active" : ""}>
+                <i class="fa-solid fa-comment"></i>{" "}
+                <Link to="messages" onClick={() => setActiveLink("message")}>
+                  Messages
+                </Link>
               </li>
             </ul>
           </div>

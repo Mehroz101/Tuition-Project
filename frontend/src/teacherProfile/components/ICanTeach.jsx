@@ -1,7 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const ICanTeach = () => {
+  const [subject, setSubject] = useState();
+  useEffect(() => {
+    const SubjectITeach = [
+      {
+        subject: "Math",
+        level: "Beginner",
+      },
+      {
+        subject: "English",
+        level: "Advanced",
+      },
+      {
+        subject: "Science",
+        level: "Beginner",
+      },
+      {
+        subject: "Database",
+        level: "Intermediate",
+      },
+    ];
+    setSubject(SubjectITeach);
+  }, []);
   return (
     <>
       <div className="icanteach_information">
@@ -11,27 +33,13 @@ const ICanTeach = () => {
         </div>
         <div className="icanteach_container">
           <div className="subjects">
-            <div className="subject">
-              <span className="title">Mathamatics</span>
-              <span className="level">Beginner</span>
-              <i class="fa-solid fa-xmark"></i>
-            </div>
-            <div className="subject">
-              <span className="title">Computer Science</span>
-              <span className="level">Intermediate</span>
-              <i class="fa-solid fa-xmark"></i>
-            </div>
-            <div className="subject">
-              <span className="title">Physics</span>
-              <span className="level">Advanced</span>
-              <i class="fa-solid fa-xmark"></i>
-            </div>
-            <div className="subject">
-              <span className="title">English</span>
-              <span className="level">Beginner</span>
-              <i class="fa-solid fa-xmark"></i>
-
-            </div>
+            {subject?.map((sub, index) => (
+              <div className="subject" key={index}>
+                <span className="title">{sub.subject}</span>
+                <span className="level">{sub.level}</span>
+                <i class="fa-solid fa-xmark"></i>
+              </div>
+            ))}
           </div>
         </div>
       </div>

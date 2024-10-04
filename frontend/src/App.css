@@ -22,7 +22,7 @@ li {
 }
 .input_box label {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
 }
 .input_box .input {
   padding: 10px;
@@ -31,6 +31,8 @@ li {
   border: 1px solid #ddd;
   border-radius: 2px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
 }
 .input_box .input i {
   font-size: 18px;
@@ -44,7 +46,9 @@ li {
   border: none;
   border-radius: 2px;
   font-weight: 500;
+  flex: 1;
 }
+ 
 .combo_box {
   display: flex;
   align-items: center;

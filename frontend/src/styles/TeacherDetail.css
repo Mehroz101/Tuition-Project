@@ -331,10 +331,11 @@
   flex-direction: column;
   gap: 0px;
 }
-.review_box .review_section .review_box_heading{
+.review_box  .review_box_heading{
   font-size: 25px;
   font-weight: 500;
   margin-bottom: 10px;
+  text-align: left;
 }
 .review_box .review{
   display: flex;

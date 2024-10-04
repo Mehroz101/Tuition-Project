@@ -12,6 +12,11 @@ import EducationInformation from './teacherProfile/components/EducationInformati
 import AddNewEducation from './teacherProfile/components/AddNewEducation'
 import ICanTeach from './teacherProfile/components/ICanTeach'
 import AddNewICanTeach from './teacherProfile/components/AddNewICanTeach'
+import TeacherSchedule from './teacherProfile/components/TeacherSchedule'
+import PaymentPage from "./teacherProfile/components/PaymentPage"
+import ReviewsPage from './teacherProfile/components/ReviewsPage'
+import MessagingApp from './teacherProfile/components/MessagingApp'
+import ManageStudents from './teacherProfile/components/ManageStudents'
 function App() {
 
   return (
@@ -31,6 +36,12 @@ function App() {
       <Route  path='educationinformation/addnew' element={<AddNewEducation/>}/>
       <Route  path='icanteach' element={<ICanTeach/>}/>
       <Route  path='icanteach/addnew' element={<AddNewICanTeach/>}/>
+      <Route  path='availability' element={<TeacherSchedule/>}/>
+      <Route  path='payment' element={<PaymentPage/>}/>
+      <Route  path='reviews' element={<ReviewsPage/>}/>
+      <Route  path='messages' element={<MessagingApp/>}/>
+      <Route  path='managestudents' element={<ManageStudents/>}/>
+
 
       </Route>
     </Routes>

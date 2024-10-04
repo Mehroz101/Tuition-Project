@@ -1,0 +1,70 @@
+.withdrawal-page {
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  .student-state-boxes {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  
+  .student-state-box {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+    min-width: 200px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  .student-state-box h3 {
+    font-weight: 400;
+    font-size: 16px;
+  }
+  .student-state-box p {
+    font-weight: 600;
+    font-size: 30px;
+    padding: 5px 0;
+  }
+  .student-state-box small {
+    color: var(--secondary-text);
+  }
+  .student-state-box .student-state-box-bottom {
+    padding: 5px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 5px;
+  }
+  .student_filter{
+    margin: 20px 0;
+    padding: 0 20px ;
+  }
+  .student_filter ul{
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid #ddd;
+  }
+  .student_filter ul li.active{
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+
+  }
+  .student_filter ul li.active a{
+    color: var(--secondary-color);
+    font-weight: bold;
+  }
+  .student_requests{
+    padding: 20px;
+    max-height: 600px;
+    overflow: scroll;
+  }

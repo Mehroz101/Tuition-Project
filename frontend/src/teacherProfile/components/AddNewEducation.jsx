@@ -46,7 +46,7 @@ const AddNewEducation = () => {
               </div>
             </div>
 
-            <button className="submit_btn">Add / Edit</button>
+            <button className="submit_btn">Update</button>
           </form>
         </div>
       </div>

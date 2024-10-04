@@ -54,7 +54,7 @@ const TeacherDetailPageCard = () => {
               <i class="fa-solid fa-house home"></i> My Home
             </span>
             <span>
-              <i class="fa-solid fa-location-dot location"></i>Subjects
+              <i class="fa-solid fa-location-dot location"></i>Student Home
             </span>
             <span>
               <i class="fa-solid fa-video online"></i> Online
