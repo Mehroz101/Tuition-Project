@@ -16,11 +16,11 @@ const TeacherCard = () => {
             <div className="rating_location">
               <p className="teacher-reviews">
                 <span className="rating">5.0</span>
-                <i class="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
                 <span className="total_review_count">(453)</span>
               </p>
               <p className="teacher-location">
-                <i class="fa-solid fa-location-dot"></i>
+                <i className="fa-solid fa-location-dot"></i>
                 <address>Mian Channu</address>
               </p>
             </div>
@@ -46,13 +46,13 @@ const TeacherCard = () => {
           <p>You can get teacher service direct at</p>
           <div className="offers">
             <span>
-              <i class="fa-solid fa-house home"></i> My Home
+              <i className="fa-solid fa-house home"></i> My Home
             </span>
             <span>
-              <i class="fa-solid fa-location-dot location"></i>Student Home
+              <i className="fa-solid fa-location-dot location"></i>Student Home
             </span>
             <span>
-              <i class="fa-solid fa-video online"></i> Online
+              <i className="fa-solid fa-video online"></i> Online
             </span>
           </div>
         </div>
@@ -61,7 +61,7 @@ const TeacherCard = () => {
       {/* Bottom Row: Let's Chat and View Profile Buttons */}
       <div className="teacher-card-bottom">
         <button className="chat-button">
-          <i class="fa-solid fa-comment-dots"></i> Let's Chat
+          <i className="fa-solid fa-comment-dots"></i> Let's Chat
         </button>
         <button className="profile-button">View Profile</button>
       </div>

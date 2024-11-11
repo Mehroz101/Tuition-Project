@@ -12,7 +12,7 @@
   z-index: 100;
 }
 
-.logo {
+.logo a {
   font-size: 30px;
   font-weight: bold;
   color: var(--secondary-color);

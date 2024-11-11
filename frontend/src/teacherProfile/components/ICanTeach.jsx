@@ -37,7 +37,7 @@ const ICanTeach = () => {
               <div className="subject" key={index}>
                 <span className="title">{sub.subject}</span>
                 <span className="level">{sub.level}</span>
-                <i class="fa-solid fa-xmark"></i>
+                <i className="fa-solid fa-xmark"></i>
               </div>
             ))}
           </div>

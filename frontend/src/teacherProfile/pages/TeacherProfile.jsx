@@ -14,7 +14,7 @@ const TeacherProfile = () => {
           <div className="profile_left_nav_img">
             <div className="left_img">
               <img src={Img} alt="" />
-              <i class="fa-solid fa-camera"></i>
+              <i className="fa-solid fa-camera"></i>
             </div>
             <div className="upload_btn">
               <button>Upload Image</button>
@@ -25,7 +25,7 @@ const TeacherProfile = () => {
               <li
                 className={activeLink === "personalinformation" ? "active" : ""}
               >
-                <i class="fa-solid fa-user"></i>
+                <i className="fa-solid fa-user"></i>
                 <Link
                   to="personalinformation"
                   onClick={() => setActiveLink("personalinformation")}
@@ -34,7 +34,7 @@ const TeacherProfile = () => {
                 </Link>
               </li>
               <li className={activeLink === "education" ? "active" : ""}>
-                <i class="fa-solid fa-user-graduate"></i>
+                <i className="fa-solid fa-user-graduate"></i>
                 <Link
                   to="educationinformation"
                   onClick={() => setActiveLink("education")}
@@ -43,7 +43,7 @@ const TeacherProfile = () => {
                 </Link>
               </li>
               <li className={activeLink === "contactdetails" ? "active" : ""}>
-                <i class="fa-solid fa-phone"></i>
+                <i className="fa-solid fa-phone"></i>
                 <Link
                   to="contactdetail"
                   onClick={() => setActiveLink("contactdetails")}
@@ -52,7 +52,7 @@ const TeacherProfile = () => {
                 </Link>
               </li>
               <li className={activeLink === "subjectiteach" ? "active" : ""}>
-                <i class="fa-solid fa-book"></i>
+                <i className="fa-solid fa-book"></i>
                 <Link
                   to="icanteach"
                   onClick={() => setActiveLink("subjectiteach")}
@@ -61,7 +61,7 @@ const TeacherProfile = () => {
                 </Link>
               </li>
               <li className={activeLink === "availability" ? "active" : ""}>
-                <i class="fa-solid fa-business-time"></i>
+                <i className="fa-solid fa-business-time"></i>
                 <Link
                   to="availability"
                   onClick={() => setActiveLink("availability")}
@@ -70,7 +70,7 @@ const TeacherProfile = () => {
                 </Link>
               </li>
               <li className={activeLink === "student" ? "active" : ""}>
-                <i class="fa-solid fa-user-graduate"></i>
+                <i className="fa-solid fa-user-graduate"></i>
                 <Link
                   to="managestudents"
                   onClick={() => setActiveLink("student")}
@@ -79,21 +79,27 @@ const TeacherProfile = () => {
                 </Link>
               </li>
               <li className={activeLink === "payment" ? "active" : ""}>
-                <i class="fa-solid fa-money-check-dollar"></i>{" "}
+                <i className="fa-solid fa-money-check-dollar"></i>{" "}
                 <Link to="payment" onClick={() => setActiveLink("payment")}>
                   Payments
                 </Link>
               </li>
               <li className={activeLink === "review" ? "active" : ""}>
-                <i class="fa-solid fa-comments"></i>{" "}
+                <i className="fa-solid fa-comments"></i>{" "}
                 <Link to="reviews" onClick={() => setActiveLink("review")}>
                   Reviews
                 </Link>
               </li>
               <li className={activeLink === "message" ? "active" : ""}>
-                <i class="fa-solid fa-comment"></i>{" "}
+                <i className="fa-solid fa-comment"></i>{" "}
                 <Link to="messages" onClick={() => setActiveLink("message")}>
                   Messages
+                </Link>
+              </li>
+              <li>
+                <Link to="logout">
+                  <i className="fa-solid fa-right-from-bracket"></i>
+                  Logout
                 </Link>
               </li>
             </ul>

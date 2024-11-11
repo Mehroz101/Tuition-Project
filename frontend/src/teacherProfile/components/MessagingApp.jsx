@@ -111,7 +111,7 @@ const MessagingApp = () => {
         <div className={`message_box_right ${openChat ? "" : "hide_right"}`}>
           <div className="message_box_right_top">
             <span className="back_btn" onClick={() => setOpenChat(false)}>
-              <i class="fa-solid fa-arrow-left"></i>
+              <i className="fa-solid fa-arrow-left"></i>
             </span>
             <div className="profileImg">
               <img src={Img} alt="" />

@@ -1,7 +1,9 @@
 import React from "react";
 import teacherImg from "../assets/teacher-1.jpg";
+import { Link } from "react-router-dom";
 
 const TeacherDetailPageCard = () => {
+  const teacher_id = 123;
   return (
     <>
       {/* Top Row: Left and Right Parts */}
@@ -15,17 +17,17 @@ const TeacherDetailPageCard = () => {
             <div className="rating_location">
               <p className="teacher-reviews">
                 <span className="rating">5.0</span>
-                <i class="fa-solid fa-star"></i>
+                <i className="fa-solid fa-star"></i>
                 <span className="total_review_count">(453)</span>
               </p>
               <p className="teacher-satisfaction">
-                <i class="fa-solid fa-check"></i>
+                <i className="fa-solid fa-check"></i>
                 <span className="satisfaction_rate">
                   <span className="rate">95%</span> Job Satisfaction
                 </span>
               </p>
               <p className="teacher-location">
-                <i class="fa-solid fa-location-dot"></i>
+                <i className="fa-solid fa-location-dot"></i>
                 <address>Mian Channu</address>
               </p>
             </div>
@@ -51,13 +53,13 @@ const TeacherDetailPageCard = () => {
           <p>You can get teacher service direct at</p>
           <div className="offers">
             <span>
-              <i class="fa-solid fa-house home"></i> My Home
+              <i className="fa-solid fa-house home"></i> My Home
             </span>
             <span>
-              <i class="fa-solid fa-location-dot location"></i>Student Home
+              <i className="fa-solid fa-location-dot location"></i>Student Home
             </span>
             <span>
-              <i class="fa-solid fa-video online"></i> Online
+              <i className="fa-solid fa-video online"></i> Online
             </span>
           </div>
         </div>
@@ -65,10 +67,10 @@ const TeacherDetailPageCard = () => {
 
       {/* Bottom Row: Let's Chat and View Profile Buttons */}
       <div className="teacher-card-bottom">
-        <button className="chat-button">
-          <i class="fa-solid fa-comment-dots"></i> Let's Chat
-        </button>
-        <button className="profile-button">Book a tuition</button>
+        <Link className="chat-button">
+          <i className="fa-solid fa-comment-dots"></i> Let's Chat
+        </Link>
+        <Link className="profile-button" to={`/sendinvitation/${teacher_id}`}>Book a tuition</Link>
       </div>
     </>
   );

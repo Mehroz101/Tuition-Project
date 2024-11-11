@@ -1,48 +1,71 @@
 import React from "react";
 import "../styles/Login.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
+import SigninForm from "../formHandler/AuthForm/SigninForm";
 const Login = () => {
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const { role } = useParams();
+
+  const { signin, handleChange, handleFromSubmit } = SigninForm();
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    login();
+    handleFromSubmit(role);
+    navigate("/");
+  };
   return (
     <>
-      <div class="login-page">
-        <div class="website-name">
-          <h1><Link to="/">Tutor</Link> </h1>
+      <div className="login-page">
+        <div className="website-name">
+          <h1>
+            <Link to="/">Tutor</Link>{" "}
+          </h1>
         </div>
-        <div class="form-box">
+        <div className="form-box">
           <h2>Login</h2>
           <p className="login_text">Enter email and password to login</p>
-          <form action="">
-            <div class="input-box">
+          <form onSubmit={handleSubmit}>
+            <div className="input-box">
               <label for="email">Email</label>
               <input
                 type="email"
                 id="email"
                 name="email"
+                onChange={handleChange}
+                value={signin.email}
+                autocomplete
                 placeholder="Enter your email"
               />
             </div>
 
-            <div class="input-box">
+            <div className="input-box">
               <label for="password">Password</label>
               <input
                 type="password"
                 id="password"
                 name="password"
+                onChange={handleChange}
+                value={signin.password}
+                autocomplete
                 placeholder="Enter your password"
               />
             </div>
 
-            <div class="forgot-password">
-              <a href="#">Forgot Password?</a>
+            <div className="forgot-password">
+              <Link to={`/forgetpassword/${role}`}>Forgot Password?</Link>
             </div>
 
-            <Link >
-              <button class="login-button">Login</button>
+            <Link>
+              <button className="login-button" onClick={handleSubmit}>
+                Login
+              </button>
             </Link>
           </form>
-          <div class="signup-text">
+          <div className="signup-text">
             <p>
-              Don't have an account? <Link to="/signup">Sign up</Link>
+              Don't have an account? <Link to={`/signup/${role}`}>Sign up</Link>
             </p>
           </div>
         </div>

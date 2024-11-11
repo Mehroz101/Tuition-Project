@@ -1,22 +1,15 @@
 import React, { useEffect, useState } from "react";
+import TeacherProfileForm from "../../formHandler/TeacherForm/TeacherProfileForm";
 
 const PersonalInformation = () => {
-  const [info, setInfo] = useState({
-    fName: "Mehroz",
-    lName: "Farooq",
-    tagline: "i am a passionate teacher",
-    fee: 22,
-    country: "Pakistan",
-    city: "Multan",
-    myHome: true,
-    studentHome: false,
-    online: false,
-    description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio rem quis et id tempore harum iste aspernatur, adipisci nesciunt deleniti omnis nostrum sed, maiores provident accusamus architecto voluptatibus, fugiat minima?",
-  });
-  const handleChange = (e) => {
-    setInfo({ ...info, [e.target.name]: e.target.value });
-  };
+  const {
+    teacherProfile,
+    setTeacherProfile,
+    handleChange,
+    handleSubmit,
+    
+  } = TeacherProfileForm();
+
   const country = [
     "Afghanistan",
     "Åland Islands",
@@ -208,35 +201,28 @@ const PersonalInformation = () => {
     "Saint Vincent and The Grenadines",
     "Samoa",
   ];
-  console.log(country.filter((count) => count === info?.country));
 
-  // Function to handle click and toggle the checked status
-  const handleDivClick = (key) => {
-    // setCheckBoxData((prevState) => ({
-    //   ...prevState,
-    //   [key]: !prevState[key], // Toggle the value of the clicked checkbox
-    // }));
-    setInfo((prev)=>({
-      ...prev,
-      [key]:!prev[key]
-    }))
+ 
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // const selectedTypes = getSelectedTuitionTypes();
+    handleSubmit();
   };
-  useEffect(() => {}, []);
   return (
     <>
       <div className="personal_details">
         <h3 className="right_box_heading">Personal details</h3>
         <div className="personal_details_form">
-          <form action="">
+          <form onSubmit={handleFormSubmit}>
             <div className="combo_box">
               <div className="input_box">
                 <label htmlFor="">First name</label>
                 <div className="input">
                   <input
                     type="text"
-                    value={info?.fName}
                     name="fName"
                     onChange={handleChange}
+                    value={teacherProfile.fName}
                     placeholder="Your first name"
                   />
                 </div>
@@ -247,8 +233,8 @@ const PersonalInformation = () => {
                   <input
                     type="text"
                     name="lName"
-                    value={info?.lName}
                     onChange={handleChange}
+                    value={teacherProfile.lName}
                     placeholder="Your last name"
                   />
                 </div>
@@ -262,7 +248,7 @@ const PersonalInformation = () => {
                     type="text"
                     name="tagline"
                     onChange={handleChange}
-                    value={info?.tagline}
+                    value={teacherProfile.tagline}
                     placeholder="Your tagline"
                   />
                 </div>
@@ -274,7 +260,7 @@ const PersonalInformation = () => {
                     type="number"
                     name="fee"
                     onChange={handleChange}
-                    value={info?.fee}
+                    value={teacherProfile.fee}
                     placeholder="Your hourly fee in $"
                   />
                 </div>
@@ -288,15 +274,16 @@ const PersonalInformation = () => {
                     id="country"
                     name="country"
                     onChange={handleChange}
-                    class="form-control"
+                    value={teacherProfile.country}
+                    className="form-control"
                   >
-                    <option
+                    {/* <option
                       selected
-                      key={country.filter((count) => count === info?.country)}
-                      value={country.filter((count) => count === info?.country)}
+                      key={country.filter((count) => count === teacherProfile.country)}
+                      value={country.filter((count) => count === teacherProfile.country)}
                     >
-                      {country.filter((count) => count === info?.country)}
-                    </option>
+                      {country.filter((count) => count === teacherProfile.country)}
+                    </option> */}
 
                     {country?.map((count, index) => (
                       <option key={index} value={count}>
@@ -313,7 +300,7 @@ const PersonalInformation = () => {
                     type="text"
                     name="city"
                     onChange={handleChange}
-                    value={info?.city}
+                    value={teacherProfile.city}
                     placeholder="City name"
                   />
                 </div>
@@ -322,41 +309,30 @@ const PersonalInformation = () => {
             <div className="option">
               <span>I can teach on</span>
               <div className="combo_box">
-                <div
-                  onClick={() => handleDivClick("myHome")}
-                  className={info?.myHome ? "checked" : ""}
-                >
+                <div>
                   <input
                     type="checkbox"
-                    name="myHome"
-                    checked={info?.myHome}
-                    onChange={() => handleDivClick("myHome")} // Keeps the checkbox functional
+                    name="teacherHome"
+                    checked={teacherProfile.teacherHome}
+                    onChange={handleChange}
                   />
-                  <label htmlFor="myHome">My home</label>
+                  <label htmlFor="teacherHome">My home</label>
                 </div>
-
-                <div
-                  onClick={() => handleDivClick("studentHome")}
-                  className={info?.studentHome ? "checked" : ""}
-                >
+                <div>
                   <input
                     type="checkbox"
                     name="studentHome"
-                    checked={info?.studentHome}
-                    onChange={() => handleDivClick("studentHome")} // Keeps the checkbox functional
+                    checked={teacherProfile.studentHome}
+                    onChange={handleChange}
                   />
                   <label htmlFor="studentHome">Student home</label>
                 </div>
-
-                <div
-                  onClick={() => handleDivClick("online")}
-                  className={info?.online ? "checked" : ""}
-                >
+                <div>
                   <input
                     type="checkbox"
                     name="online"
-                    checked={info?.online}
-                    onChange={() => handleDivClick("online")} // Keeps the checkbox functional
+                    checked={teacherProfile.online}
+                    onChange={handleChange}
                   />
                   <label htmlFor="online">Online</label>
                 </div>
@@ -371,7 +347,7 @@ const PersonalInformation = () => {
                   id=""
                   cols="30"
                   rows="10"
-                  value={info?.description}
+                  value={teacherProfile.description}
                   placeholder="About me"
                 ></textarea>
               </div>

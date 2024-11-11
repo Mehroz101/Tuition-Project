@@ -1,0 +1,137 @@
+.tuition_top {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  align-items: center;
+  border-bottom: 2px dashed #ddd;
+}
+
+.tuition_top h3 {
+  font-size: 22px;
+  font-weight: 500;
+}
+.request_filter {
+  margin: 20px 0;
+  padding: 0 20px;
+}
+.request_filter ul {
+  display: flex;
+  gap: 20px;
+  border-bottom: 1px solid #ddd;
+}
+.request_filter ul li.active {
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 10px;
+}
+.request_filter ul li.active a {
+  color: var(--secondary-color);
+  font-weight: bold;
+}
+.table-wrapper {
+  overflow-x: auto;
+  max-height: 500px; /* Adjust height for fixed header */
+  position: relative;
+}
+
+.requests-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  text-align: left;
+}
+
+.requests-table thead {
+  background-color: #f5f5f5;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.requests-table th,
+.requests-table td {
+  padding: 12px 15px;
+}
+
+.requests-table tbody tr:nth-child(odd) {
+  background-color: #fafafa;
+}
+
+.requests-table tbody tr:nth-child(even) {
+  background-color: #f0f0f0;
+}
+
+.requests-table tbody tr:hover {
+  background-color: #ececec;
+}
+
+.status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-weight: bold;
+}
+
+.status.pending {
+  background-color: #ffcc00;
+  color: #fff;
+}
+
+.status.accepted {
+  background-color: #4caf50;
+  color: #fff;
+}
+
+.status.rejected {
+  background-color: #f44336;
+  color: #fff;
+}
+.status.finished {
+  background-color: #047AFB;
+  color: #fff;
+}
+
+/* Action buttons */
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 5px;
+}
+.action_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.action_btn a {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 50px;
+  overflow: hidden;
+}
+.action_btn i.cancel {
+  color: #767676;
+  font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+
+}
+
+.action_btn i.messageicon {
+  color: #767676;
+  font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+}
+.action_btn i.cancel:hover {
+  color: white;
+  background-color: red;
+}
+.action_btn i.messageicon:hover {
+  color: white;
+  background-color: blue;
+}

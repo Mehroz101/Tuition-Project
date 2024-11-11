@@ -18,11 +18,11 @@ const TeacherDetail = () => {
           <div className="teacher_detail_page_left_description">
             <ul className="description_nav">
               <li className={hideReview?"active":""}>
-                <i class="fa-solid fa-house"></i>
+                <i className="fa-solid fa-house"></i>
                 <Link onClick={()=>setHideReview(true)}>Description</Link>
               </li>
               <li className={hideReview?"":"active"}>
-                <i class="fa-solid fa-face-smile"></i>
+                <i className="fa-solid fa-face-smile"></i>
                 <Link onClick={()=>setHideReview(false)}>Reviews</Link>
               </li>
             </ul>
@@ -52,20 +52,20 @@ const TeacherDetail = () => {
                   <h2 className="description_box_heading">Education</h2>
                   <div className="degree">
                     <p className="education_level">
-                      <i class="fa-solid fa-graduation-cap"></i>
+                      <i className="fa-solid fa-graduation-cap"></i>
                       <span>BS in Information Technology</span>
                     </p>
                     <div className="education_info">
                       <div className="university_name">
-                        <i class="fa-solid fa-school"></i>
+                        <i className="fa-solid fa-school"></i>
                         <p>University of California, Los Angeles</p>
                       </div>
                       <div className="university_location">
-                        <i class="fa-solid fa-location-dot"></i>
+                        <i className="fa-solid fa-location-dot"></i>
                         <p>MULTAN, Bosan Road</p>
                       </div>
                       <div className="graduation_date">
-                        <i class="fa-solid fa-calendar-days"></i>
+                        <i className="fa-solid fa-calendar-days"></i>
                         <p>2020</p>
                       </div>
                     </div>
@@ -77,20 +77,20 @@ const TeacherDetail = () => {
                   </div>
                   <div className="degree">
                     <p className="education_level">
-                      <i class="fa-solid fa-graduation-cap"></i>
+                      <i className="fa-solid fa-graduation-cap"></i>
                       <span>BS in Information Technology</span>
                     </p>
                     <div className="education_info">
                       <div className="university_name">
-                        <i class="fa-solid fa-school"></i>
+                        <i className="fa-solid fa-school"></i>
                         <p>University of California, Los Angeles</p>
                       </div>
                       <div className="university_location">
-                        <i class="fa-solid fa-location-dot"></i>
+                        <i className="fa-solid fa-location-dot"></i>
                         <p>MULTAN, Bosan Road</p>
                       </div>
                       <div className="graduation_date">
-                        <i class="fa-solid fa-calendar-days"></i>
+                        <i className="fa-solid fa-calendar-days"></i>
                         <p>2020</p>
                       </div>
                     </div>
@@ -115,7 +115,7 @@ const TeacherDetail = () => {
                         <span className="name">Mehroz Farooq</span>
                         <span className="rating">
                           5.0
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </span>
                       </div>
                       <div className="review_box_right_bottom">
@@ -138,7 +138,7 @@ const TeacherDetail = () => {
                         <span className="name">Mehroz Farooq</span>
                         <span className="rating">
                           5.0
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </span>
                       </div>
                       <div className="review_box_right_bottom">
@@ -161,7 +161,7 @@ const TeacherDetail = () => {
                         <span className="name">Mehroz Farooq</span>
                         <span className="rating">
                           5.0
-                          <i class="fa-solid fa-star"></i>
+                          <i className="fa-solid fa-star"></i>
                         </span>
                       </div>
                       <div className="review_box_right_bottom">
@@ -185,19 +185,19 @@ const TeacherDetail = () => {
             <p className="contact_detail">Contact detail</p>
             <div className="contact_links">
               <div className="contact_link">
-                <i class="fa-solid fa-phone-volume phone"></i>
+                <i className="fa-solid fa-phone-volume phone"></i>
                 <span>03061756719</span>
               </div>
               <div className="contact_link">
-                <i class="fa-brands fa-whatsapp whatsapp"></i>
+                <i className="fa-brands fa-whatsapp whatsapp"></i>
                 <span>923061756719</span>
               </div>
               <div className="contact_link">
-                <i class="fa-solid fa-envelope email"></i>
+                <i className="fa-solid fa-envelope email"></i>
                 <span>mehrozfarooq127@gmail.com</span>
               </div>
               <div className="contact_link ">
-                <i class="fa-solid fa-link website"></i>
+                <i className="fa-solid fa-link website"></i>
                 <span>www.mehroz.com</span>
               </div>
             </div>

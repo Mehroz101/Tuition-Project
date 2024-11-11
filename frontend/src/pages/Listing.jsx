@@ -48,14 +48,14 @@ const Listing = () => {
         <div className="listing_page_top">
           <div className="search-filter-bar">
            <div className="input_box">
-           <i class="fa-solid fa-magnifying-glass"></i>
+           <i className="fa-solid fa-magnifying-glass"></i>
             <input
               type="text"
-              placeholder="Search by subject or teacher name"
+              placeholder="Search by city name `Multan`"
             />
            </div>
             <select>
-              <option value="">All Categories</option>
+              <option value="">Select Subject</option>
               <option value="math">Math</option>
               <option value="physics">Physics</option>
               <option value="chemistry">Chemistry</option>

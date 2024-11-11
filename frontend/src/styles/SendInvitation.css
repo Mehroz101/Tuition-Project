@@ -1,0 +1,51 @@
+
+.invitation_form{
+    width: 90%;
+    margin:40px  auto;
+    padding: 20px;
+    border-radius: 4px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+.invitation_form .heading{
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+.invitation_form .inputDate{
+    padding: 10px;
+    font-size: 16px;
+    outline: none;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    font-weight: 500;
+}
+.invitation_form .combo_box{
+    margin-bottom: 20px;
+}
+.invitation_form .subject_box{
+    margin-bottom: 20px;
+}
+.invitation_form select {
+    width: 100%;
+    border: none;
+    font-size: 16px;
+    padding: 15px 10px;
+    outline: none;
+    border-radius: 2px;
+  }
+  .invitation_form .send_invitation {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+   
+  }
+  .invitation_form .send_invitation input{
+    background-color: var(--primary-color);
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    color: white;
+    font-weight: 500;
+    border-radius: 2px;
+    cursor: pointer;
+
+  }

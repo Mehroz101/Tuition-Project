@@ -95,7 +95,7 @@ const ReviewsPage = () => {
                     <span className="name">{rev?.name}</span>
                     <span className="rating">
                       {rev?.rating}.0
-                      <i class="fa-solid fa-star"></i>
+                      <i className="fa-solid fa-star"></i>
                     </span>
                   </div>
                   <div className="review_box_right_bottom">

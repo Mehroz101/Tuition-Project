@@ -23,7 +23,7 @@ const ContactDetail = () => {
               <div className="input_box">
                 <label htmlFor="">Contact number</label>
                 <div className="input">
-                  <i class="fa-solid fa-phone"></i>
+                  <i className="fa-solid fa-phone"></i>
                   <input
                     type="number"
                     name="number"
@@ -36,7 +36,7 @@ const ContactDetail = () => {
               <div className="input_box">
                 <label htmlFor="">Your email</label>
                 <div className="input">
-                  <i class="fa-solid fa-envelope"></i>
+                  <i className="fa-solid fa-envelope"></i>
                   <input
                     type="email"
                     name="email"
@@ -51,7 +51,7 @@ const ContactDetail = () => {
               <div className="input_box">
                 <label htmlFor="">Whatsapp number</label>
                 <div className="input">
-                  <i class="fa-brands fa-whatsapp"></i>
+                  <i className="fa-brands fa-whatsapp"></i>
                   <input
                     type="number"
                     name="whatsapp"
@@ -64,7 +64,7 @@ const ContactDetail = () => {
               <div className="input_box">
                 <label htmlFor="">Website link</label>
                 <div className="input">
-                  <i class="fa-solid fa-link"></i>
+                  <i className="fa-solid fa-link"></i>
                   <input
                     type="text"
                     name="websiteLink"

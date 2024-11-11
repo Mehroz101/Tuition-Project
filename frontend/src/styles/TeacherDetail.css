@@ -190,7 +190,7 @@
   gap: 20px;
 }
 
-.teacher-card-bottom button {
+.teacher-card-bottom a {
   padding: 10px 15px;
   font-size: 16px;
   background-color: var(--primary-color);
@@ -202,7 +202,7 @@
   transition: background-color 0.3s ease;
 }
 
-.teacher-card-bottom button i {
+.teacher-card-bottom a i {
   margin-right: 5px;
   color: #003b8b;
 }
@@ -213,12 +213,18 @@
 }
 .teacher-card-bottom .profile-button {
   color: #fff;
+  background-color: var(--primary-color);
+  text-align: center;
+
 }
 
-.teacher-card-bottom button:hover {
+.teacher-card-bottom  a:hover{
   background-color: #003b8b;
   color: white;
   border-color: #003b8b;
+}
+.teacher-card-bottom  a:hover i{
+  color: white;
 }
 
 /* Page Description section */
