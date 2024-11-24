@@ -1,24 +1,25 @@
 import axios from "axios";
+import { pushNotify } from "../../errorHandler/Notify";
 const API_BASE_URL = import.meta.env.API_BASE_URL;
-const API_URL = `${API_BASE_URL}/api/user`
-const token = localStorage.getItem("token") || 0
+// const API_URL = `${API_BASE_URL}/api/auth`;
+const API_URL = `http://localhost:5000/api/auth`;
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + token,
-  },
-};
-export const Signin = async (data) => {
+export const Signin = async (userData) => {
+  console.log(API_URL);
+  console.log(userData);
+  // const token = localStorage.getItem("token");
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: "Bearer " + token,
+  //   },
+  // };
   try {
-    if(data.role === "teacher"){
-      const {data} = await axios.post(`${API_URL}/teacherSignin`, data, config);
-      console.log(data)
-    }
-  if(data.role === "student"){
-    const {data} = await axios.post(`${API_URL}/studentSignin`, data, config);
-    console.log(data)
+    const response  = await axios.post(`${API_URL}/login`, userData);
+    pushNotify(response.status, "Login", response.data.message)
+    return response;
+  } catch (error) {
+    pushNotify(error.status, "Login", error.response.data.message);
+    console.log(error.message);
   }
-
-  } catch (error) {}
 };

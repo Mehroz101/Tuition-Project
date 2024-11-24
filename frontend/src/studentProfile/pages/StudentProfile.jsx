@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import Navbar from "../../components/Navbar";
 import { Link, Outlet } from "react-router-dom";
 import Img from "../../assets/teacher-1.jpg";
+import { useAuth } from "../../context/AuthContext";
 
 const StudentProfile = () => {
   const [activeLink, setActiveLink] = useState("personalinformation");
-
+  const {logout} = useAuth()
+  const logoutUser = () =>{
+    logout();
+    }
   return (
     <>
       <Navbar />
@@ -50,7 +54,7 @@ const StudentProfile = () => {
                 </li>
                 <li>
                 <i className="fa-solid fa-right-from-bracket"></i>
-                  <Link to="logout">Logout</Link>
+                  <Link to="/" onClick={logoutUser}>Logout</Link>
                 </li>
               </ul>
             </div>

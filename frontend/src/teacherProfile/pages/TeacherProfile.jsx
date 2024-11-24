@@ -3,9 +3,14 @@ import Navbar from "../../components/Navbar";
 import Img from "../../assets/teacher-1.jpg";
 import "../styles/TeacherProfile.css";
 import { Link, Outlet } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const TeacherProfile = () => {
   const [activeLink, setActiveLink] = useState("personalinformation");
+  const {logout} = useAuth()
+  const logoutUser = () =>{
+    logout();
+    }
   return (
     <>
       <Navbar />
@@ -97,7 +102,7 @@ const TeacherProfile = () => {
                 </Link>
               </li>
               <li>
-                <Link to="logout">
+                <Link to="/" onClick={logoutUser}>
                   <i className="fa-solid fa-right-from-bracket"></i>
                   Logout
                 </Link>
