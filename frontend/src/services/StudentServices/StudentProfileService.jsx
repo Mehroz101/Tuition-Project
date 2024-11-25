@@ -1,13 +1,7 @@
 import axios from "axios";
-<<<<<<< HEAD
-const API_BASE_URL = import.meta.env.API_BASE_URL;
-// const API_URL = `${API_BASE_URL}/api/student`;
-const API_URL = `http://localhost:5000/api/student`;
-=======
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/student`;
-const token = localStorage.getItem("token") || 0
->>>>>>> 4fcf441737b0ed2c436df071c22d93e5ccfc66dc
+const token = localStorage.getItem("token") || 0;
 
 export const StudentProfile = async (stdData) => {
   try {
@@ -18,11 +12,18 @@ export const StudentProfile = async (stdData) => {
         Authorization: "Bearer " + token,
       },
     };
-    console.log(stdData)
-    const data = await axios.post(`${API_URL}/information`, stdData, config);
-    console.log(data);
+    console.log(stdData);
+    const response = await axios.post(
+      `${API_URL}/information`,
+      stdData,
+      config
+    );
+    pushNotify(response.status, "Profile", response.data.message);
+    return response;
   } catch (error) {
-    console.log(error.message)
+    pushNotify(error.status, "Profile", error.response.data.message);
+
+    console.log(error.message);
   }
 };
 export const GetStudentProfile = async () => {

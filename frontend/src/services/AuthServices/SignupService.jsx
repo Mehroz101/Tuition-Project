@@ -3,14 +3,7 @@ import { pushNotify } from "../../errorHandler/Notify";
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/user`;
 export const Signup = async (userData) => {
-  // const token = localStorage.getItem("token");
 
-  // const config = {
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: "Bearer " + token,
-  //   },
-  // };
   try {
     const response = await axios.post(`${API_URL}/signup`, userData);
     pushNotify(response.status, "Registration", response.data.message);
