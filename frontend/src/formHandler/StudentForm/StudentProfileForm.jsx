@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { pushNotify } from "../../errorHandler/Notify";
-import { StudentProfile } from "../../services/StudentServices/StudentProfileService";
+import {
+  GetStudentProfile,
+  StudentProfile,
+} from "../../services/StudentServices/StudentProfileService";
+import { useQuery } from "@tanstack/react-query";
 
 const StudentProfileForm = () => {
   const [studentProfile, setStudentProfile] = useState({
@@ -9,9 +13,10 @@ const StudentProfileForm = () => {
     class: "",
     city: "",
     address: "",
-    number:"",
+    number: "",
     schoolName: "",
   });
+
   const handleChange = (e) => {
     setStudentProfile((prev) => ({
       ...prev,
@@ -21,16 +26,18 @@ const StudentProfileForm = () => {
   const handleSubmit = async () => {
     try {
       console.log(studentProfile);
-      const { data } = await StudentProfile(studentProfile);
-      console.log(data);
+      const response = await StudentProfile(studentProfile);
+      console.log(response);
     } catch (error) {
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      console.log(error.message);
+      // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }
   };
   return {
     studentProfile,
     handleSubmit,
     handleChange,
+    setStudentProfile,
   };
 };
 export default StudentProfileForm;

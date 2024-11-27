@@ -12,7 +12,8 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const response = await handleFromSubmit();
-    if (response.status == 200) {
+    console.log(response);
+    if (response.data.success == true) {
       login(role, response.data.token);
       navigate("/");
     }

@@ -1,11 +1,30 @@
 import StudentProfileForm from "../../formHandler/StudentForm/StudentProfileForm";
-
+import { GetStudentProfile } from "../../services/StudentServices/StudentProfileService";
+import { useQuery } from "@tanstack/react-query";
 const ProfileInformation = () => {
-  const { studentProfile, handleChange, handleSubmit } = StudentProfileForm();
+  const { studentProfile, handleChange, handleSubmit, setStudentProfile } =
+    StudentProfileForm();
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["studentProfile"],
+    queryFn: GetStudentProfile,
+    onSuccess: (data) => {},
+    onError: (error) => {
+      console.error("Error fetching student profile:", error.message);
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+    onsettled: () => {
+      console.log("fetching student profile");
+    },
+  });
+
   const handleFromSubmit = (e) => {
     e.preventDefault();
     handleSubmit();
   };
+  // if (data.isLoading) return <div>Loading...</div>;
+
+  if (isLoading) return <p>Loading...</p>;
+  if (isError) return <p>Error loading profile. Please try again later.</p>;
 
   return (
     <div className="personal_details">

@@ -18,7 +18,7 @@ const SigninForm = () => {
   const handleFromSubmit = async () => {
     try {
       const response = await Signin(signin);
-      if (response.status == 200) {
+      if (response.data.success == true) {
         return response;
       }
     } catch (error) {

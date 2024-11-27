@@ -1,4 +1,5 @@
 import axios from "axios";
+import { pushNotify } from "../../errorHandler/Notify";
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/student`;
 const token = localStorage.getItem("token") || 0;
@@ -18,6 +19,7 @@ export const StudentProfile = async (stdData) => {
       stdData,
       config
     );
+    debugger;
     pushNotify(response.status, "Profile", response.data.message);
     return response;
   } catch (error) {
@@ -37,6 +39,7 @@ export const GetStudentProfile = async () => {
       },
     };
     const data = await axios.get(`${API_URL}/getinformation`, config);
-    console.log(data);
+    console.log(data.data);
+    return data.data;
   } catch (error) {}
 };
