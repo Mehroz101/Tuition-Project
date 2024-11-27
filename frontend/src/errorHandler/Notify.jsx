@@ -8,25 +8,25 @@ export const pushNotify = (status, title, textMsg) => {
   switch (status) {
     case 200:
     case 201:
-      notifyType = "success";  // 2xx codes - success
+      notifyType = "success"; // 2xx codes - success
       break;
     case 400:
     case 404:
-      notifyType = "error";    // 4xx codes - client errors
+      notifyType = "error"; // 4xx codes - client errors
       break;
     case 500:
-      notifyType = "error";    // 5xx codes - server errors
+      notifyType = "error"; // 5xx codes - server errors
       break;
     default:
-      notifyType = "warning";  // Any other status - warning
+      notifyType = "warning"; // Any other status - warning
       break;
   }
 
   // Only trigger notification if title or textMsg is provided
   if (title || textMsg) {
     new Notify({
-      status: notifyType,    // Use the resolved type (success, error, etc.)
-      title: title || "Notification",  // Default title if not provided
+      status: notifyType, // Use the resolved type (success, error, etc.)
+      title: title || "Notification", // Default title if not provided
       text: textMsg || "Something happened!", // Default message if not provided
       effect: "fade",
       speed: 300,

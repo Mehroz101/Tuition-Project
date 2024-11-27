@@ -19,11 +19,12 @@ const SigninForm = () => {
       }));
       console.log(signin);
       const response = await Signin(signin);
-      pushNotify(response.status, response.messageTitle, response.message);
-      if (response.status === 201) {
-        return 201;
-      }
+      // pushNotify(response.status, response.messageTitle, response.message);
+      // if (response.status === 201) {
+      //   return 201;
+      // }
     } catch (error) {
+      console.log(error);
       pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }
   };

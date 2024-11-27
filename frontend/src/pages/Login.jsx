@@ -13,7 +13,7 @@ const Login = () => {
     e.preventDefault();
     login();
     handleFromSubmit(role);
-    navigate("/");
+    // navigate("/");
   };
   return (
     <>

@@ -6,8 +6,8 @@ export const AuthProvider = ({ children }) => {
   const [userProvider, setUserProvider] = useState(null);
   const login = () => {
     // login logic here
-    setUserProvider("student");
-    localStorage.setItem("role","student")
+    setUserProvider("teacher");
+    localStorage.setItem("role", "teacher");
   };
   const logout = () => {
     setUserProvider(null);
