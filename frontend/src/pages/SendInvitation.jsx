@@ -1,15 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/SendInvitation.css";
 import SendInvitationForm from "../formHandler/StudentForm/SendInvitationForm";
 import { useParams } from "react-router-dom";
 const SendInvitation = () => {
-  const {sendInvitation , handleChange, handleSubmit} = SendInvitationForm()
-  const {teacherId} =useParams()
-  const handleFormSubmit = (e) =>{
-    e.preventDefault()
-    handleSubmit(teacherId)
-  }
+  const { sendInvitation, setSendInvitation, handleChange, handleSubmit } =
+    SendInvitationForm();
+  const { teacherId } = useParams();
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit(teacherId);
+  };
+  useEffect(() => {
+    setSendInvitation((prev) => ({
+      ...prev,
+      teacherId: teacherId,
+    }));
+  }, []);
   return (
     <>
       <Navbar />
@@ -37,7 +44,9 @@ const SendInvitation = () => {
                 value={sendInvitation.tuitionType}
                 onChange={handleChange}
               >
-                <option selected value="online">Online</option>
+                <option selected value="online">
+                  Online
+                </option>
                 <option value="teacherhome">Teacher Home</option>
                 <option value="studenthome">Student Home</option>
               </select>

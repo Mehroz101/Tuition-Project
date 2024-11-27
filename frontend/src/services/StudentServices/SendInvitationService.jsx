@@ -32,14 +32,31 @@ export const getInvitation = async () => {
     },
   };
   try {
-    const response = await axios.get(
-      `${API_URL}/getinvtation`,
+    const response = await axios.get(`${API_URL}/getinvtation`, config);
+    return response.data.data;
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+export const cancelInvitation = async (invitationId) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/cancelinvtation/${invitationId}`,
+      {},
       config
     );
     pushNotify(response.status, "Invitation", response.data.message);
+
     return response;
   } catch (error) {
-    console.log(error.message);
     pushNotify(error.status, "Invitation", error.response.data.message);
+    console.log(error.message);
   }
 };

@@ -1,10 +1,15 @@
 const express = require("express");
-const { LoginUser,SignupUser } = require("../controllers/authController");
+const authenticateToken = require("../middleware/authMiddleware");
+const {
+  UpdateInformation,
+  getTeacherInformation,
+  //   Education,
+} = require("../controllers/teacherController");
 
 const router = express.Router();
 
-router.post("/login",LoginUser)
-router.post("/signup",SignupUser)
+router.post("/updateinformation", authenticateToken, UpdateInformation);
+router.get("/getinformation", authenticateToken, getTeacherInformation);
+// router.post("/education", authenticateToken, Education);
 
-
-module.exports = router
+module.exports = router;

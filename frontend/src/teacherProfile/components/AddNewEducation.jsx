@@ -1,9 +1,39 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TeacherEducationForm from "../../formHandler/TeacherForm/TeacherEducationForm";
+import { useQuery } from "@tanstack/react-query";
 
 const AddNewEducation = () => {
-  const { teacherEducation, handleChange, handleSubmit } =
+  const { teacherEducation, setTeacherEducation, handleChange, handleSubmit } =
     TeacherEducationForm();
+  // const { data, isLoading, isError } = useQuery({
+  //   queryKey: ["studentProfile"],
+  //   queryFn: GetEducationDetail,
+  //   onSuccess: (data) => {
+  //     console.log(data);
+  //   },
+  //   onError: (error) => {
+  //     console.error("Error fetching student profile:", error.message);
+  //     pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+  //   },
+  //   onsettled: () => {
+  //     console.log("fetching student profile");
+  //   },
+  // });
+
+  // useEffect(() => {
+  //   if (data) {
+  //     setTeacherEducation({
+  //       fName: data.fName || "",
+  //       lName: data.lName || "",
+  //       class: data.className || "",
+  //       city: data.city || "",
+  //       address: data.address || "",
+  //       number: data.number || "",
+  //       schoolName: data.schoolName || "",
+  //     });
+  //   }
+  // }, [data, setStudentProfile]);
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     handleSubmit();
@@ -45,8 +75,8 @@ const AddNewEducation = () => {
               <div className="input_box input_date_box">
                 <div className="input">
                   <input
-                  type="date"
-                  name="startDate"
+                    type="date"
+                    name="startDate"
                     value={teacherEducation.startDate}
                     onChange={handleChange}
                   />

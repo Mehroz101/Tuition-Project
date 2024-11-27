@@ -6,6 +6,11 @@ const invitationScheema = new mongoose.Schema(
       ref: "Student",
       require: true,
     },
+    teacherId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Teacher",
+      require: true,
+    },
     offeredPrice: {
       type: Number,
       require: true,
@@ -29,6 +34,11 @@ const invitationScheema = new mongoose.Schema(
     description: {
       type: String,
       require: true,
+    },
+    status: {
+      type: String,
+      enum: ["pending", "accepted", "rejected"],
+      default: "pending",
     },
   },
   {

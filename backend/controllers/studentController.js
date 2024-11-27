@@ -103,30 +103,36 @@ const sendInvitation = async (req, res) => {
       description,
       teacherId,
     } = req.body;
+    console.log(req.body);
+    // Check for missing fields
     if (
-      offeredPrice === "" ||
-      tuitionType === "" ||
-      from === "" ||
-      to === "" ||
-      subject === "" ||
-      description === "" ||
-      teacherId === ""
+      !offeredPrice ||
+      !tuitionType ||
+      !from ||
+      !to ||
+      !subject ||
+      !description ||
+      !teacherId
     ) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
-        message: "all fields are required",
+        message: "All fields are required",
       });
     }
+
+    // Check if teacher exists
     const isTeacher = await User.findById(teacherId);
     if (!isTeacher) {
-      res.status(400).json({
+      return res.status(400).json({
         success: false,
         message: "Teacher not found",
       });
     }
 
+    // Create and save the invitation
     const data = new Invitation({
       studentId,
+      teacherId,
       offeredPrice,
       tuitionType,
       from,
@@ -134,22 +140,27 @@ const sendInvitation = async (req, res) => {
       subject,
       description,
     });
+
     await data.save();
-    res.status(201).json({
+
+    // Send success response
+    return res.status(201).json({
       success: true,
       message: "Invitation sent successfully",
     });
   } catch (error) {
-    res.status(500).json({
+    // Handle server errors
+    return res.status(500).json({
       success: false,
       message: "Internal server error",
     });
   }
 };
+
 const getInvitation = async (req, res) => {
   try {
     const studentId = req.user.id;
-    const response = await find({ studentId: studentId });
+    const response = await Invitation.find({ studentId: studentId });
     if (response) {
       res.status(200).json({
         success: true,
@@ -169,10 +180,33 @@ const getInvitation = async (req, res) => {
     });
   }
 };
+const cancelInvitation = async (req, res) => {
+  try {
+    const invitationId = req.params.id;
+    const response = await Invitation.findByIdAndDelete(invitationId);
+    if (response) {
+      res.status(200).json({
+        success: true,
+        message: "Invitation cancelled successfully",
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Invitation not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 
 module.exports = {
   studentInformation,
   sendInvitation,
   getInvitation,
   getStudentInformation,
+  cancelInvitation,
 };

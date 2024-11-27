@@ -10,7 +10,7 @@ const SendInvitationForm = () => {
     to: "",
     subject: "",
     description: "",
-    teacherId: "",
+    teacherId: null,
   });
   const handleChange = (e) => {
     setSendInvitation((prev) => ({
@@ -18,12 +18,8 @@ const SendInvitationForm = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleSubmit = async (teacherId) => {
+  const handleSubmit = async () => {
     try {
-      setSendInvitation((prev) => ({
-        ...prev,
-        teacherId: teacherId,
-      }));
       console.log(sendInvitation);
       const data = await SendInvitation(sendInvitation);
       console.log(data);
@@ -34,6 +30,7 @@ const SendInvitationForm = () => {
   return {
     sendInvitation,
     handleSubmit,
+    setSendInvitation,
     handleChange,
   };
 };

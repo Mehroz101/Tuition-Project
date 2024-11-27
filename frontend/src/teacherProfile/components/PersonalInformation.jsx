@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import TeacherProfileForm from "../../formHandler/TeacherForm/TeacherProfileForm";
+import { useQuery } from "@tanstack/react-query";
+import { GetTeacherProfile } from "../../services/TeacherServices/TeacherProfileService";
 
 const PersonalInformation = () => {
-  const {
-    teacherProfile,
-    setTeacherProfile,
-    handleChange,
-    handleSubmit,
-    
-  } = TeacherProfileForm();
+  const { teacherProfile, setTeacherProfile, handleChange, handleSubmit } =
+    TeacherProfileForm();
 
   const country = [
     "Afghanistan",
@@ -201,11 +198,39 @@ const PersonalInformation = () => {
     "Saint Vincent and The Grenadines",
     "Samoa",
   ];
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["studentProfile"],
+    queryFn: GetTeacherProfile,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.error("Error fetching student profile:", error.message);
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+    onsettled: () => {
+      console.log("fetching student profile");
+    },
+  });
 
- 
+  useEffect(() => {
+    if (data) {
+      setTeacherProfile({
+        fName: data.fName || "",
+        lName: data.lName || "",
+        tagline: data.tagline || "",
+        fee: data.fee || 0,
+        country: data.country || "",
+        city: data.city || "",
+        studentHome: data.studentHome || false,
+        teacherHome: data.teacherHome || false,
+        online: data.online || false,
+        description: data.description || "",
+      });
+    }
+  }, [data, setTeacherProfile]);
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    // const selectedTypes = getSelectedTuitionTypes();
     handleSubmit();
   };
   return (

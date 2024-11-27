@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "../styles/tuitions.css"; // Add styles here for a better Material UI-like design
 import { Link } from "react-router-dom";
+import { pushNotify } from "../../errorHandler/Notify";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  cancelInvitation,
+  getInvitation,
+} from "../../services/StudentServices/SendInvitationService";
 
 const Tuitions = () => {
   const [activeLink, setActiveLink] = useState("all");
   const [requests, setRequests] = useState([]);
   const [filteredRequests, setFilteredRequests] = useState([]);
+  const { data, refetch: refetchRequests } = useQuery({
+    queryKey: ["requests"],
+    queryFn: () => getInvitation(),
 
+    onSuccess: (data) => {},
+    onError: (error) => {
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+    onsettled: () => {},
+  });
   const requestsList = [
     {
       id: 1,
@@ -57,21 +72,35 @@ const Tuitions = () => {
       requestedAt: "2024-09-25T16:00:00Z",
     },
   ];
+  const handleCancelRequest = (requestId) => {
+    cancelMutation.mutate(requestId);
+  };
+  const cancelMutation = useMutation({
+    mutationFn: cancelInvitation,
+    onSuccess: () => {
+      refetchRequests();
+    },
+    onError: (error) => {
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+  });
 
   useEffect(() => {
-    setRequests(requestsList);
-    const updateData = () => {
-      if (activeLink === "all") {
-        setFilteredRequests(requestsList);
-      } else {
-        const filtered = requestsList.filter(
-          (req) => req.status.toLowerCase() === activeLink
-        );
-        setFilteredRequests(filtered);
-      }
-    };
-    updateData();
-  }, [activeLink]);
+    if (data) {
+      setRequests(data);
+      const updateData = () => {
+        if (activeLink === "all") {
+          setFilteredRequests(data);
+        } else {
+          const filtered = data.filter(
+            (req) => req.status.toLowerCase() === activeLink
+          );
+          setFilteredRequests(filtered);
+        }
+      };
+      updateData();
+    }
+  }, [activeLink, data]);
 
   return (
     <div className="tuitions">
@@ -98,7 +127,7 @@ const Tuitions = () => {
         </ul>
       </div>
       <div className="tuitions_list">
-        {filteredRequests.length === 0 ? (
+        {filteredRequests?.length === 0 ? (
           <p>No tuition requests found.</p>
         ) : (
           <div className="table-wrapper">
@@ -118,7 +147,7 @@ const Tuitions = () => {
                 </tr>
               </thead>
               <tbody>
-                {filteredRequests.map((request, index) => (
+                {filteredRequests?.map((request, index) => (
                   <tr key={request.id}>
                     <td>{index + 1}</td>
                     <td>{request.teacherName}</td>
@@ -129,7 +158,7 @@ const Tuitions = () => {
                     <td>{new Date(request.endTime).toLocaleTimeString()}</td>
                     <td>
                       <span
-                        className={`status ${request.status.toLowerCase()}`}
+                        className={`status ${request?.status.toLowerCase()}`}
                       >
                         {request.status}
                       </span>
@@ -138,12 +167,15 @@ const Tuitions = () => {
                       {new Date(request.requestedAt).toLocaleDateString()}
                     </td>
                     <td className="action_btn">
-                      <Link>
-                        <i className="fa-solid fa-comment messageicon"></i>
-                      </Link>
-                      <Link>
-                        <i className="fa-solid fa-xmark cancel"></i>
-                      </Link>
+                      {/* <Link> */}
+                      <i className="fa-solid fa-comment messageicon"></i>
+                      {/* </Link> */}
+                      {/* <Link> */}
+                      <i
+                        className="fa-solid fa-xmark cancel"
+                        onClick={() => handleCancelRequest(request._id)}
+                      ></i>
+                      {/* </Link> */}
                     </td>
                   </tr>
                 ))}

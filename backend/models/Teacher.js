@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const studentSchema = new mongoose.Schema(
+const teacherSchema = new mongoose.Schema(
   {
     teacherId: {
       type: mongoose.Schema.Types.ObjectId,
@@ -15,27 +15,31 @@ const studentSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    className: {
+    tagline: {
       type: String,
       required: true,
       trim: true,
     },
-    city: {
+    fee: {
       type: String,
       required: true,
       trim: true,
     },
-    address: {
+    country: {
       type: String,
       required: true,
       trim: true,
     },
-    number: {
-      type: String,
-      required: true,
-      trim: true,
+    studentHome: {
+      type: Boolean,
     },
-    schoolName: {
+    teacherHome: {
+      type: Boolean,
+    },
+    online: {
+      type: Boolean,
+    },
+    description: {
       type: String,
       required: true,
       trim: true,
@@ -45,5 +49,5 @@ const studentSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-const Student = mongoose.model("Student", studentSchema);
-module.exports = Student;
+const Teacher = mongoose.model("Teacher", teacherSchema);
+module.exports = Teacher;

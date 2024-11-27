@@ -23,13 +23,14 @@ const TeacherEducationForm = () => {
       const { data } = await TeacherEducation(teacherEducation);
       console.log(data);
     } catch (error) {
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }
   };
   return {
     teacherEducation,
     handleSubmit,
     handleChange,
+    setTeacherEducation,
   };
 };
 export default TeacherEducationForm;
