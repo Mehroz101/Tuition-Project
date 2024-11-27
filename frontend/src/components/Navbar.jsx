@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import Img from "../assets/teacher-1.jpg";
@@ -6,10 +6,13 @@ import { useAuth } from "../context/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { userProvider } = useAuth();
+  const [role, setRole] = useState("");
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
+  useEffect(() => {
+    setRole(localStorage.getItem("role"));
+  }, [localStorage]);
 
   return (
     <nav className="navbar">
@@ -26,11 +29,8 @@ const Navbar = () => {
         <li>
           <Link to="/teacherdetail">Teacher Detail Page</Link>
         </li>
-        <li>
-          <Link to="/login">login</Link>
-        </li>
 
-        {userProvider === "teacher" && (
+        {role === "teacher" && (
           <li>
             <Link to="/profile" className="profile_btn">
               <img src={Img} alt="" />
@@ -38,9 +38,13 @@ const Navbar = () => {
             </Link>
           </li>
         )}
-        {userProvider === "student" && (
+        {role === "student" && (
           <li>
-            <Link to="/studentProfile">student</Link>
+            {/* <img src={Img} alt="" /> */}
+            <Link to="/studentProfile" className="profile_btn">
+              <img src={Img} alt="" />
+              <span className="name">student</span>
+            </Link>
           </li>
         )}
       </ul>

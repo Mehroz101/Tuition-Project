@@ -77,6 +77,18 @@ const ProfileInformation = () => {
             </div>
           </div>
           <div className="input_box">
+            <label htmlFor="">Contact Number</label>
+            <div className="input">
+              <input
+                type="text"
+                name="number"
+                onChange={handleChange}
+                value={studentProfile.number}
+                placeholder="e.g 03011234543"
+              />
+            </div>
+          </div>
+          <div className="input_box">
             <label htmlFor="">School Name</label>
             <div className="input">
               <input

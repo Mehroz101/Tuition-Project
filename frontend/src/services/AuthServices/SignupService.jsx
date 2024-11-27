@@ -1,24 +1,15 @@
 import axios from "axios";
-const API_BASE_URL = import.meta.env.API_BASE_URL;
-const API_URL = `${API_BASE_URL}/api/user`
-const token = localStorage.getItem("token") || 0
+import { pushNotify } from "../../errorHandler/Notify";
+const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
+const API_URL = `${API_BASE_URL}/api/user`;
+export const Signup = async (userData) => {
 
-const config = {
-  headers: {
-    "Content-Type": "application/json",
-    Authorization: "Bearer " + token,
-  },
-};
-export const Signup = async (data) => {
   try {
-    if(data.role === "teacher"){
-      const {data} = await axios.post(`${API_URL}/teacherSignup`, data, config);
-      console.log(data)
-    }
-  if(data.role === "student"){
-    const {data} = await axios.post(`${API_URL}/studentSignup`, data, config);
-    console.log(data)
+    const response = await axios.post(`${API_URL}/signup`, userData);
+    pushNotify(response.status, "Registration", response.data.message);
+    return response;
+  } catch (error) {
+    pushNotify(error.status, "Registration", error.response.data.message);
+    console.log(error.message);
   }
-
-  } catch (error) {}
 };

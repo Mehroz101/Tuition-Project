@@ -27,7 +27,7 @@ import Footer from "../components/Footer";
 const Home = () => {
   const navigate  = useNavigate()
   const signupBtn = (role) =>{
-    navigate(`/signup/${role}`)
+    navigate(`/login/${role}`)
   }
   return (
     <>

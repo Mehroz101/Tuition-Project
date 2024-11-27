@@ -1,5 +1,5 @@
 import axios from "axios";
-const API_BASE_URL = import.meta.env.API_BASE_URL;
+const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/teacher`;
 const token = localStorage.getItem("token") || 0
 

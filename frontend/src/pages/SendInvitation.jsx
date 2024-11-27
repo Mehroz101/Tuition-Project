@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import Navbar from "../components/Navbar";
 import "../styles/SendInvitation.css";
 import SendInvitationForm from "../formHandler/StudentForm/SendInvitationForm";
+import { useParams } from "react-router-dom";
 const SendInvitation = () => {
   const {sendInvitation , handleChange, handleSubmit} = SendInvitationForm()
+  const {teacherId} =useParams()
   const handleFormSubmit = (e) =>{
     e.preventDefault()
-    handleSubmit()
+    handleSubmit(teacherId)
   }
   return (
     <>

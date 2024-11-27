@@ -9,6 +9,7 @@ const StudentProfileForm = () => {
     class: "",
     city: "",
     address: "",
+    number:"",
     schoolName: "",
   });
   const handleChange = (e) => {

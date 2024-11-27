@@ -3,7 +3,11 @@ import { pushNotify } from "../../errorHandler/Notify";
 import { Signin } from "../../services/AuthServices/SigninService";
 
 const SigninForm = () => {
-  const [signin, setSignin] = useState({ email: "", password: "", role: "" });
+  const [signin, setSignin] = useState({
+    email: "",
+    password: "",
+    role: "student",
+  });
 
   const handleChange = (e) => {
     setSignin((prev) => ({
@@ -11,27 +15,21 @@ const SigninForm = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleFromSubmit = async (rolevalue) => {
+  const handleFromSubmit = async () => {
     try {
-      setSignin((prev) => ({
-        ...prev,
-        role: rolevalue,
-      }));
-      console.log(signin);
       const response = await Signin(signin);
-      // pushNotify(response.status, response.messageTitle, response.message);
-      // if (response.status === 201) {
-      //   return 201;
-      // }
+      if (response.status == 200) {
+        return response;
+      }
     } catch (error) {
-      console.log(error);
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }
   };
   return {
     signin,
     handleFromSubmit,
     handleChange,
+    setSignin,
   };
 };
 export default SigninForm;

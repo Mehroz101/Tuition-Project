@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/Login.css";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -6,15 +6,24 @@ import SigninForm from "../formHandler/AuthForm/SigninForm";
 const Login = () => {
   const { login } = useAuth();
   const navigate = useNavigate();
-  const { role } = useParams();
+  const { role = "student" } = useParams();
 
-  const { signin, handleChange, handleFromSubmit } = SigninForm();
-  const handleSubmit = (e) => {
+  const { signin, setSignin, handleChange, handleFromSubmit } = SigninForm();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    login();
-    handleFromSubmit(role);
-    // navigate("/");
+    const response = await handleFromSubmit();
+    if (response.status == 200) {
+      login(role, response.data.token);
+      navigate("/");
+    }
   };
+  useEffect(() => {
+    setSignin((prev) => ({
+      ...prev,
+      role: role,
+    }));
+  }, [role]);
+
   return (
     <>
       <div className="login-page">

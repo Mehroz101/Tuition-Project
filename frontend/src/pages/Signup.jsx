@@ -1,18 +1,27 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Signup.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import SignUpForm from "../formHandler/AuthForm/SignUpForm";
 const Signup = () => {
-  const {signup,handleChange,handleSubmit} = SignUpForm()
-  
-  const {role} = useParams()
+  const { signup, setSignup, handleChange, handleSubmit } = SignUpForm();
 
- 
-  const handleFormSubmit = (e) => {
+  const { role="student" } = useParams();
+  const navigate = useNavigate();
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    // console.log(signup);
-    handleSubmit(role)
+    const response = await handleSubmit();
+    console.log(response)
+    if (response.status == 201) {
+      console.log("entered")
+      navigate(`/login/${role}`);
+    }
   };
+  useEffect(() => {
+    setSignup((prev) => ({
+      ...prev,
+      role: role,
+    }));
+  }, [role]);
   return (
     <>
       <div className="signup-page">
@@ -31,9 +40,9 @@ const Signup = () => {
                 type="email"
                 id="email"
                 name="email"
-                autocomplete
                 onChange={handleChange}
                 value={signup.email}
+                required
                 placeholder="Enter your email"
               />
             </div>
@@ -44,7 +53,7 @@ const Signup = () => {
                 type="password"
                 id="password"
                 name="password"
-                autocomplete
+                required
                 onChange={handleChange}
                 value={signup.password}
                 placeholder="Enter your password"
@@ -56,16 +65,16 @@ const Signup = () => {
                 type="password"
                 id="passwconfirmPasswordord"
                 name="cPassword"
-                autocomplete
+                required
                 onChange={handleChange}
                 value={signup.cPassword}
                 placeholder="Confirm password"
               />
             </div>
 
-              <button type="submit" className="signup-button">
-                signup
-              </button>
+            <button type="submit" className="signup-button">
+              signup
+            </button>
           </form>
           <div className="signup-text">
             <p>

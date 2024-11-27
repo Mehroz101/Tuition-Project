@@ -7,29 +7,27 @@ const SignUpForm = () => {
     email: "",
     password: "",
     cPassword: "",
-    role: "",
+    role: "student",
   });
-
   const handleChange = (e) => {
     setSignup((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
-  const handleSubmit = async (rolevalue) => {
+  const handleSubmit = async () => {
     try {
-      setSignup((prevState) => ({
-        ...prevState, // Spread the previous state
-        role: rolevalue, // Update the role property
-      }));
-      
+      if(signup.email === "" || signup.password === "" || signup.cPassword === "" || signup.role === ""){
+        return pushNotify(400, "Missing", "All fields are required")
+      }
       const response = await Signup(signup);
-      pushNotify(response.status, response.messageTitle, response.message);
-      if (response.status === 201) {
-        return 201;
+      console.log(response)
+      if (response.status == 201) {
+        return response;
       }
     } catch (error) {
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+
     }
   };
   return {

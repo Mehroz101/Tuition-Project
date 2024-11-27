@@ -4,12 +4,13 @@ import { SendInvitation } from "../../services/StudentServices/SendInvitationSer
 
 const SendInvitationForm = () => {
   const [sendInvitation, setSendInvitation] = useState({
-    offeredPrice:0,
-    tuitionType:"online",
-    from:"",
-    to:"",
-    subject:"",
-    description:"",
+    offeredPrice: 0,
+    tuitionType: "online",
+    from: "",
+    to: "",
+    subject: "",
+    description: "",
+    teacherId: "",
   });
   const handleChange = (e) => {
     setSendInvitation((prev) => ({
@@ -17,13 +18,17 @@ const SendInvitationForm = () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (teacherId) => {
     try {
+      setSendInvitation((prev) => ({
+        ...prev,
+        teacherId: teacherId,
+      }));
       console.log(sendInvitation);
-      const { data } = await SendInvitation(sendInvitation);
+      const data = await SendInvitation(sendInvitation);
       console.log(data);
     } catch (error) {
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      console.log(error.message);
     }
   };
   return {
