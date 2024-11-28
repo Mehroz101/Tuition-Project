@@ -1,7 +1,7 @@
 import axios from "axios";
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/teacher`;
-const token = localStorage.getItem("token") || 0
+const token = localStorage.getItem("token") || 0;
 
 const config = {
   headers: {
@@ -9,10 +9,14 @@ const config = {
     Authorization: "Bearer " + token,
   },
 };
-export const TeacherAvailabilty = async (data) => {
+export const TeacherAvailabilty = async (availability) => {
   try {
-    const { data } = await axios.post(`${API_URL}/availabilty`, data, config);
-    console.log(data);
+    const response = await axios.post(
+      `${API_URL}/availabilty`,
+      availability,
+      config
+    );
+    console.log(response);
   } catch (error) {}
 };
 export const GetTeacherAvailabilty = async () => {

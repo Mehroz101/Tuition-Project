@@ -38,5 +38,7 @@ export const GetContactDetail = async () => {
     const { data } = await axios.get(`${API_URL}/getinformation`, config);
     console.log(data.data);
     return data.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };

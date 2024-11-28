@@ -64,6 +64,21 @@ const teacherSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    subjects: [
+      {
+        subject: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        level: {
+          type: String,
+          required: true,
+          enum: ["Beginner", "Intermediate", "Advanced"], // You can customize the levels
+          trim: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

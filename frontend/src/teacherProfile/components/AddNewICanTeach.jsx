@@ -1,12 +1,16 @@
 import React from "react";
 import TeacherSubjectForm from "../../formHandler/TeacherForm/TeacherSubjectForm";
+import { useNavigate } from "react-router-dom";
 
 const AddNewICanTeach = () => {
   const { teacherSubject, handleChange, handleSubmit } = TeacherSubjectForm();
-
-  const handleFormSubmit = (e) => {
+  const navigate = useNavigate();
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
-    handleSubmit();
+    const data = await handleSubmit();
+    if (data === 200) {
+      navigate("/profile/icanteach");
+    }
   };
   return (
     <>
