@@ -148,32 +148,30 @@ const Tuitions = () => {
               </thead>
               <tbody>
                 {filteredRequests?.map((request, index) => (
-                  <tr key={request.id}>
+                  <tr key={request?._id}>
                     <td>{index + 1}</td>
-                    <td>{request.teacherName}</td>
-                    <td>{request.subject}</td>
-                    <td>{request.typeOfTuition}</td>
-                    <td>${request.offeredPrice}</td>
-                    <td>{new Date(request.startTime).toLocaleTimeString()}</td>
-                    <td>{new Date(request.endTime).toLocaleTimeString()}</td>
+                    <td>{request?.teacherId?.teacherId?.fName}</td>
+                    <td>{request?.subject}</td>
+                    <td>{request?.tuitionType}</td>
+                    <td>${request?.offeredPrice}</td>
+                    <td>{request?.from}</td>
+                    <td>{request?.to}</td>
                     <td>
                       <span
                         className={`status ${request?.status.toLowerCase()}`}
                       >
-                        {request.status}
+                        {request?.status}
                       </span>
                     </td>
-                    <td>
-                      {new Date(request.requestedAt).toLocaleDateString()}
-                    </td>
+                    <td>{new Date(request?.createdAt).toLocaleDateString()}</td>
                     <td className="action_btn">
                       {/* <Link> */}
-                      <i className="fa-solid fa-comment messageicon"></i>
+                      {/* <i className="fa-solid fa-comment messageicon"></i> */}
                       {/* </Link> */}
                       {/* <Link> */}
                       <i
                         className="fa-solid fa-xmark cancel"
-                        onClick={() => handleCancelRequest(request._id)}
+                        onClick={() => handleCancelRequest(request?._id)}
                       ></i>
                       {/* </Link> */}
                     </td>

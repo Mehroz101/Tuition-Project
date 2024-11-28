@@ -44,6 +44,55 @@ const teacherSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    number: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    whatsapp: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    website: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    subjects: [
+      {
+        subject: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        level: {
+          type: String,
+          required: true,
+          enum: ["Beginner", "Intermediate", "Advanced"], // You can customize the levels
+          trim: true,
+        },
+      },
+    ],
+    availability: [
+      {
+        start: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        end: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

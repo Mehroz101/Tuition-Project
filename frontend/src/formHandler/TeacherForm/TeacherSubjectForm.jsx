@@ -16,16 +16,20 @@ const TeacherSubjectForm = () => {
   const handleSubmit = async () => {
     try {
       console.log(teacherSubject);
-        const { data } = await TeacherSubject(teacherSubject);
-        console.log(data);
+      const response = await TeacherSubject(teacherSubject);
+      if (response === 200) {
+        return response;
+      }
     } catch (error) {
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      console.log(error.message);
+      // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }
   };
   return {
     teacherSubject,
     handleSubmit,
     handleChange,
+    setTeacherSubject,
   };
 };
 export default TeacherSubjectForm;

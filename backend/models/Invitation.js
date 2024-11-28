@@ -3,12 +3,12 @@ const invitationScheema = new mongoose.Schema(
   {
     studentId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Student",
+      ref: "User",
       require: true,
     },
     teacherId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Teacher",
+      ref: "User",
       require: true,
     },
     offeredPrice: {

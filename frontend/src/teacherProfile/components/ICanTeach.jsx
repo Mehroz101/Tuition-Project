@@ -1,29 +1,51 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {
+  GetTeacherSubject,
+  removeSubject,
+} from "../../services/TeacherServices/TeacherSubjectService";
+import { pushNotify } from "../../errorHandler/Notify";
 
 const ICanTeach = () => {
   const [subject, setSubject] = useState();
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch: subjectRefetch,
+  } = useQuery({
+    queryKey: ["studentProfile"],
+    queryFn: () => GetTeacherSubject(),
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.error("Error fetching student profile:", error.message);
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+    onsettled: () => {
+      console.log("fetching student profile");
+    },
+  });
+  const removeSubjectMutation = useMutation({
+    mutationFn: removeSubject,
+    onSuccess: () => {
+      subjectRefetch();
+    },
+    onError: (error) => {
+      console.error("Error fetching student profile:", error.message);
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+  });
+  const removesubject = (sub) => {
+    console.log(sub);
+    removeSubjectMutation.mutate(sub);
+  };
+  useEffect(() => {}, [data]);
   useEffect(() => {
-    const SubjectITeach = [
-      {
-        subject: "Math",
-        level: "Beginner",
-      },
-      {
-        subject: "English",
-        level: "Advanced",
-      },
-      {
-        subject: "Science",
-        level: "Beginner",
-      },
-      {
-        subject: "Database",
-        level: "Intermediate",
-      },
-    ];
-    setSubject(SubjectITeach);
-  }, []);
+    if (data) setSubject(data);
+  }, [data]);
   return (
     <>
       <div className="icanteach_information">
@@ -37,7 +59,12 @@ const ICanTeach = () => {
               <div className="subject" key={index}>
                 <span className="title">{sub.subject}</span>
                 <span className="level">{sub.level}</span>
-                <i className="fa-solid fa-xmark"></i>
+                <i
+                  className="fa-solid fa-xmark"
+                  onClick={() => {
+                    removesubject(sub);
+                  }}
+                ></i>
               </div>
             ))}
           </div>

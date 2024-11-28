@@ -14,6 +14,14 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: ["student", "teacher"],
     },
+    studentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Student", // This will reference the Student model
+    },
+    teacherId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Teacher", // This will reference the Teacher model
+    },
     adminAllow: {
       type: Boolean,
       default: true,

@@ -17,16 +17,18 @@ const TeacherAvailabiltyForm = () => {
   const handleSubmit = async () => {
     try {
       console.log(teacherAvailabilty);
-        const { data } = await TeacherAvailabilty(teacherAvailabilty);
-        console.log(data);
+      const { data } = await TeacherAvailabilty(teacherAvailabilty);
+      console.log(data);
     } catch (error) {
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      console.log(error.message);
+      // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }
   };
   return {
     teacherAvailabilty,
     handleSubmit,
     handleChange,
+    setTeacherAvailabilty,
   };
 };
 export default TeacherAvailabiltyForm;

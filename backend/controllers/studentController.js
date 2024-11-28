@@ -30,7 +30,7 @@ const studentInformation = async (req, res) => {
       });
     } else {
       const stdFound = await Student.findOne({ studentId });
-      console.log(stdFound);
+      // console.log(stdFound);
       if (!stdFound) {
         const studentInfo = new Student({
           studentId,
@@ -42,7 +42,15 @@ const studentInformation = async (req, res) => {
           number,
           schoolName,
         });
-        await studentInfo.save();
+        const createdStd = await studentInfo.save();
+        const response = await User.findOneAndUpdate(
+          { _id: studentId },
+          { $set: { studentId: createdStd._id } }, // Use an object to set the field name
+          { upsert: true, new: true }
+        );
+        console.log("response");
+        console.log(response);
+
         res.status(201).json({
           success: true,
           message: "Information update successfully",
@@ -55,7 +63,16 @@ const studentInformation = async (req, res) => {
         stdFound.address = address;
         stdFound.number = number;
         stdFound.schoolName = schoolName;
-        await stdFound.save();
+        const updatedStd = await stdFound.save();
+
+        const response = await User.findOneAndUpdate(
+          { _id: studentId },
+          { $set: { studentId: updatedStd._id } }, // Use an object to set the field name
+          { upsert: true, new: true }
+        );
+        console.log("response");
+        console.log(response);
+
         res.status(201).json({
           success: true,
           message: "Information update successfully",
@@ -84,7 +101,7 @@ const getStudentInformation = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
@@ -160,7 +177,21 @@ const sendInvitation = async (req, res) => {
 const getInvitation = async (req, res) => {
   try {
     const studentId = req.user.id;
-    const response = await Invitation.find({ studentId: studentId });
+    // const response = await Invitation.find({ studentId: studentId });
+    const response = await Invitation.find({ studentId }).populate({
+      path: "teacherId", // Populate student data
+      populate: {
+        path: "teacherId", // Assuming there is a reference in student model
+        model: "Teacher", // Reference model name
+      },
+    });
+    // .populate({
+    //   path: "teacherId", // Populate teacher data
+    //   populate: {
+    //     path: "teacherId", // Assuming there is a reference in teacher model
+    //     model: "Teacher", // Reference model name
+    //   },
+    // });
     if (response) {
       res.status(200).json({
         success: true,
@@ -174,6 +205,7 @@ const getInvitation = async (req, res) => {
     }
     3;
   } catch (error) {
+    console.log(error.message);
     res.status(500).json({
       success: false,
       message: "Internal server error",

@@ -7,10 +7,10 @@ import { useAuth } from "../../context/AuthContext";
 
 const TeacherProfile = () => {
   const [activeLink, setActiveLink] = useState("personalinformation");
-  const {logout} = useAuth()
-  const logoutUser = () =>{
+  const { logout } = useAuth();
+  const logoutUser = () => {
     logout();
-    }
+  };
   return (
     <>
       <Navbar />
@@ -83,24 +83,24 @@ const TeacherProfile = () => {
                   Manage Students
                 </Link>
               </li>
-              <li className={activeLink === "payment" ? "active" : ""}>
+              {/* <li className={activeLink === "payment" ? "active" : ""}>
                 <i className="fa-solid fa-money-check-dollar"></i>{" "}
                 <Link to="payment" onClick={() => setActiveLink("payment")}>
                   Payments
                 </Link>
-              </li>
+              </li> */}
               <li className={activeLink === "review" ? "active" : ""}>
                 <i className="fa-solid fa-comments"></i>{" "}
                 <Link to="reviews" onClick={() => setActiveLink("review")}>
                   Reviews
                 </Link>
               </li>
-              <li className={activeLink === "message" ? "active" : ""}>
+              {/* <li className={activeLink === "message" ? "active" : ""}>
                 <i className="fa-solid fa-comment"></i>{" "}
                 <Link to="messages" onClick={() => setActiveLink("message")}>
                   Messages
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/" onClick={logoutUser}>
                   <i className="fa-solid fa-right-from-bracket"></i>
