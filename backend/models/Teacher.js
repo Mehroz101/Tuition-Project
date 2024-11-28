@@ -79,6 +79,20 @@ const teacherSchema = new mongoose.Schema(
         },
       },
     ],
+    availability: [
+      {
+        start: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+        end: {
+          type: String,
+          required: true,
+          trim: true,
+        },
+      },
+    ],
   },
   {
     timestamps: true,

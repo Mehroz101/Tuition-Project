@@ -155,7 +155,59 @@ const RemoveSubject = async (req, res) => {
     });
   }
 };
-
+const setAvailabilty = async (req, res) => {
+  try {
+    const teacherId = req.user.id;
+    const availability = req.body;
+    const response = await Teacher.findOneAndUpdate(
+      { teacherId },
+      { $set: { availability } },
+      { upsert: true, new: true }
+    );
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+const getAvailabilty = async (req, res) => {
+  try {
+    const teacherId = req.user.id;
+    const response = await Teacher.findOne(
+      { teacherId },
+      { availability: 1, _id: 0 }
+    );
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 const getTeacherInformation = async (req, res) => {
   try {
     const teacherId = req.user.id;
@@ -207,4 +259,6 @@ module.exports = {
   UpdateSubjectInformation,
   GetSubjectInformation,
   RemoveSubject,
+  setAvailabilty,
+  getAvailabilty,
 };

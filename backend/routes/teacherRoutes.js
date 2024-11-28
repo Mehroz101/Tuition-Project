@@ -6,6 +6,8 @@ const {
   UpdateSubjectInformation,
   GetSubjectInformation,
   RemoveSubject,
+  setAvailabilty,
+  getAvailabilty,
   //   Education,
 } = require("../controllers/teacherController");
 
@@ -20,6 +22,8 @@ router.post(
 router.get("/getinformation", authenticateToken, getTeacherInformation);
 router.get("/getsubject", authenticateToken, GetSubjectInformation);
 router.post("/deletesubject", authenticateToken, RemoveSubject);
+router.post("/availabilty", authenticateToken, setAvailabilty);
+router.get("/getavailabilty", authenticateToken, getAvailabilty);
 // router.post("/education", authenticateToken, Education);
 
 module.exports = router;
