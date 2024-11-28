@@ -33,6 +33,8 @@ export const getInvitation = async () => {
   };
   try {
     const response = await axios.get(`${API_URL}/getinvtation`, config);
+    console.log(response.data.data);
+
     return response.data.data;
   } catch (error) {
     console.log(error.message);

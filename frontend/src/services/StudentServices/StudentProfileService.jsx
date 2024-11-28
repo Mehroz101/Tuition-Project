@@ -19,7 +19,6 @@ export const StudentProfile = async (stdData) => {
       stdData,
       config
     );
-    debugger;
     pushNotify(response.status, "Profile", response.data.message);
     return response;
   } catch (error) {
@@ -41,5 +40,8 @@ export const GetStudentProfile = async () => {
     const data = await axios.get(`${API_URL}/getinformation`, config);
     console.log(data.data);
     return data.data;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 };

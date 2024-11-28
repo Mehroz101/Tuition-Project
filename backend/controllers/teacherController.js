@@ -1,25 +1,32 @@
 const Teacher = require("../models/Teacher");
 const Education = require("../models/Education");
+const Invitation = require("../models/Invitation");
+const User = require("../models/User");
 
 const UpdateInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    console.log("Teacher ID:", teacherId);
+    // console.log("Teacher ID:", teacherId);
 
     const updatedData = req.body;
 
     // Use findOneAndUpdate with upsert to create if not found
-    const response = await Teacher.findOneAndUpdate(
+    const createdStd = await Teacher.findOneAndUpdate(
       { teacherId },
       { $set: updatedData },
       { upsert: true, new: true } // upsert: creates a new document if none is found
     );
 
-    if (response) {
+    if (createdStd) {
+      const response = await User.findOneAndUpdate(
+        { _id: teacherId },
+        { $set: { teacherId: createdStd._id } }, // Use an object to set the field name
+        { upsert: true, new: true }
+      );
       res.status(200).json({
         success: true,
         message: "Information updated successfully",
-        data: response, // Optional: Return the updated or created data
+        // Optional: Return the updated or created data
       });
     } else {
       res.status(404).json({
@@ -38,7 +45,7 @@ const UpdateInformation = async (req, res) => {
 const UpdateSubjectInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    console.log("Teacher ID:", teacherId);
+    // console.log("Teacher ID:", teacherId);
 
     const { level, subject } = req.body;
 
@@ -83,7 +90,7 @@ const UpdateSubjectInformation = async (req, res) => {
 const GetSubjectInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    console.log("Teacher ID:", teacherId);
+    // console.log("Teacher ID:", teacherId);
 
     const response = await Teacher.findOne(
       { teacherId },
@@ -112,8 +119,8 @@ const GetSubjectInformation = async (req, res) => {
 const RemoveSubject = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    console.log("Teacher ID:", teacherId);
-    console.log(req.body);
+    // console.log("Teacher ID:", teacherId);
+    // console.log(req.body);
 
     const { subject } = req.body;
 
@@ -230,7 +237,84 @@ const getTeacherInformation = async (req, res) => {
     });
   }
 };
+const getTeacherInvitations = async (req, res) => {
+  try {
+    const teacherId = req.user.id;
 
+    const invitations = await Invitation.find({ teacherId }).populate({
+      path: "studentId", // Populate student data
+      populate: {
+        path: "studentId", // Assuming there is a reference in student model
+        model: "Student", // Reference model name
+      },
+    });
+    if (!invitations || invitations.length === 0) {
+      return res.status(404).json({
+        success: false,
+        message: "No invitations found for this teacher",
+      });
+    }
+    // console.log(invitations);
+
+    res.status(200).json({
+      success: true,
+      data: invitations,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+const acceptInvtation = async (req, res) => {
+  try {
+    const invitationId = req.params.id;
+    const response = await Invitation.findByIdAndUpdate(invitationId, {
+      status: "accepted",
+    });
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+const rejectInvtation = async (req, res) => {
+  try {
+    const invitationId = req.params.id;
+    const response = await Invitation.findByIdAndUpdate(invitationId, {
+      status: "rejected",
+    });
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 const education = async (req, res) => {
   try {
     const teacherId = req.user.id;
@@ -261,4 +345,8 @@ module.exports = {
   RemoveSubject,
   setAvailabilty,
   getAvailabilty,
+  getTeacherInvitations,
+  acceptInvtation,
+  rejectInvtation,
+  // education,
 };

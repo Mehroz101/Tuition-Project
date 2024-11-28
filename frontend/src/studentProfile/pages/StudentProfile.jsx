@@ -6,10 +6,10 @@ import { useAuth } from "../../context/AuthContext";
 
 const StudentProfile = () => {
   const [activeLink, setActiveLink] = useState("personalinformation");
-  const {logout} = useAuth()
-  const logoutUser = () =>{
+  const { logout } = useAuth();
+  const logoutUser = () => {
     logout();
-    }
+  };
   return (
     <>
       <Navbar />
@@ -19,7 +19,7 @@ const StudentProfile = () => {
             <div className="profile_left_nav_img">
               <div className="left_img">
                 <img src={Img} alt="" />
-                <i className="fa-solid fa-camera"></i>
+                {/* <i className="fa-solid fa-camera"></i> */}
               </div>
               <div className="upload_btn">
                 <button>Upload Image</button>
@@ -40,12 +40,12 @@ const StudentProfile = () => {
                     Personal details
                   </Link>
                 </li>
-                <li className={activeLink === "message" ? "active" : ""}>
+                {/* <li className={activeLink === "message" ? "active" : ""}>
                   <i className="fa-solid fa-comment"></i>{" "}
                   <Link to="messages" onClick={() => setActiveLink("message")}>
                     Messages
                   </Link>
-                </li>
+                </li> */}
                 <li className={activeLink === "tuition" ? "active" : ""}>
                   <i className="fa-solid fa-hand-point-up"></i>{" "}
                   <Link to="tuitions" onClick={() => setActiveLink("tuition")}>
@@ -53,8 +53,10 @@ const StudentProfile = () => {
                   </Link>
                 </li>
                 <li>
-                <i className="fa-solid fa-right-from-bracket"></i>
-                  <Link to="/" onClick={logoutUser}>Logout</Link>
+                  <i className="fa-solid fa-right-from-bracket"></i>
+                  <Link to="/" onClick={logoutUser}>
+                    Logout
+                  </Link>
                 </li>
               </ul>
             </div>

@@ -16,7 +16,6 @@ export const Signin = async (userData) => {
   // };
   try {
     const response = await axios.post(`${API_URL}/login`, userData);
-    debugger;
     pushNotify(response.status, "Login", response.data.message);
     console.log(response);
     return response;
