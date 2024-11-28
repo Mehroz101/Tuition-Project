@@ -1,4 +1,6 @@
 import React from "react";
+import { formatDate } from "../../utils/functions";
+import { Link } from "react-router-dom";
 
 const DegreeDetailCard = ({ degree }) => {
   return (
@@ -9,22 +11,25 @@ const DegreeDetailCard = ({ degree }) => {
           <div className="degree_detail">
             <div className="institute_name">
               <i className="fa-solid fa-building"></i>
-              <span>{degree.universityName}</span>
+              <span>{degree.instituteName}</span>
             </div>
-            <div className="institute_location">
+            {/* <div className="institute_location">
               <i className="fa-solid fa-location-dot"></i>
               <span>{degree.location}</span>
-            </div>
+            </div> */}
             <div className="institute_date">
               <i className="fa-solid fa-calendar-days"></i>
               <span>
-                {degree.startDate} - {degree.endDate}
+                {formatDate(degree.startDate)} - {formatDate(degree.endDate)}
               </span>
             </div>
           </div>
           <div className="degree_btn">
-            <div className="edit">
+            <div className="edit" >
+            <Link to={degree._id}>
               <i className="fa-solid fa-pen-to-square"></i>
+
+            </Link>
             </div>
             <div className="delete">
               <i className="fa-solid fa-trash"></i>

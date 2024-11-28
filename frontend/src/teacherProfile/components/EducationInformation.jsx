@@ -1,41 +1,36 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import DegreeDetailCard from "./DegreeDetailCard";
+import { useQuery } from "@tanstack/react-query";
+import { GetTeacherEducation } from "../../services/TeacherServices/TeacherEducationService";
 
 const EducationInformation = () => {
   const [education, setEducation] = useState();
-  useEffect(() => {
-    const educations = [
-      {
-        degreeName: "Bachelor of Science in Information Technology",
-        universityName: "BZU University",
-        location:"Multan",
-        startDate: "December 2020",
-        endDate: "June 2024",
-        description:
-          "A comprehensive four-year degree program that covers topics in software development, web technologies, databases, networking, and information security. The curriculum also includes hands-on projects and internships.",
-      },
-      {
-        degreeName: "Master of Science in Computer Science",
-        universityName: "National University of Computer and Emerging Sciences",
-        location:"Karachi",
-        startDate: "December 2020",
-        endDate: "June 2024",
-        description:
-          "A two-year postgraduate program focused on advanced topics in machine learning, data science, artificial intelligence, and system architecture. The program emphasizes research and development in emerging technologies.",
-      },
-      {
-        degreeName: "Bachelor of Business Administration",
-        universityName: "Lahore School of Economics",
-        location:"Lahore",
-        startDate: "December 2020",
-        endDate: "June 2024",
-        description:
-          "An undergraduate degree in business administration, covering topics in management, marketing, finance, and entrepreneurship. The program also includes case studies, group projects, and internships.",
-      },
-    ];
-    setEducation(educations);
-  }, []);
+    const { data:educations, isLoading, isError } = useQuery({
+    queryKey: ["studentProfile"],
+    queryFn: GetTeacherEducation,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.error("Error fetching teacher education:", error.message);
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+    onsettled: () => {
+      console.log("fetching teacher detail");
+    },
+  });
+  // useEffect(()=>{
+  //   if(educations){
+  //     console.log(educations)
+  //     setEducation(educations)
+  //     }
+  // },[])
+
+ 
+ if(isLoading) {
+  return <div>Loading...</div>;
+ }
   return (
     <>
       <div className="contact_information">
@@ -44,7 +39,7 @@ const EducationInformation = () => {
           <Link to="/profile/educationinformation/addnew">Add new</Link>
         </div>
         <div className="education_details_container">
-          {education?.map((edu,index) => (
+          {educations?.map((edu,index) => (
             <DegreeDetailCard key={index} degree={edu} />
           ))}
 

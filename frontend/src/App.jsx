@@ -55,6 +55,10 @@ const AppRoute = () => {
             element={<EducationInformation />}
           />
           <Route
+            path="educationinformation/:educationId"
+            element={<AddNewEducation />}
+          />
+          <Route
             path="educationinformation/addnew"
             element={<AddNewEducation />}
           />

@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { pushNotify } from "../../errorHandler/Notify";
-import { StudentProfile } from "../../services/StudentServices/StudentProfileService";
 import { TeacherEducation } from "../../services/TeacherServices/TeacherEducationService";
+import { useNavigate } from "react-router-dom";
 
 const TeacherEducationForm = () => {
   const [teacherEducation, setTeacherEducation] = useState({
     degreeName: "",
     instituteName: "",
     startDate: "",
-    endData: "",
+    endDate: "",
     description: "",
   });
+ const navigate = useNavigate()
   const handleChange = (e) => {
     setTeacherEducation((prev) => ({
       ...prev,
@@ -20,8 +21,11 @@ const TeacherEducationForm = () => {
   const handleSubmit = async () => {
     try {
       console.log(teacherEducation);
-      const { data } = await TeacherEducation(teacherEducation);
-      console.log(data);
+      const data  = await TeacherEducation(teacherEducation);
+      // console.log(data);
+      if(data === true){
+        navigate("/profile/educationinformation")
+      }
     } catch (error) {
       // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }
