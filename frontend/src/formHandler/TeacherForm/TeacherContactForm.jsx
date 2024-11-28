@@ -19,16 +19,15 @@ const TeacherContactForm = () => {
   const handleSubmit = async () => {
     try {
       console.log(teacherContact);
-      const { data } = await TeacherContact(teacherContact);
+      const data = await TeacherContact(teacherContact);
       console.log(data);
-    } catch (error) {
-      pushNotify(400, "SORRY", "Something wents wrong. Try again later");
-    }
+    } catch (error) {}
   };
   return {
     teacherContact,
     handleSubmit,
     handleChange,
+    setTeacherContact,
   };
 };
 export default TeacherContactForm;

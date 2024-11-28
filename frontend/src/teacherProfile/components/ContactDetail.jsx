@@ -1,24 +1,49 @@
 import React, { useEffect, useState } from "react";
+import TeacherContactForm from "../../formHandler/TeacherForm/TeacherContactForm";
+import { pushNotify } from "../../errorHandler/Notify";
+import { useQuery } from "@tanstack/react-query";
+import { GetContactDetail } from "../../services/TeacherServices/TeacherContactService";
 
 const ContactDetail = () => {
-  const [contact, setContact] = useState({
-    number: 3061756719,
-    email: "mehrozfarooq127@gmai.com",
-    whatsapp: 30489056719,
-    websiteLink: "https://www.example.com",
+  const { teacherContact, handleSubmit, handleChange, setTeacherContact } =
+    TeacherContactForm();
+
+  const { data, isLoading, isError } = useQuery({
+    queryKey: ["studentProfile"],
+    queryFn: GetContactDetail,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+    onError: (error) => {
+      console.error("Error fetching student profile:", error.message);
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+    onsettled: () => {
+      console.log("fetching student profile");
+    },
   });
-  const handleChange = (e) => {
-    setContact((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+
+  useEffect(() => {
+    if (data) {
+      setTeacherContact({
+        number: data.number || "",
+        email: data.email || "",
+        whatsapp: data.whatsapp || "",
+        website: data.website || "",
+      });
+    }
+  }, [data, setTeacherContact]);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    handleSubmit();
   };
   return (
     <>
       <div className="personal_details">
         <h3 className="right_box_heading">Contact details</h3>
         <div className="personal_details_form">
-          <form action="">
+          <form onSubmit={handleFormSubmit}>
             <div className="combo_box">
               <div className="input_box">
                 <label htmlFor="">Contact number</label>
@@ -27,7 +52,7 @@ const ContactDetail = () => {
                   <input
                     type="number"
                     name="number"
-                    value={contact?.number}
+                    value={teacherContact?.number}
                     onChange={handleChange}
                     placeholder="Your contact number"
                   />
@@ -40,7 +65,7 @@ const ContactDetail = () => {
                   <input
                     type="email"
                     name="email"
-                    value={contact?.email}
+                    value={teacherContact?.email}
                     onChange={handleChange}
                     placeholder="Your email account"
                   />
@@ -55,7 +80,7 @@ const ContactDetail = () => {
                   <input
                     type="number"
                     name="whatsapp"
-                    value={contact?.whatsapp}
+                    value={teacherContact?.whatsapp}
                     onChange={handleChange}
                     placeholder="Whatsapp number"
                   />
@@ -67,8 +92,8 @@ const ContactDetail = () => {
                   <i className="fa-solid fa-link"></i>
                   <input
                     type="text"
-                    name="websiteLink"
-                    value={contact?.websiteLink}
+                    name="website"
+                    value={teacherContact?.website}
                     onChange={handleChange}
                     placeholder="https://"
                   />

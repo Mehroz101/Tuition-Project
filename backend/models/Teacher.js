@@ -44,6 +44,26 @@ const teacherSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    number: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    whatsapp: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    website: {
+      type: String,
+      required: true,
+      trim: true,
+    },
   },
   {
     timestamps: true,
