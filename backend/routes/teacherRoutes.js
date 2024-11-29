@@ -3,7 +3,7 @@ const authenticateToken = require("../middleware/authMiddleware");
 const {
   UpdateInformation,
   getTeacherInformation,
-  AddEducation,
+  // AddEducation,
   getEducation,
   getSpecificEducation,
   UpdateSubjectInformation,
@@ -14,6 +14,9 @@ const {
   getTeacherInvitations,
   acceptInvtation,
   rejectInvtation,
+  getTeacherList,
+  getTeacherDetail,
+  getTeacherEducation
   //   Education,
 } = require("../controllers/teacherController");
 
@@ -25,10 +28,17 @@ router.post(
   authenticateToken,
   UpdateSubjectInformation
 );
+router.get("/teacherList", getTeacherList);
+router.get("/teacherdetail/:teacherId", getTeacherDetail);
 router.get("/getinformation", authenticateToken, getTeacherInformation);
-router.post("/education", authenticateToken, AddEducation);
+// router.post("/education", authenticateToken, AddEducation);
 router.get("/geteducation", authenticateToken, getEducation);
-router.get("/geteducation/:educationId", authenticateToken, getSpecificEducation);
+router.get(
+  "/geteducation/:educationId",
+  authenticateToken,
+  getSpecificEducation
+);
+router.get("/teachereducationdetail/:teacherId", getTeacherEducation);
 router.get("/getsubject", authenticateToken, GetSubjectInformation);
 router.post("/deletesubject", authenticateToken, RemoveSubject);
 router.post("/availabilty", authenticateToken, setAvailabilty);
