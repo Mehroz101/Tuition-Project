@@ -2,7 +2,7 @@ import React from "react";
 import teacherImg from "../assets/teacher-1.jpg";
 import { Link } from "react-router-dom";
 
-const TeacherDetailPageCard = () => {
+const TeacherDetailPageCard = ({ teacher }) => {
   const teacher_id = 123;
   return (
     <>
@@ -12,8 +12,10 @@ const TeacherDetailPageCard = () => {
         <div className="teacher-card-left">
           <img src={teacherImg} className="teacher-image" />
           <div className="teacher-info">
-            <h3>Mehroz Farooq</h3>
-            <p>Spreading knowledge everywhere that's all I do</p>
+            <h3>
+              {teacher?.fName} {teacher?.lName}
+            </h3>
+            <p>{teacher?.tagline}</p>
             <div className="rating_location">
               <p className="teacher-reviews">
                 <span className="rating">5.0</span>
@@ -23,12 +25,14 @@ const TeacherDetailPageCard = () => {
               <p className="teacher-satisfaction">
                 <i className="fa-solid fa-check"></i>
                 <span className="satisfaction_rate">
-                  <span className="rate">95%</span> Job Satisfaction
+                  {/* <span className="rate">95%</span> Job Satisfaction */}
+                  {teacher?.availability[0]?.start} -
+                  {teacher?.availability[0]?.end}
                 </span>
               </p>
               <p className="teacher-location">
                 <i className="fa-solid fa-location-dot"></i>
-                <address>Mian Channu</address>
+                <address>{teacher?.country}</address>
               </p>
             </div>
           </div>
@@ -37,40 +41,53 @@ const TeacherDetailPageCard = () => {
         {/* Right Part */}
         <div className="teacher-card-right">
           <h4>Starting at</h4>
-          <p className="teacher-price">$27/hr</p>
+          <p className="teacher-price">${teacher?.fee}/hr</p>
         </div>
       </div>
 
       {/* Middle Row: Description and Action Buttons */}
       <div className="teacher-card-middle">
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt
-          accusamus adipisci repellat voluptatum. Illum animi cumque beatae
-          voluptas quasi aperiam et aliquam. Facilis fugit quis libero cum hic
-          atque exercitationem?
-        </p>
+        <p>{teacher?.description}</p>
         <div className="teacher-offers">
           <p>You can get teacher service direct at</p>
           <div className="offers">
-            <span>
-              <i className="fa-solid fa-house home"></i> My Home
-            </span>
-            <span>
-              <i className="fa-solid fa-location-dot location"></i>Student Home
-            </span>
-            <span>
-              <i className="fa-solid fa-video online"></i> Online
-            </span>
+            {teacher?.online ? (
+              <span>
+                <i className="fa-solid fa-video online"></i> Online
+              </span>
+            ) : (
+              ""
+            )}
+            {teacher?.studentHome ? (
+              <span>
+                <i className="fa-solid fa-location-dot location"></i>Student
+                Home
+              </span>
+            ) : (
+              ""
+            )}
+            {teacher?.teacherHome ? (
+              <span>
+                <i className="fa-solid fa-house home"></i> My Home
+              </span>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
 
       {/* Bottom Row: Let's Chat and View Profile Buttons */}
       <div className="teacher-card-bottom">
-        <Link className="chat-button">
+        {/* <Link className="chat-button">
           <i className="fa-solid fa-comment-dots"></i> Let's Chat
+        </Link> */}
+        <Link
+          className="profile-button"
+          to={`/sendinvitation/${teacher?.teacherId}`}
+        >
+          Book a tuition
         </Link>
-        <Link className="profile-button" to={`/sendinvitation/${teacher_id}`}>Book a tuition</Link>
       </div>
     </>
   );

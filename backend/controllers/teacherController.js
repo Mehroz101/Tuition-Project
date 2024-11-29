@@ -380,13 +380,32 @@ const getEducation = async (req, res) => {
     });
   }
 };
+const getTeacherEducation = async (req, res) => {
+  try {
+    const { teacherId } = req.params;
+    console.log(teacherId);
+    const response = await Teacher.findById(teacherId);
+    const educations = await Education.find({ teacherId: response.teacherId });
+    console.log(educations);
+
+    res.status(200).json({
+      success: true,
+      data: educations,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 const getSpecificEducation = async (req, res) => {
   try {
     const { educationId } = req.params;
     if (educationId) {
       const response = await Education.findById(educationId);
       if (response) {
-        console.log(response)
+        console.log(response);
         res.status(200).json({
           success: true,
           data: response,
@@ -406,7 +425,44 @@ const getSpecificEducation = async (req, res) => {
     });
   }
 };
+const getTeacherList = async (req, res) => {
+  try {
+    const response = await Teacher.find();
+    res.status(200).json({
+      success: true,
+      data: response,
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
 
+const getTeacherDetail = async (req, res) => {
+  try {
+    const { teacherId } = req.params;
+    const response = await Teacher.findById(teacherId);
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 
 module.exports = {
   UpdateInformation,
@@ -421,5 +477,12 @@ module.exports = {
   rejectInvtation,
   education,
   getSpecificEducation,
-  getEducation
+  getEducation,
+  getTeacherList,
+  // AddEducation,
+  getEducation,
+  getSpecificEducation,
+  getTeacherDetail,
+  getTeacherEducation,
+  // education,
 };

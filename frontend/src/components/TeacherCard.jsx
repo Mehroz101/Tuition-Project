@@ -3,16 +3,19 @@
 import React from "react";
 import "../styles/TeacherCard.css"; // Importing CSS for the component
 import teacherImg from "../assets/teacher-1.jpg";
-const TeacherCard = () => {
+import { Link } from "react-router-dom";
+const TeacherCard = ({ key, teacher }) => {
   return (
-    <div className="teacher-card">
+    <div className="teacher-card" key={key}>
       {/* Top Row: Left and Right Parts */}
       <div className="teacher-card-top">
         {/* Left Part */}
         <div className="teacher-card-left">
           <img src={teacherImg} className="teacher-image" />
           <div className="teacher-info">
-            <h3>Mehroz Farooq</h3>
+            <h3>
+              {teacher?.fName} {teacher?.lName}
+            </h3>
             <div className="rating_location">
               <p className="teacher-reviews">
                 <span className="rating">5.0</span>
@@ -21,7 +24,7 @@ const TeacherCard = () => {
               </p>
               <p className="teacher-location">
                 <i className="fa-solid fa-location-dot"></i>
-                <address>Mian Channu</address>
+                <address>{teacher?.country}</address>
               </p>
             </div>
           </div>
@@ -30,40 +33,50 @@ const TeacherCard = () => {
         {/* Right Part */}
         <div className="teacher-card-right">
           <h4>Starting at</h4>
-          <p className="teacher-price">$27/hr</p>
+          <p className="teacher-price">${teacher?.fee}/hr</p>
         </div>
       </div>
 
       {/* Middle Row: Description and Action Buttons */}
       <div className="teacher-card-middle">
-        <p>
-          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt
-          accusamus adipisci repellat voluptatum. Illum animi cumque beatae
-          voluptas quasi aperiam et aliquam. Facilis fugit quis libero cum hic
-          atque exercitationem?
-        </p>
+        <p>{teacher?.description}</p>
         <div className="teacher-offers">
           <p>You can get teacher service direct at</p>
           <div className="offers">
-            <span>
-              <i className="fa-solid fa-house home"></i> My Home
-            </span>
-            <span>
-              <i className="fa-solid fa-location-dot location"></i>Student Home
-            </span>
-            <span>
-              <i className="fa-solid fa-video online"></i> Online
-            </span>
+            {teacher?.online ? (
+              <span>
+                <i className="fa-solid fa-video online"></i> Online
+              </span>
+            ) : (
+              ""
+            )}
+            {teacher?.studentHome ? (
+              <span>
+                <i className="fa-solid fa-location-dot location"></i>Student
+                Home
+              </span>
+            ) : (
+              ""
+            )}
+            {teacher?.teacherHome ? (
+              <span>
+                <i className="fa-solid fa-house home"></i> My Home
+              </span>
+            ) : (
+              ""
+            )}
           </div>
         </div>
       </div>
 
       {/* Bottom Row: Let's Chat and View Profile Buttons */}
       <div className="teacher-card-bottom">
-        <button className="chat-button">
+        {/* <button className="chat-button">
           <i className="fa-solid fa-comment-dots"></i> Let's Chat
-        </button>
-        <button className="profile-button">View Profile</button>
+        </button> */}
+        <Link to={`/teacherdetail/${teacher?._id}`}>
+          <button className="profile-button">View Profile</button>
+        </Link>
       </div>
     </div>
   );
