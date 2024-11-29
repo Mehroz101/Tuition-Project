@@ -1,6 +1,8 @@
 const Invitation = require("../models/Invitation");
 const Student = require("../models/Student");
 const User = require("../models/User");
+const fs = require('fs');
+const path = require('path');
 
 const studentInformation = async (req, res) => {
   try {
@@ -235,10 +237,63 @@ const cancelInvitation = async (req, res) => {
   }
 };
 
+const uploadImage = async (req, res) => {
+  try {
+    console.log(req.file);
+    console.log(req.user.id);
+    
+    const studentId = req.user.id;
+    
+    // Find the user to check if an image already exists
+    const user = await Student.findOne({ studentId });
+    
+    if (user) {
+      // Check if the user already has an image
+      if (user.image !== null) {
+        // Construct the path to the existing image
+        const imagePath = path.join(__dirname, '../uploads', user.image); // Adjust the path as necessary
+        if(imagePath){
+          fs.unlink(imagePath, (err) => {
+            if (err) {
+              console.error("Error deleting the image:", err);
+              return res.status(500).json({
+                success: false,
+                message: "Failed to delete existing image"
+              });
+            }
+          });
+        }
+        // Delete the existing image
+        
+      }
+
+      // Update the user's image with the new one
+      user.image = req.file.filename;
+      await user.save();
+
+      res.status(200).json({
+        success: true,
+        message: "Image updated successfully"
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "User  not found"
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error"
+    });
+  }
+};
 module.exports = {
   studentInformation,
   sendInvitation,
   getInvitation,
   getStudentInformation,
   cancelInvitation,
+  uploadImage
 };

@@ -3,7 +3,7 @@ const authenticateToken = require("../middleware/authMiddleware");
 const {
   UpdateInformation,
   getTeacherInformation,
-  AddEducation,
+  education,
   getEducation,
   getSpecificEducation,
   UpdateSubjectInformation,
@@ -26,7 +26,7 @@ router.post(
   UpdateSubjectInformation
 );
 router.get("/getinformation", authenticateToken, getTeacherInformation);
-router.post("/education", authenticateToken, AddEducation);
+router.post("/education", authenticateToken, education);
 router.get("/geteducation", authenticateToken, getEducation);
 router.get("/geteducation/:educationId", authenticateToken, getSpecificEducation);
 router.get("/getsubject", authenticateToken, GetSubjectInformation);

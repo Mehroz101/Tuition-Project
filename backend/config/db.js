@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const URI = process.env.MOMGO_URI || "mongodb://localhost:27017/tuition"
+const URI = process.env.MONGO_URI || "mongodb://localhost:27017/tuition"
 let isDatabaseConnected = false;
  const connectDB =async () =>{
     try {

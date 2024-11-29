@@ -11,7 +11,7 @@ const AddNewEducation = () => {
   if (educationId) {
     const { data, isLoading, isError } = useQuery({
       queryKey: ["studentProfile"],
-      queryFn:()=> GetEducationDetail(educationId),
+      queryFn: () => GetEducationDetail(educationId),
       onSuccess: (data) => {
         console.log(data);
       },
@@ -26,25 +26,21 @@ const AddNewEducation = () => {
 
     useEffect(() => {
       if (data) {
-        console.log(data)
+        console.log(typeof new Date(data?.startDate));
         setTeacherEducation({
-          degreeName: data.degreeName || "",
-          description: data.description || "",
-          instituteName: data.instituteName || "",
-          startDate: new Date(data.startDate) ,
-          endDate: data.endDate ,
+          degreeName: data?.degreeName || "",
+          description: data?.description || "",
+          instituteName: data?.instituteName || "",
+          startDate: data?.startDate
+            ? new Date(data.startDate).toISOString().split("T")[0]
+            : "",
+          endDate: data?.endDate
+            ? new Date(data.endDate).toISOString().split("T")[0]
+            : "",
         });
       }
     }, [data]);
   }
-  // "_id": "67473df0f37781bf74ba302d",
-  //       "teacherId": "6746cdd3a93d0f3d94a51d7a",
-  //       "degreeName": "BS information Technology",
-  //       "description": "learn web technology like MERN stack here and do some internships, course and jobs during my degree period",
-  //       "instituteName": "Emerson University Multan",
-  //       "startDate": "2020-11-20T00:00:00.000Z",
-  //       "endDate":
-
   const handleFormSubmit = (e) => {
     e.preventDefault();
     handleSubmit();

@@ -419,5 +419,7 @@ module.exports = {
   getTeacherInvitations,
   acceptInvtation,
   rejectInvtation,
-  // education,
+  education,
+  getSpecificEducation,
+  getEducation
 };
