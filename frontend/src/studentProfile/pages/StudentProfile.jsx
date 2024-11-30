@@ -25,7 +25,6 @@ console.log("called")
       const formData = new FormData();
       formData.append("image", file);
       formData.append("studentId", user?.id); // Attach student ID dynamically
-
       try {
         const token = localStorage.getItem("usertoken");
         const config = {
