@@ -22,7 +22,6 @@ const StudentProfile = () => {
       setImage(file);
       setPreview(URL.createObjectURL(file));
 console.log("called")
-      // Automatically upload the image after selecting
       const formData = new FormData();
       formData.append("image", file);
       formData.append("studentId", user?.id); // Attach student ID dynamically
