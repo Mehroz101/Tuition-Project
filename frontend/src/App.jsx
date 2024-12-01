@@ -89,7 +89,6 @@ const AppRoute = () => {
             path="profileInformation"
             element={<ProfileInformation />}
           />
-
           <Route path="messages" element={<MessagingAppStd />} />
           <Route path="tuitions" element={<Tuitions />} />
         </Route>
