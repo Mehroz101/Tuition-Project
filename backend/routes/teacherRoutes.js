@@ -17,9 +17,11 @@ const {
   rejectInvtation,
   getTeacherList,
   getTeacherDetail,
-  getTeacherEducation
+  getTeacherEducation,
+  uploadImage
   //   Education,
 } = require("../controllers/teacherController");
+const uploadMiddleware = require("../middleware/uploadMiddleware");
 
 const router = express.Router();
 
@@ -48,6 +50,8 @@ router.get("/getavailabilty", authenticateToken, getAvailabilty);
 router.get("/getteacherinvtation", authenticateToken, getTeacherInvitations);
 router.post("/acceptinvtation/:id", authenticateToken, acceptInvtation);
 router.post("/rejectinvtation/:id", authenticateToken, rejectInvtation);
+router.post("/upload", authenticateToken,uploadMiddleware, uploadImage);
+
 // router.post("/education", authenticateToken, Education);
 
 module.exports = router;
