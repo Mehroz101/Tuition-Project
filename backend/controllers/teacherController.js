@@ -6,7 +6,6 @@ const User = require("../models/User");
 const UpdateInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    // console.log("Teacher ID:", teacherId);
 
     const updatedData = req.body;
 
