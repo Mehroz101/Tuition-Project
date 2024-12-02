@@ -9,7 +9,6 @@ const UpdateInformation = async (req, res) => {
 
     const updatedData = req.body;
 
-    // Use findOneAndUpdate with upsert to create if not found
     const createdStd = await Teacher.findOneAndUpdate(
       { teacherId },
       { $set: updatedData },
