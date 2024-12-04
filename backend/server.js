@@ -40,9 +40,7 @@ app.use("/api/user", authRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/teacher", teacherRoutes);
 
-// app.get("/", (req, res) => {
-//   res.send("running");
-// });
+
 app.listen(PORT, (req, res) => {
   console.log(`backend running on port ${PORT}`);
 });
