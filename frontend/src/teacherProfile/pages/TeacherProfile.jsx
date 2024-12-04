@@ -7,8 +7,10 @@ import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { GetTeacherProfile } from "../../services/TeacherServices/TeacherProfileService";
 import axios from "axios";
+
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/teacher`;
+
 const TeacherProfile = () => {
   const [activeLink, setActiveLink] = useState("personalinformation");
   const { user, logout } = useAuth();
@@ -21,71 +23,65 @@ const TeacherProfile = () => {
     if (file) {
       setImage(file);
       setPreview(URL.createObjectURL(file));
-      console.log("called");
-      // Automatically upload the image after selecting
-      const formData = new FormData();
-      formData.append("image", file);
-      formData.append("studentId", user?.id); // Attach student ID dynamically
 
       try {
+        const formData = new FormData();
+        formData.append("image", file);
+        formData.append("teacherId", user?.id); // Attach teacher ID dynamically
+
         const token = localStorage.getItem("usertoken");
         const config = {
           headers: {
             "Content-Type": "multipart/form-data",
-            Authorization: "Bearer " + token,
+            Authorization: `Bearer ${token}`,
           },
         };
+
         const response = await axios.post(
           `${API_URL}/upload`,
           formData,
           config
         );
-        refetchdetail();
-        pushNotify(response.status, "Image", response.data.message);
-        setPreview(response.data.imageUrl || null); // Update preview with uploaded image
+        refetchDetails();
+
+        alert(`Image uploaded successfully: ${response.data.message}`);
+        setPreview(response.data.imageUrl || null);
         setImage(null);
       } catch (error) {
-        console.error(error);
-        pushNotify(error.response.status, "Image", error.response.data.message);
-
-        alert("Image upload failed.");
+        console.error("Error uploading image:", error);
+        alert("Image upload failed. Please try again.");
       }
     }
   };
+
   const {
     data,
     isLoading,
     isError,
-    refetch: refetchdetail,
+    refetch: refetchDetails,
   } = useQuery({
-    queryKey: ["studentProfile"],
+    queryKey: ["TeacherProfile"],
     queryFn: GetTeacherProfile,
     onSuccess: (data) => {
-      console.log(data);
+      if (data?.image) {
+        setImage(data.image);
+        setPreview(data.image);
+      }
     },
     onError: (error) => {
-      console.error("Error fetching student profile:", error.message);
-      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
-    },
-    onsettled: () => {
-      console.log("fetching student profile");
+      console.error("Error fetching teacher profile:", error.message);
+      alert("Error fetching profile. Please try again.");
     },
   });
-  useEffect(() => {
-    if (data) {
-      console.log(data.image);
-      setImage(data?.image);
-      setPreview(data?.image); // Update preview with uploaded image
-    }
-  }, [data]);
 
-  // Handle button click to trigger file input
   const handleButtonClick = () => {
     document.getElementById("imageInput").click();
   };
+
   const logoutUser = () => {
     logout();
   };
+
   return (
     <>
       <Navbar />
@@ -93,22 +89,20 @@ const TeacherProfile = () => {
         <div className="profile_left_nav">
           <div className="profile_left_nav_img">
             <div className="left_img">
-              {/* Display preview image or default */}
-              <img
-                src={`http://localhost:5000/uploads/${image}`}
-                alt="Profile Preview"
-              />
+              {preview ? (
+                <img src={preview} alt="Profile Preview" />
+              ) : (
+                <img src={Img} alt="Default Profile" />
+              )}
             </div>
             <div className="upload_btn">
-              {/* Hidden file input */}
               <input
                 type="file"
                 id="imageInput"
                 name="imagebtn"
                 style={{ display: "none" }}
-                onChange={handleFileChange} // Handle file change and upload
+                onChange={handleFileChange}
               />
-              {/* Single button for selecting and uploading */}
               <button type="button" onClick={handleButtonClick}>
                 Select & Upload Image
               </button>
@@ -172,24 +166,12 @@ const TeacherProfile = () => {
                   Manage Students
                 </Link>
               </li>
-              {/* <li className={activeLink === "payment" ? "active" : ""}>
-                <i className="fa-solid fa-money-check-dollar"></i>{" "}
-                <Link to="payment" onClick={() => setActiveLink("payment")}>
-                  Payments
-                </Link>
-              </li> */}
               <li className={activeLink === "review" ? "active" : ""}>
-                <i className="fa-solid fa-comments"></i>{" "}
+                <i className="fa-solid fa-comments"></i>
                 <Link to="reviews" onClick={() => setActiveLink("review")}>
                   Reviews
                 </Link>
               </li>
-              {/* <li className={activeLink === "message" ? "active" : ""}>
-                <i className="fa-solid fa-comment"></i>{" "}
-                <Link to="messages" onClick={() => setActiveLink("message")}>
-                  Messages
-                </Link>
-              </li> */}
               <li>
                 <Link to="/" onClick={logoutUser}>
                   <i className="fa-solid fa-right-from-bracket"></i>
