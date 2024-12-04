@@ -83,7 +83,6 @@ const TeacherProfile = () => {
   const handleButtonClick = () => {
     document.getElementById("imageInput").click();
   };
-
   const logoutUser = () => {
     logout();
   };

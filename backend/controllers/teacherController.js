@@ -2,7 +2,8 @@ const Teacher = require("../models/Teacher");
 const Education = require("../models/Education");
 const Invitation = require("../models/Invitation");
 const User = require("../models/User");
-
+const path = require("path");
+const fs = require("fs");
 const UpdateInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
@@ -425,16 +426,16 @@ const getSpecificEducation = async (req, res) => {
 };
 const getTeacherList = async (req, res) => {
   try {
-    const response = await Teacher.find();
+    const teachers = await Teacher.find();
     res.status(200).json({
       success: true,
-      data: response,
+      data: teachers,
     });
   } catch (error) {
-    console.log(error.message);
+    console.error("Error fetching teacher list:", error.message);
     res.status(500).json({
       success: false,
-      message: "Internal Server Error",
+      message: "Internal server error",
     });
   }
 };
@@ -463,55 +464,57 @@ const getTeacherDetail = async (req, res) => {
 };
 const uploadImage = async (req, res) => {
   try {
-
-    
     const teacherId = req.user.id;
-    
-    // Find the user to check if an image already exists
-    const user = await Teacher.findOne({ teacherId });
-    console.log(user)
-    if (user) {
-      // Check if the user already has an image
-      if (user.image !== null) {
-        // Construct the path to the existing image
-        const imagePath = path.join(__dirname, '../uploads', user.image); // Adjust the path as necessary
-        if(imagePath){
-          fs.unlink(imagePath, (err) => {
-            if (err) {
-              console.error("Error deleting the image:", err);
-              return res.status(500).json({
-                success: false,
-                message: "Failed to delete existing image"
-              });
-            }
-          });
+    const teacher = await Teacher.findOne({ teacherId });
+
+    if (teacher) {
+      // Check if the teacher already has an image
+      if (teacher.image) {
+        const imagePath = path.join(__dirname, "../uploads", teacher.image);
+        try {
+          // Check if the image file exists before trying to delete it
+          await fs.promises.access(imagePath, fs.constants.F_OK);
+          await fs.promises.unlink(imagePath); // Delete the existing image
+        } catch (err) {
+          if (err.code === "ENOENT") {
+            // If the file doesn't exist, skip the deletion step
+            console.log("Image file not found, skipping deletion.");
+          } else {
+            // Handle other types of errors, such as permission issues
+            console.error("Error deleting the image:", err);
+            return res.status(500).json({
+              success: false,
+              message: "Failed to delete existing image",
+            });
+          }
         }
-        // Delete the existing image
-        
       }
 
-      // Update the user's image with the new one
-      user.image = req.file.filename;
-      await user.save();
+      // Set the new image filename
+      teacher.image = req.file.filename;
+
+      // Save the updated teacher document with the new image
+      await teacher.save();
 
       res.status(200).json({
         success: true,
-        message: "Image updated successfully"
+        message: "Image updated successfully",
       });
     } else {
       res.status(404).json({
         success: false,
-        message: "User  not found"
+        message: "User not found",
       });
     }
   } catch (error) {
-    console.log(error);
+    console.error(error);
     res.status(500).json({
       success: false,
-      message: "Internal server error"
+      message: "Internal server error",
     });
   }
 };
+
 module.exports = {
   UpdateInformation,
   getTeacherInformation,
@@ -532,6 +535,6 @@ module.exports = {
   getSpecificEducation,
   getTeacherDetail,
   getTeacherEducation,
-  uploadImage
+  uploadImage,
   // education,
 };
