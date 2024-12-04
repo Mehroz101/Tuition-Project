@@ -14,7 +14,6 @@ const PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
 app.use("/uploads", express.static("uploads")); // Serve uploaded files
-
 const io = socketIo(server, {
   cors: {
     origin: "*",
