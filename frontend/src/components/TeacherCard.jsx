@@ -24,7 +24,7 @@ const TeacherCard = ({ key, teacher }) => {
               </p>
               <p className="teacher-location">
                 <i className="fa-solid fa-location-dot"></i>
-                <address>{teacher?.country}</address>
+                <address>{teacher?.city}</address>
               </p>
             </div>
           </div>

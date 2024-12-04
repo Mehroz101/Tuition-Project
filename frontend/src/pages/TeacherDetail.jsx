@@ -82,37 +82,39 @@ const TeacherDetail = () => {
                     {teacherDetail?.description}
                   </p>
                 </div>
-                <div className="education_section">
-                  <h2 className="description_box_heading">Education</h2>
-                  {teacherEducationDetail?.map((degree) => (
-                    <div className="degree">
-                      <p className="education_level">
-                        <i className="fa-solid fa-graduation-cap"></i>
-                        <span>{degree?.degreeName}</span>
-                      </p>
-                      <div className="education_info">
-                        <div className="university_name">
-                          <i className="fa-solid fa-school"></i>
-                          <p>{degree?.instituteName}</p>
+                {teacherEducationDetail?.length > 0 && (
+                  <div className="education_section">
+                    <h2 className="description_box_heading">Education</h2>
+                    {teacherEducationDetail?.map((degree) => (
+                      <div className="degree">
+                        <p className="education_level">
+                          <i className="fa-solid fa-graduation-cap"></i>
+                          <span>{degree?.degreeName}</span>
+                        </p>
+                        <div className="education_info">
+                          <div className="university_name">
+                            <i className="fa-solid fa-school"></i>
+                            <p>{degree?.instituteName}</p>
+                          </div>
+                          {/* <div className="university_location">
+                           <i className="fa-solid fa-location-dot"></i>
+                           <p>{</p>
+                         </div> */}
+                          <div className="graduation_date">
+                            <i className="fa-solid fa-calendar-days"></i>
+                            <p>
+                              {formatDate(degree?.startDate)} -
+                              {formatDate(degree?.endDate)}
+                            </p>
+                          </div>
                         </div>
-                        {/* <div className="university_location">
-                        <i className="fa-solid fa-location-dot"></i>
-                        <p>{</p>
-                      </div> */}
-                        <div className="graduation_date">
-                          <i className="fa-solid fa-calendar-days"></i>
-                          <p>
-                            {formatDate(degree?.startDate)} -{" "}
-                            {formatDate(degree?.endDate)}
-                          </p>
-                        </div>
+                        <p className="description_box_text">
+                          {degree?.description}
+                        </p>
                       </div>
-                      <p className="description_box_text">
-                        {degree?.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="review_box">
@@ -196,22 +198,30 @@ const TeacherDetail = () => {
           <div className="teacher_contact_detail">
             <p className="contact_detail">Contact detail</p>
             <div className="contact_links">
-              <div className="contact_link">
-                <i className="fa-solid fa-phone-volume phone"></i>
-                <span>{teacherDetail?.number}</span>
-              </div>
-              <div className="contact_link">
-                <i className="fa-brands fa-whatsapp whatsapp"></i>
-                <span>{teacherDetail?.whatsapp}</span>
-              </div>
-              <div className="contact_link">
-                <i className="fa-solid fa-envelope email"></i>
-                <span>{teacherDetail?.email}</span>
-              </div>
-              <div className="contact_link ">
-                <i className="fa-solid fa-link website"></i>
-                <span>{teacherDetail?.website}</span>
-              </div>
+              {teacherDetail?.number && (
+                <div className="contact_link">
+                  <i className="fa-solid fa-phone-volume phone"></i>
+                  <span>{teacherDetail?.number}</span>
+                </div>
+              )}
+              {teacherDetail?.whatsapp && (
+                <div className="contact_link">
+                  <i className="fa-brands fa-whatsapp whatsapp"></i>
+                  <span>{teacherDetail?.whatsapp}</span>
+                </div>
+              )}
+              {teacherDetail?.email && (
+                <div className="contact_link">
+                  <i className="fa-solid fa-envelope email"></i>
+                  <span>{teacherDetail?.email}</span>
+                </div>
+              )}
+              {teacherDetail?.website && (
+                <div className="contact_link ">
+                  <i className="fa-solid fa-link website"></i>
+                  <span>{teacherDetail?.website}</span>
+                </div>
+              )}
             </div>
           </div>
         </div>

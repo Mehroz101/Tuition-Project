@@ -23,7 +23,7 @@ const TeacherDetailPageCard = ({ teacher }) => {
                 <span className="total_review_count">(453)</span>
               </p>
               <p className="teacher-satisfaction">
-                <i className="fa-solid fa-check"></i>
+                <i className="fa-solid fa-clock"></i>
                 <span className="satisfaction_rate">
                   {/* <span className="rate">95%</span> Job Satisfaction */}
                   {teacher?.availability[0]?.start} -
@@ -32,7 +32,7 @@ const TeacherDetailPageCard = ({ teacher }) => {
               </p>
               <p className="teacher-location">
                 <i className="fa-solid fa-location-dot"></i>
-                <address>{teacher?.country}</address>
+                <address>{teacher?.city}</address>
               </p>
             </div>
           </div>
