@@ -8,9 +8,9 @@ import {
 import { pushNotify } from "../../errorHandler/Notify";
 
 const ICanTeach = () => {
-  const [subject, setSubject] = useState();
+  // const [subject, setSubject] = useState();
   const {
-    data,
+    data: subjects,
     isLoading,
     isError,
     refetch: subjectRefetch,
@@ -42,10 +42,10 @@ const ICanTeach = () => {
     console.log(sub);
     removeSubjectMutation.mutate(sub);
   };
-  useEffect(() => {}, [data]);
-  useEffect(() => {
-    if (data) setSubject(data);
-  }, [data]);
+  // useEffect(() => {}, [data]);
+  // useEffect(() => {
+  //   if (data) setSubject(data);
+  // }, [data]);
   return (
     <>
       <div className="icanteach_information">
@@ -55,18 +55,24 @@ const ICanTeach = () => {
         </div>
         <div className="icanteach_container">
           <div className="subjects">
-            {subject?.map((sub, index) => (
-              <div className="subject" key={index}>
-                <span className="title">{sub.subject}</span>
-                <span className="level">{sub.level}</span>
-                <i
-                  className="fa-solid fa-xmark"
-                  onClick={() => {
-                    removesubject(sub);
-                  }}
-                ></i>
+            {subjects?.length > 0 ? (
+              subjects?.map((sub, index) => (
+                <div className="subject" key={index}>
+                  <span className="title">{sub.subject}</span>
+                  <span className="level">{sub.level}</span>
+                  <i
+                    className="fa-solid fa-xmark"
+                    onClick={() => {
+                      removesubject(sub);
+                    }}
+                  ></i>
+                </div>
+              ))
+            ) : (
+              <div className="subject">
+                <span className="title">No subject added</span>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>

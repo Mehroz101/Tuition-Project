@@ -6,7 +6,11 @@ import { GetTeacherEducation } from "../../services/TeacherServices/TeacherEduca
 
 const EducationInformation = () => {
   const [education, setEducation] = useState();
-    const { data:educations, isLoading, isError } = useQuery({
+  const {
+    data: educations,
+    isLoading,
+    isError,
+  } = useQuery({
     queryKey: ["studentProfile"],
     queryFn: GetTeacherEducation,
     onSuccess: (data) => {
@@ -27,10 +31,9 @@ const EducationInformation = () => {
   //     }
   // },[])
 
- 
- if(isLoading) {
-  return <div>Loading...</div>;
- }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <div className="contact_information">
@@ -39,9 +42,13 @@ const EducationInformation = () => {
           <Link to="/profile/educationinformation/addnew">Add new</Link>
         </div>
         <div className="education_details_container">
-          {educations?.map((edu,index) => (
-            <DegreeDetailCard key={index} degree={edu} />
-          ))}
+          {educations.length > 0 ? (
+            educations?.map((edu, index) => (
+              <DegreeDetailCard key={index} degree={edu} />
+            ))
+          ) : (
+            <div className="no_data">No data found</div>
+          )}
 
           {/* <div className="education_detail">
             <h2 className="degree_name">Master of Computer Science</h2>
