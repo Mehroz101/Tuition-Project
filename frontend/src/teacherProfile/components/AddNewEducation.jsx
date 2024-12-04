@@ -9,6 +9,7 @@ const AddNewEducation = () => {
     TeacherEducationForm();
   const { educationId } = useParams();
   if (educationId) {
+    console.log(educationId)
     const { data, isLoading, isError } = useQuery({
       queryKey: ["studentProfile"],
       queryFn: () => GetEducationDetail(educationId),
@@ -26,7 +27,6 @@ const AddNewEducation = () => {
 
     useEffect(() => {
       if (data) {
-        console.log(typeof new Date(data?.startDate));
         setTeacherEducation({
           degreeName: data?.degreeName || "",
           description: data?.description || "",
@@ -43,7 +43,11 @@ const AddNewEducation = () => {
   }
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    handleSubmit();
+if(educationId !== undefined && educationId !== null){
+  handleSubmit(educationId);
+  
+}
+handleSubmit();
   };
   return (
     <>

@@ -11,20 +11,25 @@ const TeacherEducationForm = () => {
     endDate: "",
     description: "",
   });
- const navigate = useNavigate()
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setTeacherEducation((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
-  const handleSubmit = async () => {
+  const handleSubmit = async (educationId = null) => {
     try {
+      if (educationId !== null || educationId !== undefined) {
+        setTeacherEducation((prev) => {
+          [...prev], (educationId = educationId);
+        });
+      }
       console.log(teacherEducation);
-      const data  = await TeacherEducation(teacherEducation);
+      const data = await TeacherEducation(teacherEducation);
       // console.log(data);
-      if(data === true){
-        navigate("/profile/educationinformation")
+      if (data === true) {
+        navigate("/profile/educationinformation");
       }
     } catch (error) {
       // pushNotify(400, "SORRY", "Something wents wrong. Try again later");

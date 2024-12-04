@@ -3,9 +3,13 @@
   padding: 10px;
   margin: 0 auto;
   max-width: 1200px;
-  margin: auto;
+  margin:0 auto;
   display: flex;
+  justify-content: center;
   gap: 20px;
+}
+.teacher_detail_page_left{
+  flex: 1;
 }
 .teacher_detail_page_left_card {
   background-color: white;
@@ -14,7 +18,7 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  flex: 2;
   min-width: 100%;
   margin: 0 0 20px 0;
   transition: all 0.2s ease;

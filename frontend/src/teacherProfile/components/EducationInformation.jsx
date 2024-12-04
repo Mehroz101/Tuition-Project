@@ -42,7 +42,7 @@ const EducationInformation = () => {
           <Link to="/profile/educationinformation/addnew">Add new</Link>
         </div>
         <div className="education_details_container">
-          {educations.length > 0 ? (
+          {educations?.length > 0 ? (
             educations?.map((edu, index) => (
               <DegreeDetailCard key={index} degree={edu} />
             ))
