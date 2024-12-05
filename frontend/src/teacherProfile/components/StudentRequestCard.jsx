@@ -3,6 +3,7 @@ import "../styles/StudentRequestCard.css";
 import { useMutation } from "@tanstack/react-query";
 import {
   acceptRequest,
+  closeRequest,
   rejectRequest,
 } from "../../services/TeacherServices/StudentInvitationService";
 
@@ -23,11 +24,21 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
       refetchInvitations();
     },
   });
+  const closeMutation = useMutation({
+    mutationFn: closeRequest,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["teacherInvitations"]);
+      refetchInvitations();
+    },
+  });
   const AcceptRequest = async (id) => {
     acceptMutation.mutate(id);
   };
   const RejectRequest = async (id) => {
     rejectMutation.mutate(id);
+  };
+  const CloseRequest = async (id) => {
+    closeMutation.mutate(id);
   };
   return (
     <>
@@ -148,7 +159,12 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
             </>
           )}
           {request?.status === "accepted" && (
-            <button className="Close-button">Close Tuition</button>
+            <button
+              className="Close-button"
+              onClick={() => CloseRequest(request._id)}
+            >
+              Close Tuition
+            </button>
           )}
         </div>
       </div>

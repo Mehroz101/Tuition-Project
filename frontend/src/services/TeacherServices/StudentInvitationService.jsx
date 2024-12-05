@@ -66,3 +66,25 @@ export const rejectRequest = async (id) => {
     console.log(error.message);
   }
 };
+export const closeRequest = async (id) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/closeinvtation/${id}`,
+      {},
+      config
+    );
+    pushNotify(response.status, "Invitation", response.data.message);
+    console.log(response);
+    return response;
+  } catch (error) {
+    pushNotify(error.status, "Invitation", error.response.data.message);
+    console.log(error.message);
+  }
+};

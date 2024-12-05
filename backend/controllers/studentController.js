@@ -240,55 +240,49 @@ const cancelInvitation = async (req, res) => {
 const uploadImage = async (req, res) => {
   try {
     const studentId = req.user.id;
-    const student = await Student.findOne({ studentId });
 
-    if (student) {
-      // Check if the student already has an image
-      if (student.image) {
-        const imagePath = path.join(__dirname, "../uploads", student.image);
-        try {
-          // Check if the image file exists before trying to delete it
-          await fs.promises.access(imagePath, fs.constants.F_OK);
-          await fs.promises.unlink(imagePath); // Delete the existing image
-        } catch (err) {
-          if (err.code === "ENOENT") {
-            // If the file doesn't exist, skip the deletion step
-            console.log("Image file not found, skipping deletion.");
-          } else {
-            // Handle other types of errors, such as permission issues
-            console.error("Error deleting the image:", err);
-            return res.status(500).json({
-              success: false,
-              message: "Failed to delete existing image",
-            });
-          }
+    let student = await Student.findOne({ studentId });
+
+    if (!student) {
+      student = new Student({ studentId });
+    }
+
+    if (student.image) {
+      const imagePath = path.join(__dirname, "../uploads", student.image);
+
+      try {
+        await fs.promises.access(imagePath, fs.constants.F_OK);
+        await fs.promises.unlink(imagePath);
+      } catch (err) {
+        if (err.code !== "ENOENT") {
+          console.error("Error deleting the image:", err);
+          return res.status(500).json({
+            success: false,
+            message: "Failed to delete existing image",
+          });
         }
       }
-
-      // Set the new image filename
-      teacher.image = req.file.filename;
-
-      // Save the updated teacher document with the new image
-      await teacher.save();
-
-      res.status(200).json({
-        success: true,
-        message: "Image updated successfully",
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
     }
+
+    student.image = req.file.filename;
+
+    await student.save();
+
+    res.status(200).json({
+      success: true,
+      message: student.isNew
+        ? "Student created and image uploaded successfully"
+        : "Image updated successfully",
+    });
   } catch (error) {
-    console.error(error);
+    console.error("Internal server error:", error);
     res.status(500).json({
       success: false,
       message: "Internal server error",
     });
   }
 };
+
 module.exports = {
   studentInformation,
   sendInvitation,

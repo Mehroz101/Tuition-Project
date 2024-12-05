@@ -84,8 +84,8 @@
   background-color: #f44336;
   color: #fff;
 }
-.status.finished {
-  background-color: #047AFB;
+.status.closed {
+  background-color: #1f5db3;
   color: #fff;
 }
 

@@ -330,6 +330,17 @@ const PersonalInformation = () => {
                   />
                 </div>
               </div>
+              <div className="input_box">
+                <label htmlFor="">Email</label>
+                <div className="input">
+                  <input
+                    type="text"
+                    disabled
+                    value={data?.teacherId?.email}
+                    style={{ color: "black", cursor: "not-allowed" }}
+                  />
+                </div>
+              </div>
             </div>
             <div className="option">
               <span>I can teach on</span>

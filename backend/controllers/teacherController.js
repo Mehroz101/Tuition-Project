@@ -217,7 +217,7 @@ const getAvailabilty = async (req, res) => {
 const getTeacherInformation = async (req, res) => {
   try {
     const teacherId = req.user.id;
-    const response = await Teacher.findOne({ teacherId });
+    const response = await Teacher.findOne({ teacherId }).populate("teacherId");
     if (response) {
       res.status(200).json({
         success: true,
@@ -296,6 +296,30 @@ const rejectInvtation = async (req, res) => {
     const invitationId = req.params.id;
     const response = await Invitation.findByIdAndUpdate(invitationId, {
       status: "rejected",
+    });
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+const closeInvtation = async (req, res) => {
+  try {
+    const invitationId = req.params.id;
+    const response = await Invitation.findByIdAndUpdate(invitationId, {
+      status: "closed",
     });
     if (response) {
       res.status(200).json({
@@ -536,5 +560,6 @@ module.exports = {
   getTeacherDetail,
   getTeacherEducation,
   uploadImage,
+  closeInvtation,
   // education,
 };
