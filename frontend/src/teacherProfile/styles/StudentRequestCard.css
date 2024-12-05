@@ -100,8 +100,8 @@
   color: white; /* White text for contrast */
 }
 
-.student-card-top .status.finished {
-  background-color: #007bff; /* Rich blue */
+.student-card-top .status.closed {
+  background-color: rgb(220, 192, 20);; /* Rich blue */
   color: white; /* White text for contrast */
 }
 
@@ -215,6 +215,14 @@
 .student-card-bottom .reject-button {
   color: #fff;
   background-color: rgb(210, 2, 2);
+}
+.student-card-bottom .Close-button {
+  color: #fff;
+  background-color: rgb(210, 172, 2);
+}
+.student-card-bottom .Close-button:hover {
+  color: #fff;
+  background-color: rgb(220, 192, 20);
 }
 .student-card-bottom .reject-button:hover {
   color: #fff;

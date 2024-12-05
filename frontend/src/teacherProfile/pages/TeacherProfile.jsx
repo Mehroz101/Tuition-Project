@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import Img from "../../assets/teacher-1.jpg";
-import "../styles/TeacherProfile.css";
 import { Link, Outlet } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useQuery } from "@tanstack/react-query";
 import { GetTeacherProfile } from "../../services/TeacherServices/TeacherProfileService";
 import axios from "axios";
+import "../styles/TeacherProfile.css";
 
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/teacher`;
@@ -17,17 +16,14 @@ const TeacherProfile = () => {
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
 
-  // Handle file input change
   const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImage(file);
-      setPreview(URL.createObjectURL(file));
-
+      setPreview(URL.createObjectURL(file)); // Set immediate preview
       try {
         const formData = new FormData();
         formData.append("image", file);
-        formData.append("teacherId", user?.id); // Attach teacher ID dynamically
+        formData.append("teacherId", user?.id);
 
         const token = localStorage.getItem("usertoken");
         const config = {
@@ -42,11 +38,9 @@ const TeacherProfile = () => {
           formData,
           config
         );
-        refetchDetails();
-
+        refetchDetails(); // Refresh profile details
         alert(`Image uploaded successfully: ${response.data.message}`);
-        setPreview(response.data.imageUrl || null);
-        setImage(null);
+        setPreview(`${API_BASE_URL}/${response.data.image}`); // Update preview to server URL
       } catch (error) {
         console.error("Error uploading image:", error);
         alert("Image upload failed. Please try again.");
@@ -64,8 +58,9 @@ const TeacherProfile = () => {
     queryFn: GetTeacherProfile,
     onSuccess: (data) => {
       if (data?.image) {
-        setImage(data.image);
-        setPreview(data.image);
+        const imageUrl = `${API_BASE_URL}/${data.image}`;
+        setImage(imageUrl);
+        setPreview(imageUrl);
       }
     },
     onError: (error) => {
@@ -82,6 +77,14 @@ const TeacherProfile = () => {
     logout();
   };
 
+  useEffect(() => {
+    if (data?.image) {
+      const imageUrl = `${API_BASE_URL}/${data.image}`;
+      setImage(imageUrl);
+      setPreview(imageUrl);
+    }
+  }, [data]);
+
   return (
     <>
       <Navbar />
@@ -92,14 +95,13 @@ const TeacherProfile = () => {
               {preview ? (
                 <img src={preview} alt="Profile Preview" />
               ) : (
-                <img src={Img} alt="Default Profile" />
+                <span>No Image</span>
               )}
             </div>
             <div className="upload_btn">
               <input
                 type="file"
                 id="imageInput"
-                name="imagebtn"
                 style={{ display: "none" }}
                 onChange={handleFileChange}
               />
@@ -181,7 +183,6 @@ const TeacherProfile = () => {
             </ul>
           </div>
         </div>
-
         <div className="profile_right_form">
           <Outlet />
         </div>

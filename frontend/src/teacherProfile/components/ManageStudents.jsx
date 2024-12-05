@@ -150,8 +150,8 @@ const ManageStudents = () => {
             <li className={`${activeLink === "rejected" ? "active" : ""}`}>
               <Link onClick={() => setActiveLink("rejected")}>Rejected</Link>
             </li>
-            <li className={`${activeLink === "finished" ? "active" : ""}`}>
-              <Link onClick={() => setActiveLink("finished")}>Finished</Link>
+            <li className={`${activeLink === "closed" ? "active" : ""}`}>
+              <Link onClick={() => setActiveLink("closed")}>Closed</Link>
             </li>
           </ul>
         </div>

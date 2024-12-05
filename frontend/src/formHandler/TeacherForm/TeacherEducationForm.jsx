@@ -20,10 +20,11 @@ const TeacherEducationForm = () => {
   };
   const handleSubmit = async (educationId = null) => {
     try {
-      if (educationId !== null || educationId !== undefined) {
-        setTeacherEducation((prev) => {
-          [...prev], (educationId = educationId);
-        });
+      if (educationId) {
+        setTeacherEducation((prev) => [
+          ...prev,
+          { educationId: educationId }, // Assuming you want to add an object with `educationId`
+        ]);
       }
       console.log(teacherEducation);
       const data = await TeacherEducation(teacherEducation);

@@ -11,14 +11,14 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
 
   const acceptMutation = useMutation({
     mutationFn: acceptRequest,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(["teacherInvitations"]);
       refetchInvitations();
     },
   });
   const rejectMutation = useMutation({
     mutationFn: rejectRequest,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(["teacherInvitations"]);
       refetchInvitations();
     },
@@ -50,7 +50,7 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
                 <h3>
                   {request?.studentId?.studentId?.fName
                     ? request?.studentId?.studentId?.fName
-                    : request?.studentId?.email.split("@")[0]}
+                    : "User"}
                 </h3>
                 <div className="location">
                   <p className="student-location">
@@ -147,9 +147,10 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
               </button>
             </>
           )}
+          {request?.status === "accepted" && (
+            <button className="Close-button">Close Tuition</button>
+          )}
         </div>
-
-        {/* <button className="accept-button">Accept</button> */}
       </div>
     </>
   );

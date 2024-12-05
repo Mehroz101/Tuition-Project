@@ -2,16 +2,18 @@
 
 import React from "react";
 import "../styles/TeacherCard.css"; // Importing CSS for the component
-import teacherImg from "../assets/teacher-1.jpg";
+import teacherImg from "../assets/images.jpg";
 import { Link } from "react-router-dom";
+const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const TeacherCard = ({ key, teacher }) => {
+  const ImgUrl = `${API_BASE_URL}/${teacher?.image}` || teacherImg;
   return (
     <div className="teacher-card" key={key}>
       {/* Top Row: Left and Right Parts */}
       <div className="teacher-card-top">
         {/* Left Part */}
         <div className="teacher-card-left">
-          <img src={teacherImg} className="teacher-image" />
+          <img src={ImgUrl} className="teacher-image" />
           <div className="teacher-info">
             <h3>
               {teacher?.fName} {teacher?.lName}

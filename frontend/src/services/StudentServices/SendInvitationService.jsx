@@ -11,6 +11,9 @@ export const SendInvitation = async (invitationData) => {
     },
   };
   try {
+    if (localStorage.getItem("role") === "teacher") {
+      return pushNotify(403, "Invitation", "You are not a student");
+    }
     const response = await axios.post(
       `${API_URL}/sendinvtation`,
       invitationData,
