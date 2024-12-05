@@ -19,7 +19,6 @@ const Listing = () => {
     queryKey: ["teacherList"],
     queryFn: async () => {
       const response = await axios.get(`${API_URL}/teacherList`);
-      console.log(response.data.data);
       return response.data.data;
     },
     onSuccess: (data) => {
@@ -28,26 +27,7 @@ const Listing = () => {
   });
 
   useEffect(() => {
-    if (teacherList) {
-      setTeachers(teacherList);
-    }
-  }, [teacherList]);
-
-  const handleSort = (e) => {
-    const value = e.target.value;
-    setSortOrder(value);
-    const sortedTeachers = [...teachers].sort((a, b) => {
-      if (value === "low-to-high") {
-        return a.price - b.price;
-      } else {
-        return b.price - a.price;
-      }
-    });
-    setTeachers(sortedTeachers);
-  };
-
-  const handleSearch = () => {
-    let filteredTeachers = teacherList;
+    let filteredTeachers = teacherList || [];
 
     if (searchQuery) {
       filteredTeachers = filteredTeachers.filter((teacher) =>
@@ -56,14 +36,26 @@ const Listing = () => {
     }
 
     if (subjectFilter) {
-      filteredTeachers = filteredTeachers.filter(
-        (teacher) =>
-          teacher.subject.toLowerCase() === subjectFilter.toLowerCase()
+      filteredTeachers = filteredTeachers.filter((teacher) =>
+        teacher.subjects.some(
+          (subject) =>
+            subject.subject.toLowerCase() === subjectFilter.toLowerCase()
+        )
       );
     }
 
+    if (sortOrder === "low-to-high") {
+      filteredTeachers.sort((a, b) => a.fee - b.fee);
+    } else {
+      filteredTeachers.sort((a, b) => b.fee - a.fee);
+    }
+
     setTeachers(filteredTeachers);
-  };
+  }, [searchQuery, subjectFilter, sortOrder, teacherList]);
+
+  const handleSearchChange = (e) => setSearchQuery(e.target.value);
+  const handleSubjectChange = (e) => setSubjectFilter(e.target.value);
+  const handleSortChange = (e) => setSortOrder(e.target.value);
 
   return (
     <>
@@ -73,30 +65,25 @@ const Listing = () => {
         <div className="listing_page_top">
           <div className="search-filter-bar">
             <div className="input_box">
-              <i className="fa-solid fa-magnifying-glass"></i>
+              <select value={subjectFilter} onChange={handleSubjectChange}>
+                <option value="">Select Subject</option>
+                <option value="math">Math</option>
+                <option value="physics">Physics</option>
+                <option value="chemistry">Chemistry</option>
+                {/* Add more subjects as needed */}
+              </select>
               <input
                 type="text"
                 placeholder="Search by city name `Multan`"
                 value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                onChange={handleSearchChange}
               />
             </div>
-            <select
-              value={subjectFilter}
-              onChange={(e) => setSubjectFilter(e.target.value)}
-            >
-              <option value="">Select Subject</option>
-              <option value="math">Math</option>
-              <option value="physics">Physics</option>
-              <option value="chemistry">Chemistry</option>
-              {/* Add more subjects as needed */}
-            </select>
-            <button onClick={handleSearch}>Search</button>
           </div>
 
           <div className="sort-filter">
             <label htmlFor="sort">Sort by Price:</label>
-            <select id="sort" value={sortOrder} onChange={handleSort}>
+            <select id="sort" value={sortOrder} onChange={handleSortChange}>
               <option value="low-to-high">Low to High</option>
               <option value="high-to-low">High to Low</option>
             </select>
