@@ -1,14 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../styles/Login.css";
 import { Link, useParams } from "react-router-dom";
 import ForgetPasswordForm from "../formHandler/AuthForm/ForgetPasswordForm";
 const ForgetPassword = () => {
-  const { forgetPassword, handleSubmit, handleChange } = ForgetPasswordForm();
+  const { forgetPassword, setForgetPassword, handleSubmit, handleChange } =
+    ForgetPasswordForm();
   const { role } = useParams();
   const handleFormSubmit = (e) => {
     e.preventDefault();
     handleSubmit(role);
   };
+  useEffect(() => {
+    setForgetPassword((prev) => ({
+      ...prev,
+      role: role,
+    }));
+  }, [role]);
   return (
     <>
       <div className="login-page">

@@ -2,8 +2,7 @@ import { useState } from "react";
 import { pushNotify } from "../../errorHandler/Notify";
 import { ForgetPassword } from "../../services/AuthServices/ForgetPasswordService";
 
-const ForgetPasswordForm =  () => {
-   
+const ForgetPasswordForm = () => {
   const [forgetPassword, setForgetPassword] = useState({ email: "", role: "" });
 
   const handleChange = (e) => {
@@ -12,17 +11,15 @@ const ForgetPasswordForm =  () => {
       [e.target.name]: e.target.value,
     }));
   };
-  const handleSubmit = async (rolevalue) => {
+  const handleSubmit = async () => {
     try {
-        setForgetPassword((prev) => ({
-        ...prev,
-        role: rolevalue,
-      }));
       console.log(forgetPassword);
       const response = await ForgetPassword(forgetPassword);
-      pushNotify(response.status, response.messageTitle, response.message);
-      if (response.status === 201) {
-        return 201;
+      if (response.status == 200) {
+        console.log("response");
+        console.log(response.status);
+        pushNotify(response.status, "Forget Password", response.data.message);
+        return 200;
       }
     } catch (error) {
       pushNotify(400, "SORRY", "Something wents wrong. Try again later");
@@ -32,6 +29,7 @@ const ForgetPasswordForm =  () => {
     forgetPassword,
     handleSubmit,
     handleChange,
+    setForgetPassword,
   };
 };
 export default ForgetPasswordForm;

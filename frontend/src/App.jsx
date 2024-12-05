@@ -35,7 +35,7 @@ const AppRoute = () => {
         <Route path="/teacherdetail/:teacherId" element={<TeacherDetail />} />
         <Route path="/login/:role" element={<Login />} />
         <Route path="/signup/:role" element={<Signup />} />
-        <Route path="/resetpassword/:role" element={<ResetPassword />} />
+        <Route path="/resetpassword/:role/:token" element={<ResetPassword />} />
         <Route path="/forgetpassword/:role" element={<ForgetPassword />} />
         <Route path="/sendinvitation/:teacherId" element={<SendInvitation />} />
         <Route
