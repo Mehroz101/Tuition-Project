@@ -23,7 +23,6 @@ const io = socketIo(server, {
 app.set("io", io);
 io.on("connection", (socket) => {
   console.log("connected");
-  // console.log(socket)
 
   socket.on("disconnect", () => {
     // Clean up on disconnect
