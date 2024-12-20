@@ -59,8 +59,33 @@ export const GetEducationDetail = async (educationId) => {
       `${API_URL}/geteducation/${educationId}`,
       config
     );
-    console.log(response.data.data)
-    return response.data.data
+    console.log(response.data.data);
+    return response.data.data;
+  } catch (error) {
+    pushNotify(error.status, "Education", error.response.data.message);
+  }
+};
+export const DeleteEducation = async (educationId) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    console.log(token);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/deleteeducation/${educationId}`,
+      "",
+      config
+    );
+    console.log(response);
+    pushNotify(response.status, "Education", response.data.message);
+    if (response.status === 200) {
+      return true;
+    }
+    return false;
   } catch (error) {
     pushNotify(error.status, "Education", error.response.data.message);
   }

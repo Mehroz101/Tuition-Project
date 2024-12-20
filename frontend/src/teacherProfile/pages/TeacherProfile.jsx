@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { GetTeacherProfile } from "../../services/TeacherServices/TeacherProfileService";
 import axios from "axios";
 import "../styles/TeacherProfile.css";
+import { pushNotify } from "../../errorHandler/Notify";
 
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const API_URL = `${API_BASE_URL}/api/teacher`;
@@ -39,11 +40,11 @@ const TeacherProfile = () => {
           config
         );
         refetchDetails(); // Refresh profile details
-        alert(`Image uploaded successfully: ${response.data.message}`);
+        pushNotify("success", "Image", "Image uploaded successfully.");
         setPreview(`${API_BASE_URL}/${response.data.image}`); // Update preview to server URL
       } catch (error) {
         console.error("Error uploading image:", error);
-        alert("Image upload failed. Please try again.");
+        pushNotify("error", "Image", "Image upload failed.");
       }
     }
   };
@@ -57,10 +58,15 @@ const TeacherProfile = () => {
     queryKey: ["TeacherProfile"],
     queryFn: GetTeacherProfile,
     onSuccess: (data) => {
-      if (data?.image) {
+      if (data?.image !== undefined && data?.image !== null) {
+        console.log("enterd");
         const imageUrl = `${API_BASE_URL}/${data.image}`;
         setImage(imageUrl);
         setPreview(imageUrl);
+      } else {
+        setPreview(
+          "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+        );
       }
     },
     onError: (error) => {
@@ -95,7 +101,7 @@ const TeacherProfile = () => {
               {preview ? (
                 <img src={preview} alt="Profile Preview" />
               ) : (
-                <span>No Image</span>
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
               )}
             </div>
             <div className="upload_btn">

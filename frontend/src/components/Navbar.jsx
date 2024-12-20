@@ -25,9 +25,9 @@ const Navbar = () => {
         <li>
           <Link to="/search">Find Teachers</Link>
         </li>
-        {/* <li>
-          <Link to="/teacherdetail">Teacher Detail Page</Link>
-        </li> */}
+        <li>
+          <Link to="/books">Book</Link>
+        </li>
 
         {role === "teacher" && (
           <li>

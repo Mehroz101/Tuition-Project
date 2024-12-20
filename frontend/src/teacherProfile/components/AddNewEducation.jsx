@@ -43,7 +43,8 @@ const AddNewEducation = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (educationId !== undefined && educationId !== null) {
-      handleSubmit(educationId);
+      console.log("educationId is called");
+      return handleSubmit(educationId);
     }
     handleSubmit();
   };

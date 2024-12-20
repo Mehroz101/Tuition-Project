@@ -21,7 +21,6 @@ const StudentProfile = () => {
     if (file) {
       setImage(file);
       setPreview(URL.createObjectURL(file));
-console.log("called")
       const formData = new FormData();
       formData.append("image", file);
       formData.append("studentId", user?.id); // Attach student ID dynamically
@@ -38,40 +37,38 @@ console.log("called")
           formData,
           config
         );
-        refetchdetail()
-        pushNotify(response.status,"Image",response.data.message)
+        refetchdetail();
+        pushNotify(response.status, "Image", response.data.message);
         setPreview(response.data.imageUrl || null); // Update preview with uploaded image
         setImage(null);
       } catch (error) {
         console.error(error);
-        pushNotify(error.response.status,"Image",error.response.data.message)
+        pushNotify(error.response.status, "Image", error.response.data.message);
 
-        alert("Image upload failed.");
+        pushNotify("error", "Image", "Image upload failed.");
       }
     }
   };
-  const { data, isLoading, isError, refetch:refetchdetail } = useQuery({
+  const {
+    data,
+    isLoading,
+    isError,
+    refetch: refetchdetail,
+  } = useQuery({
     queryKey: ["studentProfile"],
     queryFn: GetStudentProfile,
-    onSuccess: (data) => {
-      console.log(data);
-    },
-    onError: (error) => {
-      console.error("Error fetching student profile:", error.message);
-      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
-    },
-    onsettled: () => {
-      console.log("fetching student profile");
-    },
   });
-useEffect(()=>{
-  if(data){
-    console.log(data.image)
-    setImage(data?.image)
-    setPreview(data?.image); // Update preview with uploaded image
-
-  }
-},[data])
+  useEffect(() => {
+    if (data?.image) {
+      console.log(data.image);
+      setImage(data?.image);
+      setPreview(data?.image); // Update preview with uploaded image
+    } else {
+      setPreview(
+        "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
+      );
+    }
+  }, [data]);
 
   // Handle button click to trigger file input
   const handleButtonClick = () => {
@@ -91,7 +88,17 @@ useEffect(()=>{
             <div className="profile_left_nav_img">
               <div className="left_img">
                 {/* Display preview image or default */}
-                <img src={`http://localhost:5000/uploads/${image}`} alt="Profile Preview" />
+                {data?.image ? (
+                  <img
+                    src={`${API_BASE_URL}/${data?.image}`}
+                    alt="Profile  Preview"
+                  />
+                ) : (
+                  <img
+                    src={`https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png`}
+                    alt="Profile Preview"
+                  />
+                )}
               </div>
               <div className="upload_btn">
                 {/* Hidden file input */}

@@ -20,6 +20,7 @@ export const SendInvitation = async (invitationData) => {
       config
     );
     pushNotify(response.status, "Invitation", response.data.message);
+
     return response;
   } catch (error) {
     console.log(error.message);

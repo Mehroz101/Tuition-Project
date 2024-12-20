@@ -236,7 +236,30 @@ const getTeacherInformation = async (req, res) => {
     });
   }
 };
-// const AddEducation = async (req, res) => {
+const DeleteEducation = async (req, res) => {
+  try {
+    console.log(req.params);
+    const { educationId } = req.params;
+    const response = await Education.findByIdAndDelete(educationId);
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 const getTeacherInvitations = async (req, res) => {
   try {
     const teacherId = req.user.id;
@@ -320,6 +343,7 @@ const closeInvtation = async (req, res) => {
     const invitationId = req.params.id;
     const response = await Invitation.findByIdAndUpdate(invitationId, {
       status: "closed",
+      link: null,
     });
     if (response) {
       res.status(200).json({
@@ -333,6 +357,38 @@ const closeInvtation = async (req, res) => {
       });
     }
   } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+const updateLink = async (req, res) => {
+  console.log("updateLink request:", req.body);
+  console.log("updateLink request id:", req.user.id);
+  try {
+    // const reqId = req.user.id;
+    const { link } = req.body;
+    const { id } = req.params;
+    const response = await Invitation.findByIdAndUpdate(
+      id,
+      { link },
+      { upsert: true, new: true }
+    );
+    console.log("updateLink response:", response);
+    if (response) {
+      res.status(200).json({
+        success: true,
+        message: "Link updated successfully",
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    console.log("updateLink error:", error.message);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -489,47 +545,42 @@ const getTeacherDetail = async (req, res) => {
 const uploadImage = async (req, res) => {
   try {
     const teacherId = req.user.id;
-    const teacher = await Teacher.findOne({ teacherId });
-
-    if (teacher) {
-      // Check if the teacher already has an image
-      if (teacher.image) {
-        const imagePath = path.join(__dirname, "../uploads", teacher.image);
-        try {
-          // Check if the image file exists before trying to delete it
-          await fs.promises.access(imagePath, fs.constants.F_OK);
-          await fs.promises.unlink(imagePath); // Delete the existing image
-        } catch (err) {
-          if (err.code === "ENOENT") {
-            // If the file doesn't exist, skip the deletion step
-            console.log("Image file not found, skipping deletion.");
-          } else {
-            // Handle other types of errors, such as permission issues
-            console.error("Error deleting the image:", err);
-            return res.status(500).json({
-              success: false,
-              message: "Failed to delete existing image",
-            });
-          }
+    let teacher = await Teacher.findOne({ teacherId });
+    if (!teacher) {
+      teacher = new Teacher({ teacherId });
+    }
+    // Check if the teacher already has an image
+    if (teacher.image) {
+      const imagePath = path.join(__dirname, "../uploads", teacher.image);
+      try {
+        // Check if the image file exists before trying to delete it
+        await fs.promises.access(imagePath, fs.constants.F_OK);
+        await fs.promises.unlink(imagePath); // Delete the existing image
+      } catch (err) {
+        if (err.code === "ENOENT") {
+          // If the file doesn't exist, skip the deletion step
+          console.log("Image file not found, skipping deletion.");
+        } else {
+          // Handle other types of errors, such as permission issues
+          console.error("Error deleting the image:", err);
+          return res.status(500).json({
+            success: false,
+            message: "Failed to delete existing image",
+          });
         }
       }
-
-      // Set the new image filename
-      teacher.image = req.file.filename;
-
-      // Save the updated teacher document with the new image
-      await teacher.save();
-
-      res.status(200).json({
-        success: true,
-        message: "Image updated successfully",
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
     }
+
+    // Set the new image filename
+    teacher.image = req.file.filename;
+
+    // Save the updated teacher document with the new image
+    await teacher.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Image updated successfully",
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -554,12 +605,13 @@ module.exports = {
   getSpecificEducation,
   getEducation,
   getTeacherList,
-  // AddEducation,
+  DeleteEducation,
   getEducation,
   getSpecificEducation,
   getTeacherDetail,
   getTeacherEducation,
   uploadImage,
   closeInvtation,
+  updateLink,
   // education,
 };

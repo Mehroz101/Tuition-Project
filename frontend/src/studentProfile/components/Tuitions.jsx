@@ -169,10 +169,24 @@ const Tuitions = () => {
                       {/* <i className="fa-solid fa-comment messageicon"></i> */}
                       {/* </Link> */}
                       {/* <Link> */}
-                      <i
-                        className="fa-solid fa-xmark cancel"
-                        onClick={() => handleCancelRequest(request?._id)}
-                      ></i>
+                      {request?.status === "accepted" && (
+                        <a
+                          href={request?.invitationlink}
+                          className={`accept_btn ${
+                            request?.invitationlink ? "" : "disabled"
+                          } `}
+                        >
+                          <i class="fa-solid fa-link"></i>
+                        </a>
+                      )}
+                      {(request?.status === "pending" ||
+                        request?.status === "rejected") && (
+                        <i
+                          className="fa-solid fa-xmark cancel"
+                          onClick={() => handleCancelRequest(request?._id)}
+                        ></i>
+                      )}
+
                       {/* </Link> */}
                     </td>
                   </tr>

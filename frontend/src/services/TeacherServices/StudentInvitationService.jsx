@@ -15,7 +15,6 @@ export const fetchStudentInvitations = async () => {
       },
     };
     const response = await axios.get(`${API_URL}/getteacherinvtation`, config);
-    // console.log(response.data.data);
     return response.data.data || [];
   } catch (error) {
     console.log(error.message);
@@ -36,11 +35,10 @@ export const acceptRequest = async (id) => {
       {},
       config
     );
-    pushNotify(response.status, "Invitation", response.data.message);
-    console.log(response);
+    pushNotify(response.status, "Invitation", "Invitation accepted");
     return response;
   } catch (error) {
-    pushNotify(error.status, "Invitation", error.response.data.message);
+    pushNotify(error.status, "Invitation", "Invitation not accepted");
     console.log(error.message);
   }
 };
@@ -58,11 +56,10 @@ export const rejectRequest = async (id) => {
       {},
       config
     );
-    pushNotify(response.status, "Invitation", response.data.message);
-    console.log(response);
+    pushNotify(response.status, "Invitation", "Invitation rejected");
     return response;
   } catch (error) {
-    pushNotify(error.status, "Invitation", error.response.data.message);
+    pushNotify(error.status, "Invitation", "Invitation not rejected");
     console.log(error.message);
   }
 };
@@ -80,8 +77,28 @@ export const closeRequest = async (id) => {
       {},
       config
     );
+    pushNotify(response.status, "Invitation", "Invitation closed");
+    return response;
+  } catch (error) {
+    pushNotify(error.status, "Invitation", "Invitation not closed");
+    console.log(error.message);
+  }
+};
+export const updateLink = async ({ id, link }) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/updatelink/${id}`,
+      { link: link },
+      config
+    );
     pushNotify(response.status, "Invitation", response.data.message);
-    console.log(response);
     return response;
   } catch (error) {
     pushNotify(error.status, "Invitation", error.response.data.message);
