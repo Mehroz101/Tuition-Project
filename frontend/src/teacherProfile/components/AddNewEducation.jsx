@@ -36,14 +36,15 @@ const AddNewEducation = () => {
           endDate: data?.endDate
             ? new Date(data.endDate).toISOString().split("T")[0]
             : "",
+          educationId: data?._id,
         });
       }
     }, [data]);
   }
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     if (educationId !== undefined && educationId !== null) {
-      console.log("educationId is called");
       return handleSubmit(educationId);
     }
     handleSubmit();

@@ -100,8 +100,22 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
 
         {/* Middle Row: Description and Action Buttons */}
         <div className="student-card-middle">
-          <h3>Message :</h3>
-          <p>{request?.description}</p>
+          {request?.rating !== 0 && request?.review && (
+            <>
+              <div className="givenRating">
+                <h3>
+                  ({request?.rating}) <i className="fa-solid fa-star"></i>
+                </h3>
+                <p>{request?.review}</p>
+              </div>
+            </>
+          )}
+          {request?.rating === 0 && (
+            <>
+              <h3>Message :</h3>
+              <p>{request?.description}</p>
+            </>
+          )}
           <div className="student-offers">
             <p>Required service</p>
             <div className="offers">

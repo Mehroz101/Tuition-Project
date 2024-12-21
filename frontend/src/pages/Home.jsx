@@ -25,10 +25,10 @@ import Teacher_4 from "../assets/teacher-4.jpg";
 import { Link, useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
 const Home = () => {
-  const navigate  = useNavigate()
-  const signupBtn = (role) =>{
-    navigate(`/login/${role}`)
-  }
+  const navigate = useNavigate();
+  const signupBtn = (role) => {
+    navigate(`/login/${role}`);
+  };
   return (
     <>
       <div className="home_page">
@@ -44,8 +44,18 @@ const Home = () => {
             </p>
 
             <div className="hero-buttons">
-              <button className="btn-student" onClick={()=>signupBtn("student")}>Start as Student</button>
-              <button className="btn-teacher" onClick={()=>signupBtn("teacher")}>Join as Teacher</button>
+              <button
+                className="btn-student"
+                onClick={() => signupBtn("student")}
+              >
+                Start as Student
+              </button>
+              <button
+                className="btn-teacher"
+                onClick={() => signupBtn("teacher")}
+              >
+                Join as Teacher
+              </button>
             </div>
           </div>
           <div className="hero-image">
@@ -191,7 +201,7 @@ const Home = () => {
               Your Success Starts with the Best Guidance
             </p>
             <h2 className="section-title">
-              Meet Our Top-Rated Teachers for <span>Learning</span> 
+              Meet Our Top-Rated Teachers for <span>Learning</span>
             </h2>
             <p className="supporting_para">
               Our handpicked educators are experts in their fields, dedicated to
@@ -200,7 +210,11 @@ const Home = () => {
             </p>
             <div className="teachers-grid">
               <div className="teacher-card-home">
-                <img src={Teacher_1} alt="Teacher Name" className="teacher-image" />
+                <img
+                  src={Teacher_1}
+                  alt="Teacher Name"
+                  className="teacher-image"
+                />
                 <div className="teacher-info">
                   <h3 className="teacher-name">John Doe</h3>
                   <p className="teacher-address">New York, USA</p>
@@ -230,7 +244,11 @@ const Home = () => {
               </div>
 
               <div className="teacher-card-home">
-                <img src={Teacher_1} alt="Teacher Name" className="teacher-image" />
+                <img
+                  src={Teacher_1}
+                  alt="Teacher Name"
+                  className="teacher-image"
+                />
                 <div className="teacher-info">
                   <h3 className="teacher-name">John Doe</h3>
                   <p className="teacher-address">New York, USA</p>
@@ -260,7 +278,11 @@ const Home = () => {
               </div>
 
               <div className="teacher-card-home">
-                <img src={Teacher_1} alt="Teacher Name" className="teacher-image" />
+                <img
+                  src={Teacher_1}
+                  alt="Teacher Name"
+                  className="teacher-image"
+                />
                 <div className="teacher-info">
                   <h3 className="teacher-name">John Doe</h3>
                   <p className="teacher-address">New York, USA</p>
@@ -292,9 +314,7 @@ const Home = () => {
           </div>
         </section>
 
-
-
-        <Footer/>
+        <Footer />
       </div>
     </>
   );

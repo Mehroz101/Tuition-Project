@@ -237,19 +237,20 @@ const getTeacherInformation = async (req, res) => {
   }
 };
 const DeleteEducation = async (req, res) => {
+  const { id: educationId } = req.params;
+
   try {
-    console.log(req.params);
-    const { educationId } = req.params;
-    const response = await Education.findByIdAndDelete(educationId);
-    if (response) {
+    const deletedEducation = await Education.findByIdAndDelete(educationId);
+
+    if (deletedEducation) {
       res.status(200).json({
         success: true,
-        data: response,
+        message: "Education deleted successfully",
       });
     } else {
       res.status(404).json({
         success: false,
-        message: "Information not found",
+        message: "Education not found",
       });
     }
   } catch (error) {
@@ -397,20 +398,17 @@ const updateLink = async (req, res) => {
 };
 const education = async (req, res) => {
   try {
-    const teacherId = req.user.id; // Assuming the logged-in user ID is passed in the request
-    const { educationId, ...educationData } = req.body; // Extract educationId and the rest of the data from the request
-    let response;
+    const teacherId = req.user.id;
+    const { educationId, ...educationData } = req.body;
+    let educationRecord;
 
     if (educationId) {
-      console.log();
-      // Check if an education record with the given educationId exists
-      response = await Education.findByIdAndUpdate(
+      educationRecord = await Education.findByIdAndUpdate(
         educationId,
         { ...educationData, teacherId },
-        { new: true, runValidators: true } // Returns the updated document and ensures validation
+        { new: true, runValidators: true }
       );
-
-      if (!response) {
+      if (!educationRecord) {
         return res.status(404).json({
           success: false,
           message: "Education record not found",
@@ -420,24 +418,18 @@ const education = async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "Education updated successfully",
-        data: response,
       });
     } else {
-      console.log(teacherId);
-
-      // Create a new education record if educationId is not provided
-      response = new Education({ ...educationData, teacherId });
-      await response.save();
-      console.log(response);
+      educationRecord = new Education({ ...educationData, teacherId });
+      await educationRecord.save();
       return res.status(201).json({
         success: true,
         message: "Education added successfully",
-        data: response,
+        data: educationRecord,
       });
     }
   } catch (error) {
-    console.error("Error in AddOrUpdateEducation:", error.message);
-
+    console.error("Error in education:", error.message);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -603,7 +595,6 @@ module.exports = {
   rejectInvtation,
   education,
   getSpecificEducation,
-  getEducation,
   getTeacherList,
   DeleteEducation,
   getEducation,
@@ -613,5 +604,4 @@ module.exports = {
   uploadImage,
   closeInvtation,
   updateLink,
-  // education,
 };

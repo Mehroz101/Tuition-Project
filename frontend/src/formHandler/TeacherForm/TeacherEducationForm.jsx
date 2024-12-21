@@ -31,11 +31,12 @@ const TeacherEducationForm = () => {
         }));
       }
 
-      console.log(teacherEducation);
       const data = await TeacherEducation(teacherEducation);
-
+      console.log(data);
       if (data === true) {
         navigate("/profile/educationinformation");
+      } else {
+        pushNotify(400, "SORRY", "Something went wrong. Try again later");
       }
     } catch (error) {
       pushNotify(400, "SORRY", "Something went wrong. Try again later");

@@ -119,6 +119,23 @@
   flex-direction: column;
   gap: 10px;
 }
+.student-card-middle .givenRating {
+  background-color: #e9e9e9;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.student-card-middle .givenRating  h3{
+  color: #d8a716;}
+.student-card-middle .givenRating  h3 i{
+  color: #d8a716;
+}
+.student-card-middle .givenRating p{
+  margin-bottom: 0;
+  font-weight: 16px;
+}
 
 .student-card-middle p {
   font-size: 16px;

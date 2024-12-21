@@ -38,6 +38,13 @@ const invitationScheema = new mongoose.Schema(
     link: {
       type: String,
     },
+    rating: {
+      type: Number,
+      default: 0,
+    },
+    review: {
+      type: String,
+    },
     status: {
       type: String,
       enum: ["pending", "accepted", "rejected", "closed"],

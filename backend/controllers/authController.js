@@ -17,7 +17,6 @@ const LoginUser = async (req, res) => {
     // console.log(isUserExist)
     const isRole = isUserExist.filter((user) => user.role === role);
     if (isRole[0]) {
-      console.log("user found");
       const isMatch = await bcryptjs.compare(password, isRole[0].password);
       if (!isMatch) {
         res.status(401).json({

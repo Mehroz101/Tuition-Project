@@ -67,131 +67,104 @@ const TeacherDetail = () => {
                 <i className="fa-solid fa-house"></i>
                 <Link onClick={() => setHideReview(true)}>Description</Link>
               </li>
-              <li className={hideReview ? "" : "active"}>
+              {/* <li className={hideReview ? "" : "active"}>
                 <i className="fa-solid fa-face-smile"></i>
                 <Link onClick={() => setHideReview(false)}>Reviews</Link>
-              </li>
+              </li> */}
             </ul>
-            {hideReview ? (
-              <div className="description_box">
-                <div className="introduction_section">
-                  <h2 className="description_box_heading">
-                    A brief introduction
-                  </h2>
-                  <p className="description_box_text">
-                    {teacherDetail?.description}
-                  </p>
-                </div>
-                {teacherEducationDetail?.length > 0 && (
-                  <div className="education_section">
-                    <h2 className="description_box_heading">Education</h2>
-                    {teacherEducationDetail?.map((degree) => (
-                      <div className="degree">
-                        <p className="education_level">
-                          <i className="fa-solid fa-graduation-cap"></i>
-                          <span>{degree?.degreeName}</span>
-                        </p>
-                        <div className="education_info">
-                          <div className="university_name">
-                            <i className="fa-solid fa-school"></i>
-                            <p>{degree?.instituteName}</p>
-                          </div>
-                          {/* <div className="university_location">
+            {/* {hideReview ? ( */}
+            <div className="description_box">
+              <div className="introduction_section">
+                <h2 className="description_box_heading">
+                  A brief introduction
+                </h2>
+                <p className="description_box_text">
+                  {teacherDetail?.description}
+                </p>
+              </div>
+              {teacherEducationDetail?.length > 0 && (
+                <div className="education_section">
+                  <h2 className="description_box_heading">Education</h2>
+                  {teacherEducationDetail?.map((degree) => (
+                    <div className="degree">
+                      <p className="education_level">
+                        <i className="fa-solid fa-graduation-cap"></i>
+                        <span>{degree?.degreeName}</span>
+                      </p>
+                      <div className="education_info">
+                        <div className="university_name">
+                          <i className="fa-solid fa-school"></i>
+                          <p>{degree?.instituteName}</p>
+                        </div>
+                        {/* <div className="university_location">
                            <i className="fa-solid fa-location-dot"></i>
                            <p>{</p>
                          </div> */}
-                          <div className="graduation_date">
-                            <i className="fa-solid fa-calendar-days"></i>
-                            <p>
-                              {formatDate(degree?.startDate)} -
-                              {formatDate(degree?.endDate)}
-                            </p>
-                          </div>
+                        <div className="graduation_date">
+                          <i className="fa-solid fa-calendar-days"></i>
+                          <p>
+                            {formatDate(degree?.startDate)} -
+                            {formatDate(degree?.endDate)}
+                          </p>
                         </div>
-                        <p className="description_box_text">
-                          {degree?.description}
-                        </p>
                       </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="review_box">
-                <div className="review_section">
-                  <h2 className="review_box_heading">Reviews (234)</h2>
-                  <div className="review">
-                    <div className="review_box_left">
-                      <img src={Img} alt="" />
+                      <p className="description_box_text">
+                        {degree?.description}
+                      </p>
                     </div>
-                    <div className="review_box_right">
-                      <div className="review_box_right_top">
-                        <span className="name">Mehroz Farooq</span>
-                        <span className="rating">
-                          5.0
-                          <i className="fa-solid fa-star"></i>
-                        </span>
-                      </div>
-                      <div className="review_box_right_bottom">
-                        <span>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing
-                          elit. Illum asperiores perspiciatis ipsam architecto
-                          maxime enim nobis? Quisquam voluptatum voluptas quae
-                          voluptatibus maiores in obcaecati sequi nemo?
-                          Asperiores alias saepe beatae.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="review">
-                    <div className="review_box_left">
-                      <img src={Img} alt="" />
-                    </div>
-                    <div className="review_box_right">
-                      <div className="review_box_right_top">
-                        <span className="name">Mehroz Farooq</span>
-                        <span className="rating">
-                          5.0
-                          <i className="fa-solid fa-star"></i>
-                        </span>
-                      </div>
-                      <div className="review_box_right_bottom">
-                        <span>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing
-                          elit. Illum asperiores perspiciatis ipsam architecto
-                          maxime enim nobis? Quisquam voluptatum voluptas quae
-                          voluptatibus maiores in obcaecati sequi nemo?
-                          Asperiores alias saepe beatae.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="review">
-                    <div className="review_box_left">
-                      <img src={Img} alt="" />
-                    </div>
-                    <div className="review_box_right">
-                      <div className="review_box_right_top">
-                        <span className="name">Mehroz Farooq</span>
-                        <span className="rating">
-                          5.0
-                          <i className="fa-solid fa-star"></i>
-                        </span>
-                      </div>
-                      <div className="review_box_right_bottom">
-                        <span>
-                          Lorem ipsum dolor sit amet consectetur, adipisicing
-                          elit. Illum asperiores perspiciatis ipsam architecto
-                          maxime enim nobis? Quisquam voluptatum voluptas quae
-                          voluptatibus maiores in obcaecati sequi nemo?
-                          Asperiores alias saepe beatae.
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                  ))}
                 </div>
+              )}
+            </div>
+            {/* // ) : // ( // //{" "}
+            <div className="review_box">
+              // //{" "}
+              <div className="review_section">
+                // //{" "}
+                <h2 className="review_box_heading">
+                  // // Reviews ({teacherDetail?.ratingCount}) // //{" "}
+                </h2>
+                // //{" "}
+                <div className="review">
+                  // //{" "}
+                  <div className="review_box_left">
+                    // // <img src={Img} alt="" />
+                    // //{" "}
+                  </div>
+                  // //{" "}
+                  <div className="review_box_right">
+                    // //{" "}
+                    <div className="review_box_right_top">
+                      // // <span className="name">Mehroz Farooq</span>
+                      // //{" "}
+                      <span className="rating">
+                        // // 5.0 // // <i className="fa-solid fa-star"></i>
+                        // //{" "}
+                      </span>
+                      // //{" "}
+                    </div>
+                    // //{" "}
+                    <div className="review_box_right_bottom">
+                      // //{" "}
+                      <span>
+                        // // Lorem ipsum dolor sit amet consectetur,
+                        adipisicing // // elit. Illum asperiores perspiciatis
+                        ipsam architecto // // maxime enim nobis? Quisquam
+                        voluptatum voluptas quae // // voluptatibus maiores in
+                        obcaecati sequi nemo? // // Asperiores alias saepe
+                        beatae. // //{" "}
+                      </span>
+                      // //{" "}
+                    </div>
+                    // //{" "}
+                  </div>
+                  // //{" "}
+                </div>
+                // //{" "}
               </div>
-            )}
+              // //{" "}
+            </div>
+            // ) } */}
           </div>
         </div>
         <div className="teacher_detail_page_right">

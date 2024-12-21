@@ -8,7 +8,12 @@ const BookCard = ({ image, title, description, downloadLink }) => {
       <div className="card-content">
         <h3 className="card-title">{title}</h3>
         <p className="card-description">{description}</p>
-        <a href={downloadLink} download className="download-button">
+        <a
+          href={downloadLink}
+          target="_blank"
+          download
+          className="download-button"
+        >
           Download
         </a>
       </div>

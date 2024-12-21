@@ -99,6 +99,8 @@ const teacherSchema = new mongoose.Schema(
       },
     ],
     image: { type: String, default: null },
+    rating: { type: Number, default: 0 },
+    ratingCount: { type: Number, default: 0 },
   },
   {
     timestamps: true,

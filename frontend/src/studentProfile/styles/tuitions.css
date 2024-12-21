@@ -101,7 +101,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 0px;
   transition: all ease 0.2s;
   overflow: hidden;
 }
@@ -115,6 +115,40 @@
   color: #767676;
   font-size: 1.2rem;
   width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  transition: all ease 0.2s;
+
+  border-radius: 50px;
+
+
+}
+.action_btn .Askrating {
+  color: rgb(139, 108, 5);
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all ease 0.2s;
+}
+.action_btn i.rating {
+  color: rgb(219, 171, 14);
+  font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  transition: all ease 0.2s;
+
+  border-radius: 50px;
+
+
+}
+.action_btn .ratingstar {
+  font-size: 1.2rem;
+  width: 30px;
+  font-weight: 600;
   height: 30px;
   text-align: center;
   line-height: 30px;

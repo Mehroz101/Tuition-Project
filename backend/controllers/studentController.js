@@ -1,8 +1,10 @@
+const { console } = require("inspector");
 const Invitation = require("../models/Invitation");
 const Student = require("../models/Student");
 const User = require("../models/User");
 const fs = require("fs");
 const path = require("path");
+const Teacher = require("../models/Teacher");
 
 const studentInformation = async (req, res) => {
   try {
@@ -238,24 +240,29 @@ const cancelInvitation = async (req, res) => {
 };
 
 const uploadImage = async (req, res) => {
+  console.log("uploadImage request:", req.body);
+  console.log("Student ID:", req.user.id);
   try {
     const studentId = req.user.id;
 
     let student = await Student.findOne({ studentId });
+
+    console.log("Student found:", student);
 
     if (!student) {
       student = new Student({ studentId });
     }
 
     if (student.image) {
+      console.log("Deleting old image:", student.image);
       const imagePath = path.join(__dirname, "../uploads", student.image);
 
       try {
         await fs.promises.access(imagePath, fs.constants.F_OK);
         await fs.promises.unlink(imagePath);
       } catch (err) {
+        console.error("Error deleting the image:", err);
         if (err.code !== "ENOENT") {
-          console.error("Error deleting the image:", err);
           return res.status(500).json({
             success: false,
             message: "Failed to delete existing image",
@@ -264,9 +271,13 @@ const uploadImage = async (req, res) => {
       }
     }
 
+    console.log("Setting new image:", req.file.filename);
+
     student.image = req.file.filename;
 
     await student.save();
+
+    console.log("Student saved:", student);
 
     res.status(200).json({
       success: true,
@@ -282,7 +293,54 @@ const uploadImage = async (req, res) => {
     });
   }
 };
+const submitReview = async (req, res) => {
+  console.log("submitReview request:", req.body);
+  try {
+    const { rating, review, InvitationId } = req.body;
+    console.log("InvitationId:", InvitationId);
+    if (!InvitationId) {
+      console.log("Invitation not found");
+      return res.status(400).json({
+        success: false,
+        message: "Invitation not found",
+      });
+    }
 
+    const response = await Invitation.findOneAndUpdate(
+      { _id: InvitationId },
+      { $set: { rating, review } },
+      { upsert: true, new: true }
+    );
+    console.log("Invitation updated:", response);
+    const updateTeacher = await Teacher.findOne({
+      teacherId: response.teacherId,
+    });
+    console.log("Teacher found:", updateTeacher);
+    updateTeacher.rating = (updateTeacher.rating + rating) / 2;
+    updateTeacher.ratingCount = updateTeacher.ratingCount + 1;
+    await updateTeacher.save();
+    console.log("Teacher updated:", updateTeacher);
+    if (response) {
+      console.log("Review submitted successfully");
+      res.status(200).json({
+        success: true,
+        message: "Review submitted successfully",
+      });
+    } else {
+      console.log("Student not found");
+      res.status(404).json({
+        success: false,
+        message: "Student not found",
+      });
+    }
+  } catch (error) {
+    console.log("submitReview error:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 module.exports = {
   studentInformation,
   sendInvitation,
@@ -290,4 +348,5 @@ module.exports = {
   getStudentInformation,
   cancelInvitation,
   uploadImage,
+  submitReview,
 };

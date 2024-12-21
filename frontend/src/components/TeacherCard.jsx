@@ -1,12 +1,21 @@
 // TeacherCard.js
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/TeacherCard.css"; // Importing CSS for the component
 import teacherImg from "../assets/images.jpg";
 import { Link } from "react-router-dom";
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 const TeacherCard = ({ key, teacher }) => {
-  const ImgUrl = `${API_BASE_URL}/${teacher?.image}` || teacherImg;
+  const [ImgUrl, setImgUrl] = useState(teacherImg);
+  useEffect(() => {
+    if (teacher?.image) {
+      setImgUrl(`${API_BASE_URL}/${teacher?.image}`);
+    } else {
+      setImgUrl(
+        "https://static.vecteezy.com/system/resources/thumbnails/004/511/281/small_2x/default-avatar-photo-placeholder-profile-picture-vector.jpg"
+      );
+    }
+  }, [teacher]);
   return (
     <div className="teacher-card" key={key}>
       {/* Top Row: Left and Right Parts */}
@@ -20,9 +29,11 @@ const TeacherCard = ({ key, teacher }) => {
             </h3>
             <div className="rating_location">
               <p className="teacher-reviews">
-                <span className="rating">5.0</span>
+                <span className="rating">{teacher?.rating?.toFixed(1)}</span>
                 <i className="fa-solid fa-star"></i>
-                <span className="total_review_count">(453)</span>
+                <span className="total_review_count">
+                  ({teacher?.ratingCount})
+                </span>
               </p>
               <p className="teacher-location">
                 <i className="fa-solid fa-location-dot"></i>

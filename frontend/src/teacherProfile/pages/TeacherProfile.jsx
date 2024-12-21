@@ -174,12 +174,12 @@ const TeacherProfile = () => {
                   Manage Students
                 </Link>
               </li>
-              <li className={activeLink === "review" ? "active" : ""}>
+              {/* <li className={activeLink === "review" ? "active" : ""}>
                 <i className="fa-solid fa-comments"></i>
                 <Link to="reviews" onClick={() => setActiveLink("review")}>
                   Reviews
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link to="/" onClick={logoutUser}>
                   <i className="fa-solid fa-right-from-bracket"></i>

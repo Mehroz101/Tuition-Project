@@ -66,3 +66,28 @@ export const cancelInvitation = async (invitationId) => {
     console.log(error.message);
   }
 };
+export const SubmitReview = async (reviewData) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `http://localhost:5000/api/student/submitreview`,
+      reviewData,
+      config
+    );
+    if (response.status === 200) {
+      pushNotify(response.status, "Review", response.data.message);
+      return response;
+    } else {
+      pushNotify(response.status, "Review", response.data.message);
+    }
+  } catch (error) {
+    pushNotify(error.status, "Review", error.response.data.message);
+    console.log(error.message);
+  }
+};
