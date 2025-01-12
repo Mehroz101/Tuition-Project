@@ -26,6 +26,7 @@ import ProtectedRoute from "./context/ProtectedRoute";
 import SendInvitation from "./pages/SendInvitation";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
+import BooksListing from "./pages/BooksListing";
 const AppRoute = () => {
   return (
     <>
@@ -38,6 +39,8 @@ const AppRoute = () => {
         <Route path="/resetpassword/:role" element={<ResetPassword />} />
         <Route path="/forgetpassword/:role" element={<ForgetPassword />} />
         <Route path="/sendinvitation/:teacherId" element={<SendInvitation />} />
+        <Route path="/bookstore" element={<BooksListing />} />
+
         <Route
           path="/profile"
           element={

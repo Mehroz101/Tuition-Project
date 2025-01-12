@@ -11,7 +11,8 @@ const storage = multer.diskStorage({
     cb(null, file.fieldname + "-" + uniqueSuffix + path.extname(file.originalname)); // Set unique file name
   },
 });
-
+console.log("storage")
+console.log(storage)
 // File filter to validate file types
 const fileFilter = (req, file, cb) => {
   const allowedTypes = ["image/jpeg", "image/png", "image/jpg"];
@@ -28,6 +29,8 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
   fileFilter: fileFilter,
 });
+console.log("upload")
+console.log(upload)
 
 // Middleware function to handle single file uploads
 const uploadMiddleware = upload.single("image");

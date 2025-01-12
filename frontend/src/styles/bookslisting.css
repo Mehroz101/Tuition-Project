@@ -1,0 +1,26 @@
+.booksListingpage{
+    position: relative;
+    height: 100%;
+}
+.booksListingpage footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.booksListingpage .bookspage_container{
+    padding:20px 100px;
+}
+.booksListingpage .bookspage_container h2{
+    text-align: left;
+}
+.books{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 500px;
+}
+.books .book{
+    background-color: red;
+    padding: 10px;
+    max-width: 300px;
+}

@@ -51,14 +51,14 @@ const Listing = () => {
 
     if (searchQuery) {
       filteredTeachers = filteredTeachers.filter((teacher) =>
-        teacher.city.toLowerCase().includes(searchQuery.toLowerCase())
+        teacher?.city?.toLowerCase().includes(searchQuery.toLowerCase())
       );
     }
 
     if (subjectFilter) {
       filteredTeachers = filteredTeachers.filter(
         (teacher) =>
-          teacher.subject.toLowerCase() === subjectFilter.toLowerCase()
+          teacher?.subject?.toLowerCase() === subjectFilter.toLowerCase()
       );
     }
 

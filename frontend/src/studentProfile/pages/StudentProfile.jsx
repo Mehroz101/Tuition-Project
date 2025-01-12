@@ -21,10 +21,12 @@ const StudentProfile = () => {
     if (file) {
       setImage(file);
       setPreview(URL.createObjectURL(file));
-console.log("called")
+      console.log("called")
+      console.log("std",data)
+      console.log("std id",data.studentId)
       const formData = new FormData();
       formData.append("image", file);
-      formData.append("studentId", user?.id); // Attach student ID dynamically
+      formData.append("studentId", data.studentId); // Attach student ID dynamically
       try {
         const token = localStorage.getItem("usertoken");
         const config = {
@@ -66,6 +68,7 @@ console.log("called")
   });
 useEffect(()=>{
   if(data){
+    console.log(data)
     console.log(data.image)
     setImage(data?.image)
     setPreview(data?.image); // Update preview with uploaded image

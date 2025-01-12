@@ -16,7 +16,7 @@ const studentInformation = async (req, res) => {
       schoolName,
     } = req.body;
     const studentId = req.user.id;
-    console.log(studentId);
+    // console.log(studentId);
     if (
       fName === "" ||
       lName === "" ||
@@ -50,8 +50,8 @@ const studentInformation = async (req, res) => {
           { $set: { studentId: createdStd._id } }, // Use an object to set the field name
           { upsert: true, new: true }
         );
-        console.log("response");
-        console.log(response);
+        // console.log("response");
+        // console.log(response);
 
         res.status(201).json({
           success: true,
@@ -72,8 +72,8 @@ const studentInformation = async (req, res) => {
           { $set: { studentId: updatedStd._id } }, // Use an object to set the field name
           { upsert: true, new: true }
         );
-        console.log("response");
-        console.log(response);
+        // console.log("response");
+        // console.log(response);
 
         res.status(201).json({
           success: true,
@@ -93,7 +93,7 @@ const getStudentInformation = async (req, res) => {
   try {
     const studentId = req.user.id;
     const stdFound = await Student.findOne({ studentId });
-    console.log(stdFound);
+    // console.log(stdFound);
     if (stdFound) {
       res.status(200).json(stdFound);
     } else {
@@ -122,7 +122,7 @@ const sendInvitation = async (req, res) => {
       description,
       teacherId,
     } = req.body;
-    console.log(req.body);
+    // console.log(req.body);
     // Check for missing fields
     if (
       !offeredPrice ||
@@ -241,7 +241,8 @@ const uploadImage = async (req, res) => {
   try {
     const studentId = req.user.id;
     const student = await Student.findOne({ studentId });
-
+console.log("uploaded img")
+console.log(req.file)
     if (student) {
       // Check if the student already has an image
       if (student.image) {
@@ -266,10 +267,10 @@ const uploadImage = async (req, res) => {
       }
 
       // Set the new image filename
-      teacher.image = req.file.filename;
+      student.image = req.file.filename;
 
-      // Save the updated teacher document with the new image
-      await teacher.save();
+      // Save the updated student document with the new image
+      await student.save();
 
       res.status(200).json({
         success: true,

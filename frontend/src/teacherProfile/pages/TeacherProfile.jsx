@@ -62,22 +62,20 @@ const TeacherProfile = () => {
   } = useQuery({
     queryKey: ["TeacherProfile"],
     queryFn: GetTeacherProfile,
-    onSuccess: (data) => {
-      if (data?.image) {
-        setImage(data.image);
-        setPreview(data.image);
-      }
-    },
-    onError: (error) => {
-      console.error("Error fetching teacher profile:", error.message);
-      alert("Error fetching profile. Please try again.");
-    },
+   
   });
 
   const handleButtonClick = () => {
     document.getElementById("imageInput").click();
   };
-
+  useEffect(()=>{
+    if(data){
+      console.log(data.image)
+      setImage(data?.image)
+      setPreview(data?.image); // Update preview with uploaded image
+  
+    }
+  },[data])
   const logoutUser = () => {
     logout();
   };
@@ -89,11 +87,8 @@ const TeacherProfile = () => {
         <div className="profile_left_nav">
           <div className="profile_left_nav_img">
             <div className="left_img">
-              {preview ? (
-                <img src={preview} alt="Profile Preview" />
-              ) : (
-                <img src={Img} alt="Default Profile" />
-              )}
+            <img src={`http://localhost:5000/uploads/${image}`} alt="Profile Preview" />
+
             </div>
             <div className="upload_btn">
               <input
