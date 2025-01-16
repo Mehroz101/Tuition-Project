@@ -341,6 +341,27 @@ const submitReview = async (req, res) => {
     });
   }
 };
+const AllStudents = async (req, res) => {
+  try {
+    const response = await Student.find({}).populate("studentId");
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
 module.exports = {
   studentInformation,
   sendInvitation,
@@ -349,4 +370,5 @@ module.exports = {
   cancelInvitation,
   uploadImage,
   submitReview,
+  AllStudents,
 };

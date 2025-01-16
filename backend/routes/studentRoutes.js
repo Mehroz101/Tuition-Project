@@ -9,6 +9,7 @@ const {
   cancelInvitation,
   uploadImage,
   submitReview,
+  AllStudents,
 } = require("../controllers/studentController");
 const authenticateToken = require("../middleware/authMiddleware");
 const uploadMiddleware = require("../middleware/uploadMiddleware");
@@ -22,5 +23,6 @@ router.get("/getinvtation", authenticateToken, getInvitation);
 router.post("/cancelinvtation/:id", authenticateToken, cancelInvitation);
 router.post("/submitreview", authenticateToken, submitReview);
 router.post("/upload", authenticateToken, uploadMiddleware, uploadImage);
+router.get("/allstudents", authenticateToken, AllStudents);
 
 module.exports = router;
