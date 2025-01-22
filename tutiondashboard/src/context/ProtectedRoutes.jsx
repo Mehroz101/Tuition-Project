@@ -5,7 +5,7 @@ const ProtectedRoute = ({ element }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(true);
 
   useEffect(() => {
-    const token = localStorage.getItem("token") || "0";
+    const token = localStorage.getItem("tuitionAdminToken");
     if (token) {
       setIsAuthenticated(true); // User is authenticated
     } else {

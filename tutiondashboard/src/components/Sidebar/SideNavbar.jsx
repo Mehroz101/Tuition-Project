@@ -35,11 +35,11 @@ const CustomSidebar = ({ visible, onHide }) => {
           </li>
           <li>
             <Link
-              to={ROUTES.USERS}
+              to={ROUTES.STUDENTS}
               className="sidebar-link"
               onClick={handleLinkClick}
             >
-              <i className="pi pi-users"></i> Users
+              <i className="pi pi-users"></i> Students
             </Link>
           </li>
 

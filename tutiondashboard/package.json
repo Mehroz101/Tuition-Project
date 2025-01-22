@@ -22,7 +22,8 @@
     "react-error-boundary": "^4.1.2",
     "react-hook-form": "^7.54.0",
     "react-router-dom": "^7.0.2",
-    "react-toastify": "^10.0.6"
+    "react-toastify": "^10.0.6",
+    "vite-plugin-env-compatible": "^2.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.15.0",

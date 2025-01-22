@@ -1,4 +1,3 @@
-const { console } = require("inspector");
 const Invitation = require("../models/Invitation");
 const Student = require("../models/Student");
 const User = require("../models/User");
@@ -370,5 +369,5 @@ module.exports = {
   cancelInvitation,
   uploadImage,
   submitReview,
-  AllStudents,
+  AllStudents
 };

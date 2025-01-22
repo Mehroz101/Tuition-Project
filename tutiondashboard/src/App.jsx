@@ -7,7 +7,7 @@ import {
   ProtectedRoute,
   Setting,
   Signup,
-  Users,
+  Students,
 } from "./utils/LazyLoadComponent";
 import { Suspense } from "react";
 import { ROUTES } from "./utils/routes";
@@ -64,7 +64,7 @@ function AppRoutes() {
       <Route path={ROUTES.SIGNUP} element={<Signup />} />
       <Route path="/" element={<ProtectedRoute element={<Layout />} />}>
         <Route index element={<Home />} />
-        <Route path={ROUTES.USERS} element={<Users />} />
+        <Route path={ROUTES.STUDENTS} element={<Students />} />
         <Route path={ROUTES.SETTING} element={<Setting />} />
       </Route>
     </Routes>
