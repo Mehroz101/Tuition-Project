@@ -56,9 +56,9 @@ export const GetStudentData = async () => {
         Authorization: "Bearer " + token,
       },
     };
-    const response = await axios.get(`${API_URL}/dashboard/allstudentdata`,config);
+    const response = await axios.get(`${API_URL}/allstudentdata`,config);
     if (response.data.success) {
-      return response.data;
+      return response.data.data;
     } else {
       notify("error", response.data.message);
       return;

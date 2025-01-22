@@ -7,7 +7,7 @@ const {
 } = require("../controllers/authController");
 const authenticateToken = require("../middleware/authMiddleware");
 const { siteNameUpdateByAdmin } = require("../controllers/siteController");
-const { GetDashboardData } = require("../controllers/DashboardController");
+const { GetDashboardData, AllStudentData } = require("../controllers/DashboardController");
 
 const router = express.Router();
 
@@ -18,5 +18,6 @@ router.post("/changepassword", authenticateToken, changepassword);
 router.post("/sitename", authenticateToken, siteNameUpdateByAdmin);
 
 router.get("/stats", authenticateToken, GetDashboardData);
+router.get("/allstudentdata", authenticateToken, AllStudentData);
 
 module.exports = router;
