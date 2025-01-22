@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { pushNotify } from "../../errorHandler/Notify";
 import { SendInvitation } from "../../services/StudentServices/SendInvitationService";
+import { useNavigate } from "react-router-dom";
 
 const SendInvitationForm = () => {
   const [sendInvitation, setSendInvitation] = useState({
@@ -12,6 +13,7 @@ const SendInvitationForm = () => {
     description: "",
     teacherId: null,
   });
+  const navigate = useNavigate();
   const handleChange = (e) => {
     setSendInvitation((prev) => ({
       ...prev,
@@ -22,7 +24,9 @@ const SendInvitationForm = () => {
     try {
       console.log(sendInvitation);
       const data = await SendInvitation(sendInvitation);
-      console.log(data);
+      if (data.data.success) {
+        navigate("/studentProfile/tuitions");
+      }
     } catch (error) {
       console.log(error.message);
     }

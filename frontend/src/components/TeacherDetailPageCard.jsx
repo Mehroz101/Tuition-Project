@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import teacherImg from "../assets/teacher-1.jpg";
 import { Link } from "react-router-dom";
+const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
 const TeacherDetailPageCard = ({ teacher }) => {
-  const teacher_id = 123;
+  const [ImgUrl, setImgUrl] = React.useState("");
+  useEffect(() => {
+    if (teacher?.image) {
+      setImgUrl(`${API_BASE_URL}/${teacher?.image}`);
+    } else {
+      setImgUrl(
+        "https://static.vecteezy.com/system/resources/thumbnails/004/511/281/small_2x/default-avatar-photo-placeholder-profile-picture-vector.jpg"
+      );
+    }
+  }, [teacher]);
   return (
     <>
       {/* Top Row: Left and Right Parts */}
       <div className="teacher-card-top">
         {/* Left Part */}
         <div className="teacher-card-left">
-          <img src={teacherImg} className="teacher-image" />
+          <img src={ImgUrl} className="teacher-image" />
           <div className="teacher-info">
             <h3>
               {teacher?.fName} {teacher?.lName}
@@ -18,9 +28,11 @@ const TeacherDetailPageCard = ({ teacher }) => {
             <p>{teacher?.tagline}</p>
             <div className="rating_location">
               <p className="teacher-reviews">
-                <span className="rating">5.0</span>
+                <span className="rating">{teacher?.rating?.toFixed(1)}</span>
                 <i className="fa-solid fa-star"></i>
-                <span className="total_review_count">(453)</span>
+                <span className="total_review_count">
+                  ({teacher?.ratingCount})
+                </span>
               </p>
               <p className="teacher-satisfaction">
                 <i className="fa-solid fa-clock"></i>

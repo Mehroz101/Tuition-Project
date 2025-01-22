@@ -3,6 +3,9 @@ footer {
     color: #ffffff;
     padding: 20px 40px;
     font-family: Arial, sans-serif;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
   }
   
   /* Upper Part */

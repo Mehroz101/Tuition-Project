@@ -1,8 +1,16 @@
 import React from "react";
 import { formatDate } from "../../utils/functions";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import { DeleteEducation } from "../../services/TeacherServices/TeacherEducationService";
 
 const DegreeDetailCard = ({ degree }) => {
+  const deleteDegree = useMutation({
+    mutationFn: DeleteEducation,
+    onSuccess: (data) => {
+      console.log(data);
+    },
+  });
   return (
     <>
       <div className="education_detail">
@@ -25,13 +33,17 @@ const DegreeDetailCard = ({ degree }) => {
             </div>
           </div>
           <div className="degree_btn">
-            <div className="edit" >
-            <Link to={degree._id}>
-              <i className="fa-solid fa-pen-to-square"></i>
-
-            </Link>
+            <div className="edit">
+              <Link to={degree._id}>
+                <i className="fa-solid fa-pen-to-square"></i>
+              </Link>
             </div>
-            <div className="delete">
+            <div
+              className="delete"
+              onClick={() => {
+                deleteDegree.mutate(degree._id);
+              }}
+            >
               <i className="fa-solid fa-trash"></i>
             </div>
           </div>

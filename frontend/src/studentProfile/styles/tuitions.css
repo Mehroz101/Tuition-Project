@@ -66,13 +66,13 @@
 
 .status {
   padding: 5px 10px;
-  border-radius: 20px;
+  border-radius: 4px;
   font-weight: bold;
 }
 
 .status.pending {
-  background-color: #ffcc00;
-  color: #fff;
+  background-color: rgb(230 224 20);
+  color: #363636;
 }
 
 .status.accepted {
@@ -84,8 +84,8 @@
   background-color: #f44336;
   color: #fff;
 }
-.status.finished {
-  background-color: #047AFB;
+.status.closed {
+  background-color: #1f5db3;
   color: #fff;
 }
 
@@ -101,7 +101,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  gap: 0px;
+  transition: all ease 0.2s;
+  overflow: hidden;
 }
 .action_btn a {
   flex: 1;
@@ -116,20 +118,75 @@
   height: 30px;
   text-align: center;
   line-height: 30px;
+  transition: all ease 0.2s;
+
+  border-radius: 50px;
+
 
 }
-
-.action_btn i.messageicon {
-  color: #767676;
+.action_btn .Askrating {
+  color: rgb(139, 108, 5);
+  text-align: center;
+  line-height: 30px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all ease 0.2s;
+}
+.action_btn i.rating {
+  color: rgb(219, 171, 14);
   font-size: 1.2rem;
   width: 30px;
   height: 30px;
   text-align: center;
   line-height: 30px;
+  transition: all ease 0.2s;
+
+  border-radius: 50px;
+
+
 }
+.action_btn .ratingstar {
+  font-size: 1.2rem;
+  width: 30px;
+  font-weight: 600;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+  transition: all ease 0.2s;
+
+  border-radius: 50px;
+
+
+}
+
+ .action_btn .accept_btn{
+  background-color: #11a0e2;
+  font-size: 1.2rem;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  border: none;
+  transition: all ease 0.2s;
+}
+.action_btn .accept_btn.disabled{
+  background-color: #767676 !important;
+}
+.action_btn .accept_btn.disabled:hover{
+  background-color: #767676 !important;
+}
+.action_btn .accept_btn i{
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  line-height: 30px;
+}
+.action_btn .accept_btn:hover{
+  background-color: #0f86d0;
+}
+
 .action_btn i.cancel:hover {
   color: white;
-  background-color: red;
+  background-color: rgb(126, 41, 41);
 }
 .action_btn i.messageicon:hover {
   color: white;

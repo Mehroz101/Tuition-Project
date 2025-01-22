@@ -1,15 +1,32 @@
 import "../styles/Signup.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Resetpassword from "../formHandler/AuthForm/ResetPasswordForm";
+import { useEffect } from "react";
 const ResetPassword = () => {
-  const { reset, handleChange, handleSubmit } = Resetpassword();
+  const { reset, setReset, handleChange, handleSubmit } = Resetpassword();
 
   const { role } = useParams();
-  const handleFormSubmit = (e) => {
+  const { token } = useParams();
+  const navigate = useNavigate();
+  const handleFormSubmit = async (e) => {
     e.preventDefault();
     console.log(reset);
-    handleSubmit(role);
+    const response = await handleSubmit();
+    if (response === 200) {
+      console.log("success");
+      navigate(`/login/${role}`);
+    }
   };
+  useEffect(() => {
+    setReset((prev) => ({
+      ...prev,
+      role: role,
+    }));
+    setReset((prev) => ({
+      ...prev,
+      token: token,
+    }));
+  }, [role, token]);
   return (
     <>
       <div className="signup-page">

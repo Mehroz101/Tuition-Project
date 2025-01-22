@@ -10,31 +10,39 @@ const TeacherEducationForm = () => {
     startDate: "",
     endDate: "",
     description: "",
+    educationId: null, // Add `educationId` as part of the initial state
   });
+
   const navigate = useNavigate();
+
   const handleChange = (e) => {
     setTeacherEducation((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
   };
+
   const handleSubmit = async (educationId = null) => {
     try {
-      if (educationId !== null || educationId !== undefined) {
-        setTeacherEducation((prev) => {
-          [...prev], (educationId = educationId);
-        });
+      if (educationId) {
+        setTeacherEducation((prev) => ({
+          ...prev,
+          educationId: educationId, // Update the existing object with `educationId`
+        }));
       }
-      console.log(teacherEducation);
+
       const data = await TeacherEducation(teacherEducation);
-      // console.log(data);
+      console.log(data);
       if (data === true) {
         navigate("/profile/educationinformation");
+      } else {
+        pushNotify(400, "SORRY", "Something went wrong. Try again later");
       }
     } catch (error) {
-      // pushNotify(400, "SORRY", "Something wents wrong. Try again later");
+      pushNotify(400, "SORRY", "Something went wrong. Try again later");
     }
   };
+
   return {
     teacherEducation,
     handleSubmit,
@@ -42,4 +50,5 @@ const TeacherEducationForm = () => {
     setTeacherEducation,
   };
 };
+
 export default TeacherEducationForm;

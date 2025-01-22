@@ -6,12 +6,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import {
   cancelInvitation,
   getInvitation,
+  SubmitReview,
 } from "../../services/StudentServices/SendInvitationService";
+import RatingPopup from "../../components/RatingPopup";
 
 const Tuitions = () => {
   const [activeLink, setActiveLink] = useState("all");
   const [requests, setRequests] = useState([]);
   const [filteredRequests, setFilteredRequests] = useState([]);
+  const [showRatingPopup, setShowRatingPopup] = useState(false);
+  const [selectedInvitationId, setSelectedInvitationId] = useState(null);
   const { data, refetch: refetchRequests } = useQuery({
     queryKey: ["requests"],
     queryFn: () => getInvitation(),
@@ -84,7 +88,22 @@ const Tuitions = () => {
       pushNotify(400, "SORRY", "Something went wrong. Try again later.");
     },
   });
-
+  const submitReviewMutation = useMutation({
+    mutationFn: SubmitReview,
+    onSuccess: () => {
+      setShowRatingPopup(false);
+      refetchRequests();
+    },
+    onError: (error) => {
+      pushNotify(400, "SORRY", "Something went wrong. Try again later.");
+    },
+  });
+  const handlePopupSubmit = (data) => {
+    submitReviewMutation.mutate({
+      ...data,
+      InvitationId: selectedInvitationId,
+    });
+  };
   useEffect(() => {
     if (data) {
       setRequests(data);
@@ -121,8 +140,8 @@ const Tuitions = () => {
           <li className={`${activeLink === "rejected" ? "active" : ""}`}>
             <Link onClick={() => setActiveLink("rejected")}>Rejected</Link>
           </li>
-          <li className={`${activeLink === "finished" ? "active" : ""}`}>
-            <Link onClick={() => setActiveLink("finished")}>Finished</Link>
+          <li className={`${activeLink === "closed" ? "active" : ""}`}>
+            <Link onClick={() => setActiveLink("closed")}>Closed</Link>
           </li>
         </ul>
       </div>
@@ -169,10 +188,46 @@ const Tuitions = () => {
                       {/* <i className="fa-solid fa-comment messageicon"></i> */}
                       {/* </Link> */}
                       {/* <Link> */}
-                      <i
-                        className="fa-solid fa-xmark cancel"
-                        onClick={() => handleCancelRequest(request?._id)}
-                      ></i>
+                      {request?.status === "accepted" && (
+                        <a
+                          href={request?.link}
+                          target="_blank"
+                          className={`accept_btn ${
+                            request?.link ? "" : "disabled"
+                          } `}
+                        >
+                          <i class="fa-solid fa-link"></i>
+                        </a>
+                      )}
+                      {(request?.status === "pending" ||
+                        request?.status === "rejected") && (
+                        <i
+                          className="fa-solid fa-xmark cancel"
+                          onClick={() => handleCancelRequest(request?._id)}
+                        ></i>
+                      )}
+                      {request?.status === "closed" && !request?.rating && (
+                        // <i class="fa-solid fa-star rating"></i>
+                        <span
+                          className="Askrating"
+                          onClick={() => {
+                            setSelectedInvitationId(request?._id);
+                            setShowRatingPopup(true);
+                          }}
+                        >
+                          Give me rating
+                        </span>
+                      )}
+                      {request?.status === "closed" &&
+                        request?.rating !== 0 && (
+                          <>
+                            <span className="ratingstar">
+                              ({request?.rating})
+                            </span>
+                            <i class="fa-solid fa-star rating"></i>
+                          </>
+                        )}
+
                       {/* </Link> */}
                     </td>
                   </tr>
@@ -182,6 +237,13 @@ const Tuitions = () => {
           </div>
         )}
       </div>
+      {showRatingPopup && (
+        <RatingPopup
+          onClose={() => setShowRatingPopup(false)}
+          visible={showRatingPopup}
+          onSubmit={handlePopupSubmit}
+        />
+      )}
     </div>
   );
 };

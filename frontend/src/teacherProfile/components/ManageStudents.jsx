@@ -23,60 +23,6 @@ const ManageStudents = () => {
     queryFn: () => fetchStudentInvitations(),
   });
 
-  const studentRequest = [
-    {
-      name: "Mehroz Farooq",
-      address: "Mian Channu",
-      offered_price: "20",
-      message:
-        "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Nesciunt accusamus adipisci repellat voluptatum. Illum animi cumque beatae voluptas quasi aperiam et aliquam. Facilis fugit quis libero cum hic atque exercitationem?",
-      required_service: "online",
-      start_time: "4:00PM",
-      end_time: "7:00PM",
-      image: Img1,
-      status: "rejected",
-      subject: "English",
-    },
-    {
-      name: "Sara Khan",
-      address: "Lahore",
-      offered_price: "25",
-      message:
-        "I am looking for a tutor who can help me with math and science subjects. Online classes preferred during the evening.",
-      required_service: "center",
-      start_time: "5:00PM",
-      end_time: "8:00PM",
-      image: Img2,
-      status: "accepted",
-      subject: "Science",
-    },
-    {
-      name: "Ali Ahmed",
-      address: "Islamabad",
-      offered_price: "15",
-      message:
-        "Need assistance with English literature. I prefer in-person tutoring at my home in the afternoon.",
-      required_service: "home",
-      start_time: "2:00PM",
-      end_time: "5:00PM",
-      image: Img3,
-      status: "finished",
-      subject: "Math",
-    },
-    {
-      name: "Ali Raza",
-      address: "Karachi",
-      offered_price: "25",
-      message:
-        "Need assistance with English literature. I prefer in-person tutoring at my home in the afternoon.",
-      required_service: "home",
-      start_time: "3:00PM",
-      end_time: "5:00PM",
-      image: Img3,
-      status: "pending",
-      subject: "English",
-    },
-  ];
   useEffect(() => {
     console.log(invitations);
     if (invitations) {
@@ -150,8 +96,8 @@ const ManageStudents = () => {
             <li className={`${activeLink === "rejected" ? "active" : ""}`}>
               <Link onClick={() => setActiveLink("rejected")}>Rejected</Link>
             </li>
-            <li className={`${activeLink === "finished" ? "active" : ""}`}>
-              <Link onClick={() => setActiveLink("finished")}>Finished</Link>
+            <li className={`${activeLink === "closed" ? "active" : ""}`}>
+              <Link onClick={() => setActiveLink("closed")}>Closed</Link>
             </li>
           </ul>
         </div>

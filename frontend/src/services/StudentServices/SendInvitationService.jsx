@@ -11,12 +11,16 @@ export const SendInvitation = async (invitationData) => {
     },
   };
   try {
+    if (localStorage.getItem("role") === "teacher") {
+      return pushNotify(403, "Invitation", "You are not a student");
+    }
     const response = await axios.post(
       `${API_URL}/sendinvtation`,
       invitationData,
       config
     );
     pushNotify(response.status, "Invitation", response.data.message);
+
     return response;
   } catch (error) {
     console.log(error.message);
@@ -59,6 +63,31 @@ export const cancelInvitation = async (invitationId) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Invitation", error.response.data.message);
+    console.log(error.message);
+  }
+};
+export const SubmitReview = async (reviewData) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `http://localhost:5000/api/student/submitreview`,
+      reviewData,
+      config
+    );
+    if (response.status === 200) {
+      pushNotify(response.status, "Review", response.data.message);
+      return response;
+    } else {
+      pushNotify(response.status, "Review", response.data.message);
+    }
+  } catch (error) {
+    pushNotify(error.status, "Review", error.response.data.message);
     console.log(error.message);
   }
 };

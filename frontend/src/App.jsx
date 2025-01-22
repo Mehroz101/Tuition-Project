@@ -26,7 +26,11 @@ import ProtectedRoute from "./context/ProtectedRoute";
 import SendInvitation from "./pages/SendInvitation";
 import ForgetPassword from "./pages/ForgetPassword";
 import ResetPassword from "./pages/ResetPassword";
+<<<<<<< HEAD
 import BooksListing from "./pages/BooksListing";
+=======
+import Books from "./pages/Books";
+>>>>>>> 028c8357cebcb42d4f8c8cbbdbd5e06997630f22
 const AppRoute = () => {
   return (
     <>
@@ -36,11 +40,15 @@ const AppRoute = () => {
         <Route path="/teacherdetail/:teacherId" element={<TeacherDetail />} />
         <Route path="/login/:role" element={<Login />} />
         <Route path="/signup/:role" element={<Signup />} />
-        <Route path="/resetpassword/:role" element={<ResetPassword />} />
+        <Route path="/resetpassword/:role/:token" element={<ResetPassword />} />
         <Route path="/forgetpassword/:role" element={<ForgetPassword />} />
         <Route path="/sendinvitation/:teacherId" element={<SendInvitation />} />
+<<<<<<< HEAD
         <Route path="/bookstore" element={<BooksListing />} />
 
+=======
+        <Route path="/books" element={<Books />} />
+>>>>>>> 028c8357cebcb42d4f8c8cbbdbd5e06997630f22
         <Route
           path="/profile"
           element={

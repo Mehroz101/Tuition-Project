@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
-import Img from "../assets/teacher-1.jpg";
 import { useAuth } from "../context/AuthContext";
-
+import Img from "../assets/images.jpg";
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [role, setRole] = useState("");
@@ -24,10 +23,10 @@ const Navbar = () => {
           <Link to="/">Home</Link>
         </li>
         <li>
-          <Link to="/search">Listing</Link>
+          <Link to="/search">Find Teachers</Link>
         </li>
         <li>
-          <Link to="/teacherdetail">Teacher Detail Page</Link>
+          <Link to="/books">Book</Link>
         </li>
         <li>
           <Link to="/bookstore">Books</Link>
@@ -37,7 +36,7 @@ const Navbar = () => {
           <li>
             <Link to="/profile" className="profile_btn">
               <img src={Img} alt="" />
-              <span className="name">teacher</span>
+              <span className="name">profile</span>
             </Link>
           </li>
         )}
@@ -46,7 +45,7 @@ const Navbar = () => {
             {/* <img src={Img} alt="" /> */}
             <Link to="/studentProfile" className="profile_btn">
               <img src={Img} alt="" />
-              <span className="name">student</span>
+              <span className="name">profile</span>
             </Link>
           </li>
         )}

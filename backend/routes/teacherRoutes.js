@@ -15,10 +15,13 @@ const {
   getTeacherInvitations,
   acceptInvtation,
   rejectInvtation,
+  closeInvtation,
   getTeacherList,
   getTeacherDetail,
   getTeacherEducation,
-  uploadImage
+  uploadImage,
+  updateLink,
+  DeleteEducation,
   //   Education,
 } = require("../controllers/teacherController");
 const uploadMiddleware = require("../middleware/uploadMiddleware");
@@ -35,7 +38,7 @@ router.get("/teacherList", getTeacherList);
 router.get("/teacherdetail/:teacherId", getTeacherDetail);
 router.get("/getinformation", authenticateToken, getTeacherInformation);
 router.post("/education", authenticateToken, education);
-// router.post("/education", authenticateToken, AddEducation);
+router.post("/deleteeducation/:id", authenticateToken, DeleteEducation);
 router.get("/geteducation", authenticateToken, getEducation);
 router.get(
   "/geteducation/:educationId",
@@ -50,7 +53,9 @@ router.get("/getavailabilty", authenticateToken, getAvailabilty);
 router.get("/getteacherinvtation", authenticateToken, getTeacherInvitations);
 router.post("/acceptinvtation/:id", authenticateToken, acceptInvtation);
 router.post("/rejectinvtation/:id", authenticateToken, rejectInvtation);
-router.post("/upload", authenticateToken,uploadMiddleware, uploadImage);
+router.post("/closeinvtation/:id", authenticateToken, closeInvtation);
+router.post("/updatelink/:id", authenticateToken, updateLink);
+router.post("/upload", authenticateToken, uploadMiddleware, uploadImage);
 
 // router.post("/education", authenticateToken, Education);
 

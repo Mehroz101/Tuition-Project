@@ -3,22 +3,41 @@ import "../styles/StudentRequestCard.css";
 import { useMutation } from "@tanstack/react-query";
 import {
   acceptRequest,
+  closeRequest,
   rejectRequest,
+  updateLink,
 } from "../../services/TeacherServices/StudentInvitationService";
+const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
 const StudentRequestCard = ({ request, refetchInvitations }) => {
-  console.log(request?.studentId?.studentId?.fName);
-
+  const [link, setLink] = useState(request?.link);
+  const handleChange = (e) => {
+    setLink(e.target.value);
+  };
+  const updateLinkMutation = useMutation({
+    mutationFn: updateLink,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["teacherInvitations"]);
+      refetchInvitations();
+    },
+  });
   const acceptMutation = useMutation({
     mutationFn: acceptRequest,
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries(["teacherInvitations"]);
       refetchInvitations();
     },
   });
   const rejectMutation = useMutation({
     mutationFn: rejectRequest,
-    onSuccess: () => {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["teacherInvitations"]);
+      refetchInvitations();
+    },
+  });
+  const closeMutation = useMutation({
+    mutationFn: closeRequest,
+    onSuccess: (data) => {
       queryClient.invalidateQueries(["teacherInvitations"]);
       refetchInvitations();
     },
@@ -28,6 +47,9 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
   };
   const RejectRequest = async (id) => {
     rejectMutation.mutate(id);
+  };
+  const CloseRequest = async (id) => {
+    closeMutation.mutate(id);
   };
   return (
     <>
@@ -39,7 +61,7 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
             <img
               src={`${
                 request?.studentId?.studentId?.image
-                  ? request?.studentId?.studentId?.image
+                  ? `${API_BASE_URL}/uploads/${request?.studentId?.studentId?.image}`
                   : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"
               }`}
               className="student-image"
@@ -50,7 +72,7 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
                 <h3>
                   {request?.studentId?.studentId?.fName
                     ? request?.studentId?.studentId?.fName
-                    : request?.studentId?.email.split("@")[0]}
+                    : "User"}
                 </h3>
                 <div className="location">
                   <p className="student-location">
@@ -78,8 +100,22 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
 
         {/* Middle Row: Description and Action Buttons */}
         <div className="student-card-middle">
-          <h3>Message :</h3>
-          <p>{request?.description}</p>
+          {request?.rating !== 0 && request?.review && (
+            <>
+              <div className="givenRating">
+                <h3>
+                  ({request?.rating}) <i className="fa-solid fa-star"></i>
+                </h3>
+                <p>{request?.review}</p>
+              </div>
+            </>
+          )}
+          {request?.rating === 0 && (
+            <>
+              <h3>Message :</h3>
+              <p>{request?.description}</p>
+            </>
+          )}
           <div className="student-offers">
             <p>Required service</p>
             <div className="offers">
@@ -115,15 +151,7 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
           </div>
         </div>
 
-        {/* Bottom Row: Let's Chat and View Profile Buttons */}
         <div className="student-card-bottom">
-          {/* {request?.status === "accepted" && (
-            <>
-              <button className="chat-button">
-                <i className="fa-solid fa-comment-dots"></i> Discuss
-              </button>
-            </>
-          )} */}
           {request?.studentId?.studentId?.number && (
             <button className="chat-button">
               <i className="fa-solid fa-phone "></i>
@@ -147,9 +175,33 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
               </button>
             </>
           )}
+          {request?.status === "accepted" && (
+            <>
+              <div className="linkinputbox">
+                <input
+                  type="text"
+                  name="link"
+                  onChange={handleChange}
+                  value={link}
+                />
+                <button
+                  className="Close-button"
+                  onClick={() =>
+                    updateLinkMutation.mutate({ id: request._id, link: link })
+                  }
+                >
+                  update link
+                </button>
+              </div>
+              <button
+                className="Close-button"
+                onClick={() => CloseRequest(request._id)}
+              >
+                Close Tuition
+              </button>
+            </>
+          )}
         </div>
-
-        {/* <button className="accept-button">Accept</button> */}
       </div>
     </>
   );

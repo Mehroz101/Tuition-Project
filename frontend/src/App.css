@@ -1,5 +1,7 @@
 body {
   background-color: var(--light-background);
+  min-height: 100vh;
+  position: relative;
 }
 * {
   margin: 0;
@@ -49,7 +51,6 @@ li {
   font-weight: 500;
   flex: 1;
 }
- 
 .combo_box {
   display: flex;
   align-items: center;

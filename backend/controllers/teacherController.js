@@ -217,7 +217,7 @@ const getAvailabilty = async (req, res) => {
 const getTeacherInformation = async (req, res) => {
   try {
     const teacherId = req.user.id;
-    const response = await Teacher.findOne({ teacherId });
+    const response = await Teacher.findOne({ teacherId }).populate("teacherId");
     if (response) {
       res.status(200).json({
         success: true,
@@ -236,7 +236,31 @@ const getTeacherInformation = async (req, res) => {
     });
   }
 };
-// const AddEducation = async (req, res) => {
+const DeleteEducation = async (req, res) => {
+  const { id: educationId } = req.params;
+
+  try {
+    const deletedEducation = await Education.findByIdAndDelete(educationId);
+
+    if (deletedEducation) {
+      res.status(200).json({
+        success: true,
+        message: "Education deleted successfully",
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Education not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+
 const getTeacherInvitations = async (req, res) => {
   try {
     const teacherId = req.user.id;
@@ -315,22 +339,76 @@ const rejectInvtation = async (req, res) => {
     });
   }
 };
+const closeInvtation = async (req, res) => {
+  try {
+    const invitationId = req.params.id;
+    const response = await Invitation.findByIdAndUpdate(invitationId, {
+      status: "closed",
+      link: null,
+    });
+    if (response) {
+      res.status(200).json({
+        success: true,
+        data: response,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
+const updateLink = async (req, res) => {
+  console.log("updateLink request:", req.body);
+  console.log("updateLink request id:", req.user.id);
+  try {
+    // const reqId = req.user.id;
+    const { link } = req.body;
+    const { id } = req.params;
+    const response = await Invitation.findByIdAndUpdate(
+      id,
+      { link },
+      { upsert: true, new: true }
+    );
+    console.log("updateLink response:", response);
+    if (response) {
+      res.status(200).json({
+        success: true,
+        message: "Link updated successfully",
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Information not found",
+      });
+    }
+  } catch (error) {
+    console.log("updateLink error:", error.message);
+    res.status(500).json({
+      success: false,
+      message: "Internal server error",
+    });
+  }
+};
 const education = async (req, res) => {
   try {
-    const teacherId = req.user.id; // Assuming the logged-in user ID is passed in the request
-    const { educationId, ...educationData } = req.body; // Extract educationId and the rest of the data from the request
-    let response;
+    const teacherId = req.user.id;
+    const { educationId, ...educationData } = req.body;
+    let educationRecord;
 
     if (educationId) {
-      console.log();
-      // Check if an education record with the given educationId exists
-      response = await Education.findByIdAndUpdate(
+      educationRecord = await Education.findByIdAndUpdate(
         educationId,
         { ...educationData, teacherId },
-        { new: true, runValidators: true } // Returns the updated document and ensures validation
+        { new: true, runValidators: true }
       );
-
-      if (!response) {
+      if (!educationRecord) {
         return res.status(404).json({
           success: false,
           message: "Education record not found",
@@ -340,24 +418,18 @@ const education = async (req, res) => {
       return res.status(200).json({
         success: true,
         message: "Education updated successfully",
-        data: response,
       });
     } else {
-      console.log(teacherId);
-
-      // Create a new education record if educationId is not provided
-      response = new Education({ ...educationData, teacherId });
-      await response.save();
-      console.log(response);
+      educationRecord = new Education({ ...educationData, teacherId });
+      await educationRecord.save();
       return res.status(201).json({
         success: true,
         message: "Education added successfully",
-        data: response,
+        data: educationRecord,
       });
     }
   } catch (error) {
-    console.error("Error in AddOrUpdateEducation:", error.message);
-
+    console.error("Error in education:", error.message);
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -465,47 +537,42 @@ const getTeacherDetail = async (req, res) => {
 const uploadImage = async (req, res) => {
   try {
     const teacherId = req.user.id;
-    const teacher = await Teacher.findOne({ teacherId });
-
-    if (teacher) {
-      // Check if the teacher already has an image
-      if (teacher.image) {
-        const imagePath = path.join(__dirname, "../uploads", teacher.image);
-        try {
-          // Check if the image file exists before trying to delete it
-          await fs.promises.access(imagePath, fs.constants.F_OK);
-          await fs.promises.unlink(imagePath); // Delete the existing image
-        } catch (err) {
-          if (err.code === "ENOENT") {
-            // If the file doesn't exist, skip the deletion step
-            console.log("Image file not found, skipping deletion.");
-          } else {
-            // Handle other types of errors, such as permission issues
-            console.error("Error deleting the image:", err);
-            return res.status(500).json({
-              success: false,
-              message: "Failed to delete existing image",
-            });
-          }
+    let teacher = await Teacher.findOne({ teacherId });
+    if (!teacher) {
+      teacher = new Teacher({ teacherId });
+    }
+    // Check if the teacher already has an image
+    if (teacher.image) {
+      const imagePath = path.join(__dirname, "../uploads", teacher.image);
+      try {
+        // Check if the image file exists before trying to delete it
+        await fs.promises.access(imagePath, fs.constants.F_OK);
+        await fs.promises.unlink(imagePath); // Delete the existing image
+      } catch (err) {
+        if (err.code === "ENOENT") {
+          // If the file doesn't exist, skip the deletion step
+          console.log("Image file not found, skipping deletion.");
+        } else {
+          // Handle other types of errors, such as permission issues
+          console.error("Error deleting the image:", err);
+          return res.status(500).json({
+            success: false,
+            message: "Failed to delete existing image",
+          });
         }
       }
-
-      // Set the new image filename
-      teacher.image = req.file.filename;
-
-      // Save the updated teacher document with the new image
-      await teacher.save();
-
-      res.status(200).json({
-        success: true,
-        message: "Image updated successfully",
-      });
-    } else {
-      res.status(404).json({
-        success: false,
-        message: "User not found",
-      });
     }
+
+    // Set the new image filename
+    teacher.image = req.file.filename;
+
+    // Save the updated teacher document with the new image
+    await teacher.save();
+
+    res.status(200).json({
+      success: true,
+      message: "Image updated successfully",
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({
@@ -528,13 +595,13 @@ module.exports = {
   rejectInvtation,
   education,
   getSpecificEducation,
-  getEducation,
   getTeacherList,
-  // AddEducation,
+  DeleteEducation,
   getEducation,
   getSpecificEducation,
   getTeacherDetail,
   getTeacherEducation,
   uploadImage,
-  // education,
+  closeInvtation,
+  updateLink,
 };

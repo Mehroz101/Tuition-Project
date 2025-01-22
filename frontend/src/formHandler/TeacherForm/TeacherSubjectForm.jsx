@@ -5,7 +5,7 @@ import { TeacherSubject } from "../../services/TeacherServices/TeacherSubjectSer
 const TeacherSubjectForm = () => {
   const [teacherSubject, setTeacherSubject] = useState({
     subject: "",
-    level: "",
+    level: "Beginner",
   });
   const handleChange = (e) => {
     setTeacherSubject((prev) => ({

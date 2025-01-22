@@ -1,0 +1,33 @@
+.bookspage{
+padding: 100px 20px;
+padding-bottom: 450px;
+}
+.bookspage .top
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 50px;
+}
+.bookspage input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 400px;
+    font-size: 16px;
+}
+.bookspage h1{
+    margin-bottom: 20px;
+    font-size: 40px;
+    font-weight: 600;
+    color: var(--primary-text); 
+}
+.bookspage .books{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}

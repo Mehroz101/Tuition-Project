@@ -9,7 +9,7 @@ const AddNewEducation = () => {
     TeacherEducationForm();
   const { educationId } = useParams();
   if (educationId) {
-    console.log(educationId)
+    console.log(educationId);
     const { data, isLoading, isError } = useQuery({
       queryKey: ["studentProfile"],
       queryFn: () => GetEducationDetail(educationId),
@@ -18,7 +18,6 @@ const AddNewEducation = () => {
       },
       onError: (error) => {
         console.error("Error fetching student profile:", error.message);
-        // pushNotify(400, "SORRY", "Something went wrong. Try again later.");
       },
       onsettled: () => {
         console.log("fetching student profile");
@@ -37,17 +36,18 @@ const AddNewEducation = () => {
           endDate: data?.endDate
             ? new Date(data.endDate).toISOString().split("T")[0]
             : "",
+          educationId: data?._id,
         });
       }
     }, [data]);
   }
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
-if(educationId !== undefined && educationId !== null){
-  handleSubmit(educationId);
-  
-}
-handleSubmit();
+    if (educationId !== undefined && educationId !== null) {
+      return handleSubmit(educationId);
+    }
+    handleSubmit();
   };
   return (
     <>

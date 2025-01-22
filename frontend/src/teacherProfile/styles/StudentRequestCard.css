@@ -100,8 +100,8 @@
   color: white; /* White text for contrast */
 }
 
-.student-card-top .status.finished {
-  background-color: #007bff; /* Rich blue */
+.student-card-top .status.closed {
+  background-color: rgb(220, 192, 20);; /* Rich blue */
   color: white; /* White text for contrast */
 }
 
@@ -118,6 +118,23 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+.student-card-middle .givenRating {
+  background-color: #e9e9e9;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.student-card-middle .givenRating  h3{
+  color: #d8a716;}
+.student-card-middle .givenRating  h3 i{
+  color: #d8a716;
+}
+.student-card-middle .givenRating p{
+  margin-bottom: 0;
+  font-weight: 16px;
 }
 
 .student-card-middle p {
@@ -199,6 +216,22 @@
   font-weight: 600;
   transition: background-color 0.3s ease;
 }
+.student-card-bottom .linkinputbox 
+{
+  display: flex;
+  gap: 10px;
+}
+.student-card-bottom .linkinputbox input {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #f7f8fc;
+  color: var(--secondary-text);
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 5px;
+  font-weight: 600;
+ 
+}
 
 .student-card-bottom button i {
   margin-right: 5px;
@@ -215,6 +248,14 @@
 .student-card-bottom .reject-button {
   color: #fff;
   background-color: rgb(210, 2, 2);
+}
+.student-card-bottom .Close-button {
+  color: #fff;
+  background-color: rgb(210, 172, 2);
+}
+.student-card-bottom .Close-button:hover {
+  color: #fff;
+  background-color: rgb(220, 192, 20);
 }
 .student-card-bottom .reject-button:hover {
   color: #fff;
