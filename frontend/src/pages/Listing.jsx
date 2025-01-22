@@ -36,17 +36,12 @@ const Listing = () => {
     }
 
     if (subjectFilter) {
-<<<<<<< HEAD
-      filteredTeachers = filteredTeachers.filter(
-        (teacher) =>
-          teacher?.subject?.toLowerCase() === subjectFilter.toLowerCase()
-=======
+
       filteredTeachers = filteredTeachers.filter((teacher) =>
         teacher.subjects.some(
           (subject) =>
             subject.subject.toLowerCase() === subjectFilter.toLowerCase()
         )
->>>>>>> 028c8357cebcb42d4f8c8cbbdbd5e06997630f22
       );
     }
 

@@ -28,10 +28,7 @@ const Navbar = () => {
         <li>
           <Link to="/books">Book</Link>
         </li>
-        <li>
-          <Link to="/bookstore">Books</Link>
-        </li>
-
+       
         {role === "teacher" && (
           <li>
             <Link to="/profile" className="profile_btn">

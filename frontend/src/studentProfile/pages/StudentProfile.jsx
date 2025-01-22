@@ -21,12 +21,6 @@ const StudentProfile = () => {
     if (file) {
       setImage(file);
       setPreview(URL.createObjectURL(file));
-<<<<<<< HEAD
-      console.log("called")
-      console.log("std",data)
-      console.log("std id",data.studentId)
-=======
->>>>>>> 028c8357cebcb42d4f8c8cbbdbd5e06997630f22
       const formData = new FormData();
       formData.append("image", file);
       formData.append("studentId", data.studentId); // Attach student ID dynamically
@@ -64,17 +58,6 @@ const StudentProfile = () => {
     queryKey: ["studentProfile"],
     queryFn: GetStudentProfile,
   });
-<<<<<<< HEAD
-useEffect(()=>{
-  if(data){
-    console.log(data)
-    console.log(data.image)
-    setImage(data?.image)
-    setPreview(data?.image); // Update preview with uploaded image
-
-  }
-},[data])
-=======
   useEffect(() => {
     if (data?.image) {
       console.log(data.image);
@@ -86,7 +69,6 @@ useEffect(()=>{
       );
     }
   }, [data]);
->>>>>>> 028c8357cebcb42d4f8c8cbbdbd5e06997630f22
 
   // Handle button click to trigger file input
   const handleButtonClick = () => {

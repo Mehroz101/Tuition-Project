@@ -1,0 +1,46 @@
+/* Container for the custom text input */
+.custom-text-input-container {
+    margin-bottom: 1rem;
+    width: 100%;
+  }
+  
+  /* Styling for the label */
+  .custom-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    text-align: left;
+  }
+  
+
+
+  /* Styling for the input field */
+  .custom-input {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .custom-input::placeholder {
+    color: #999;
+    font-size: 0.875rem;
+    font-weight: 500;
+  }
+ 
+  
+  .custom-input.input-error {
+    border-color: #e63946;
+  }
+  
+  /* Styling for the error message */
+  .error-message {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: #e63946;
+  }
+  

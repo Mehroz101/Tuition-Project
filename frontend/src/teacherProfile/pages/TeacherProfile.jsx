@@ -57,9 +57,6 @@ const TeacherProfile = () => {
   } = useQuery({
     queryKey: ["TeacherProfile"],
     queryFn: GetTeacherProfile,
-<<<<<<< HEAD
-   
-=======
     onSuccess: (data) => {
       if (data?.image !== undefined && data?.image !== null) {
         console.log("enterd");
@@ -76,7 +73,6 @@ const TeacherProfile = () => {
       console.error("Error fetching teacher profile:", error.message);
       alert("Error fetching profile. Please try again.");
     },
->>>>>>> 028c8357cebcb42d4f8c8cbbdbd5e06997630f22
   });
 
   const handleButtonClick = () => {
@@ -109,16 +105,11 @@ const TeacherProfile = () => {
         <div className="profile_left_nav">
           <div className="profile_left_nav_img">
             <div className="left_img">
-<<<<<<< HEAD
-            <img src={`http://localhost:5000/uploads/${image}`} alt="Profile Preview" />
-
-=======
               {preview ? (
                 <img src={preview} alt="Profile Preview" />
               ) : (
                 <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" />
               )}
->>>>>>> 028c8357cebcb42d4f8c8cbbdbd5e06997630f22
             </div>
             <div className="upload_btn">
               <input
