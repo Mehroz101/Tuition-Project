@@ -3,7 +3,7 @@ const bcryptjs = require("bcryptjs");
 const { generateToken } = require("../utils/generateToken");
 const crypto = require("crypto"); // Signup function
 const sendEmail = require("../utils/sendEmail");
-
+const Admin = require("../models/Admin");
 const LoginUser = async (req, res) => {
   try {
     const { email, password, role } = req.body;
@@ -177,9 +177,127 @@ const resetpass = async (req, res) => {
     });
   }
 };
+const AdminLogin = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const isUserExist = await Admin.findOne({ username });
+    if (!isUserExist) {
+      return res.status(404).json({
+        success: false,
+        message: "username not found",
+      });
+    }
+    const isMatch = await bcryptjs.compare(password, isUserExist.password);
+
+    if (!isMatch) {
+      res.status(401).json({
+        success: false,
+        message: "Incorrect password",
+      });
+    } else {
+      const token = generateToken(isUserExist); // Generate JWT token
+      res.status(200).json({
+        success: true,
+        message: "Login successful",
+        token,
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+const AdminSignup = async (req, res) => {
+  const { username, password, confirmPassword } = req.body;
+  try {
+    if (password !== confirmPassword) {
+      return res.status(422).json({
+        success: false,
+        message: "Passwords do not match",
+      });
+    }
+    const existingAdmin = await Admin.findOne({ username });
+    if (existingAdmin) {
+      return res.status(409).json({
+        success: false,
+        message: "Admin already exists",
+      });
+    }
+    const hashedPassword = await bcryptjs.hash(password, 10);
+    const newAdmin = new Admin({ username, password: hashedPassword });
+    const createdAdmin = await newAdmin.save();
+    res.status(201).json({
+      success: true,
+      message: "Admin registered successfully!",
+      user: createdAdmin,
+    });
+  } catch (error) {
+    console.error(`Error in adminSignup function - ${error.message}`);
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
+const checkLogin = async (req, res) => {
+  try {
+    console.log(req.user.id);
+    const admin = await Admin.findById(req.user.id);
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin not found",
+      });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Login successful",
+      admin,
+    });
+  } catch (error) {
+    console.log(error.message);
+  }
+};
+const changepassword = async (req, res) => {
+  try {
+    const { username, oldPassword, newPassword } = req.body;
+    const admin = await Admin.findOne({ username });
+    if (!admin) {
+      return res.status(404).json({
+        success: false,
+        message: "Admin not found",
+      });
+    }
+    const isMatch = await bcryptjs.compare(oldPassword, admin.password);
+    if (!isMatch) {
+      return res.status(401).json({
+        success: false,
+        message: "Incorrect password",
+      });
+    }
+    const hashPassowrd = await bcryptjs.hash(newPassword, 10);
+    admin.password = hashPassowrd;
+    await admin.save();
+    res.status(200).json({
+      success: true,
+      message: "Password changed successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal Server Error",
+    });
+  }
+};
 module.exports = {
   LoginUser,
   SignupUser,
   resetpass,
   forget,
+  AdminLogin,
+  AdminSignup,
+  checkLogin,
+  changepassword,
 };

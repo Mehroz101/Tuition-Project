@@ -8,6 +8,7 @@ require("dotenv").config();
 const authRoutes = require("./routes/authRoutes");
 const studentRoutes = require("./routes/studentRoutes");
 const teacherRoutes = require("./routes/teacherRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 const { connectDB, checkDatabaseConnection } = require("./config/db");
 
 const PORT = process.env.PORT || 5000;
@@ -38,7 +39,7 @@ app.use(express.static(path.join(__dirname, "uploads")));
 app.use("/api/user", authRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/teacher", teacherRoutes);
-
+app.use("/api/admin", adminRoutes);
 
 app.listen(PORT, (req, res) => {
   console.log(`backend running on port ${PORT}`);
