@@ -5,34 +5,80 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChalkboardUser,
   faChartSimple,
-  faCoffee,
-  faUser,
   faUserGraduate,
 } from "@fortawesome/free-solid-svg-icons";
 import { DashboardData } from "../services/Api";
-// import ChartLine from "../components/ChartLine";
-// import PieChart from "../components/PiaChart";
-const Home = () => {
-const [dashboard,setDashboard] = useState({
-  TotalStudent:0,
-  TotalTeacher:0,
-  TotalTeacher:0,
+import { Chart } from "primereact/chart";
 
-})
-  const {data:Dashboarddata} = useQuery({
-    queryKey:["dashboarddata"],
-    queryFn:DashboardData
-  })
-  useEffect(()=>{
-    if(Dashboarddata){
-      console.log(Dashboarddata)
+const Home = () => {
+  const [dashboard, setDashboard] = useState({
+    TotalStudent: 0,
+    TotalTeacher: 0,
+    TotalRevenue: 0,
+  });
+  const [chartData, setChartData] = useState({});
+  const [chartOptions, setChartOptions] = useState({});
+
+  const { data: Dashboarddata } = useQuery({
+    queryKey: ["dashboarddata"],
+    queryFn: DashboardData,
+  });
+
+  useEffect(() => {
+    if (Dashboarddata) {
+      console.log(Dashboarddata);
       setDashboard({
-        TotalStudent:Dashboarddata?.TotalStudent,
-        TotalTeacher:Dashboarddata?.TotalTeacher,
-        TotalRevenue:Dashboarddata?.TotalRevenue
-      })
+        TotalStudent: Dashboarddata?.TotalStudent,
+        TotalTeacher: Dashboarddata?.TotalTeacher,
+        TotalRevenue: Dashboarddata?.TotalRevenue,
+      });
+
+      // Extract last 7 days' data for the chart
+      const last7DaysData = Dashboarddata?.Last7DaysInvitations || [];
+      const labels = last7DaysData.map((entry) => entry.date); // Assuming each entry has a `date` field
+      const data = last7DaysData.map((entry) => entry.count); // Assuming each entry has a `count` field
+
+      const chartData = {
+        labels: labels,
+        datasets: [
+          {
+            label: "Invitation Requests",
+            data: data,
+            backgroundColor: "rgba(54, 162, 235, 0.2)",
+            borderColor: "rgb(54, 162, 235)",
+            borderWidth: 1,
+          },
+        ],
+      };
+
+      const chartOptions = {
+        scales: {
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: "Number of Requests",
+            },
+          },
+          x: {
+            title: {
+              display: true,
+              text: "Date",
+            },
+          },
+        },
+        plugins: {
+          legend: {
+            display: true,
+            position: "top",
+          },
+        },
+      };
+
+      setChartData(chartData);
+      setChartOptions(chartOptions);
     }
-  },[Dashboarddata])
+  }, [Dashboarddata]);
 
   return (
     <>
@@ -59,6 +105,24 @@ const [dashboard,setDashboard] = useState({
             card_count={dashboard?.TotalRevenue}
             card_icon={<FontAwesomeIcon icon={faChartSimple} />}
           />
+        </div>
+        <div className="graphs flex gap-4 flex-wrap mt-6">
+          <div
+            className="card"
+            style={{
+              width: "45%",
+            }}
+          >
+            <Chart type="bar" data={chartData} options={chartOptions} />
+          </div>
+          <div
+            className="card"
+            style={{
+              width: "45%",
+            }}
+          >
+            <Chart type="bar" data={chartData} options={chartOptions} />
+          </div>
         </div>
       </div>
     </>

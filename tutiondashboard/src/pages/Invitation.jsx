@@ -21,7 +21,8 @@ import ActionsBtns from "../components/ActionsBtns";
 export default function Invitation() {
   const [customers, setCustomers] = useState(null);
   const [filters, setFilters] = useState({
-    studentNamew: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    studentName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    status: { value: null, matchMode: FilterMatchMode.EQUALS }, // Add status filter
   });
   const queryClient = useQueryClient();
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,22 @@ export default function Invitation() {
     queryKey: ["Invitationdata"],
     queryFn: GetInvitationData,
   });
+  const [statuses] = useState(["Pending", "Confirmed", "Closed", "Rejected"]);
+  const getSeverity = (status) => {
+    switch (status) {
+      case "Pending":
+        return "info";
+
+      case "Confirmed":
+        return "success";
+
+      case "Rejected":
+        return "danger";
+
+      case "Closed":
+        return "warning";
+    }
+  };
   useEffect(() => {
     if (Invitationdata) {
       console.log(Invitationdata);
@@ -43,13 +60,13 @@ export default function Invitation() {
   //   "pending", "accepted", "rejected", "closed"
   const StatusTemplate = (rowData) => {
     if (rowData.status === "pending") {
-      return <Tag value="Pending" severity="warning" />;
+      return <Tag value="Pending" severity="info" />;
     } else if (rowData.status === "accepted") {
       return <Tag value="Accepted" severity="success" />;
     } else if (rowData.status === "rejected") {
       return <Tag value="Rejected" severity="danger" />;
     } else if (rowData.status === "closed") {
-      return <Tag value="Closed" severity="info" />;
+      return <Tag value="Closed" severity="warning" />;
     }
     return null;
   };
@@ -83,6 +100,24 @@ export default function Invitation() {
   };
   const CloseRequest = async (id) => {
     closeMutation.mutate(id);
+  };
+  const statusItemTemplate = (option) => {
+    return <Tag value={option} severity={getSeverity(option)} />;
+  };
+
+  const statusRowFilterTemplate = (options) => {
+    return (
+      <Dropdown
+        value={options.value}
+        options={statuses}
+        onChange={(e) => options.filterApplyCallback(e.value)}
+        itemTemplate={statusItemTemplate}
+        placeholder="Select One"
+        className="p-column-filter"
+        showClear
+        style={{ minWidth: "12rem" }}
+      />
+    );
   };
   const ActionTemplate = (rowData) => {
     return (
@@ -140,7 +175,10 @@ export default function Invitation() {
         <Column field="review" header="Review" style={{ minWidth: "12rem" }} />
         <Column
           field="status"
+          filter
           body={StatusTemplate}
+          filterPlaceholder="Search by status"
+          filterElement={statusRowFilterTemplate}
           header="Status"
           style={{ minWidth: "12rem" }}
         />
