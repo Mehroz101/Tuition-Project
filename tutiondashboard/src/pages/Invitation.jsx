@@ -9,14 +9,21 @@ import { InputIcon } from "primereact/inputicon";
 import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
 import { Tag } from "primereact/tag";
-import { useQuery } from "@tanstack/react-query";
-import { GetInvitationData } from "../services/Api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  acceptRequest,
+  closeRequest,
+  GetInvitationData,
+  rejectRequest,
+} from "../services/Api";
+import ActionsBtns from "../components/ActionsBtns";
 
 export default function Invitation() {
   const [customers, setCustomers] = useState(null);
   const [filters, setFilters] = useState({
-    name: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
+    studentNamew: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
   });
+  const queryClient = useQueryClient();
   const [loading, setLoading] = useState(true);
   const { data: Invitationdata } = useQuery({
     queryKey: ["Invitationdata"],
@@ -45,6 +52,47 @@ export default function Invitation() {
       return <Tag value="Closed" severity="info" />;
     }
     return null;
+  };
+
+  const acceptMutation = useMutation({
+    mutationFn: acceptRequest,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["teacherInvitations"]);
+      refetchInvitations();
+    },
+  });
+  const rejectMutation = useMutation({
+    mutationFn: rejectRequest,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["teacherInvitations"]);
+      refetchInvitations();
+    },
+  });
+  const closeMutation = useMutation({
+    mutationFn: closeRequest,
+    onSuccess: (data) => {
+      queryClient.invalidateQueries(["teacherInvitations"]);
+      refetchInvitations();
+    },
+  });
+  const AcceptRequest = async (id) => {
+    acceptMutation.mutate(id);
+  };
+  const RejectRequest = async (id) => {
+    rejectMutation.mutate(id);
+  };
+  const CloseRequest = async (id) => {
+    closeMutation.mutate(id);
+  };
+  const ActionTemplate = (rowData) => {
+    return (
+      <ActionsBtns
+        rowData={rowData}
+        onAccept={() => AcceptRequest(rowData.id)}
+        onReject={() => RejectRequest(rowData.id)}
+        onClose={() => CloseRequest(rowData.id)}
+      />
+    );
   };
   return (
     <div className="card">
@@ -94,6 +142,11 @@ export default function Invitation() {
           field="status"
           body={StatusTemplate}
           header="Status"
+          style={{ minWidth: "12rem" }}
+        />
+        <Column
+          body={ActionTemplate}
+          header="Action"
           style={{ minWidth: "12rem" }}
         />
       </DataTable>

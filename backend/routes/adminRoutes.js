@@ -13,6 +13,11 @@ const {
   AllTeacherData,
   AllInvitationData,
 } = require("../controllers/DashboardController");
+const {
+  acceptInvtation,
+  rejectInvtation,
+  closeInvtation,
+} = require("../controllers/teacherController");
 
 const router = express.Router();
 
@@ -26,5 +31,8 @@ router.get("/stats", authenticateToken, GetDashboardData);
 router.get("/allstudentdata", authenticateToken, AllStudentData);
 router.get("/allteacherdata", authenticateToken, AllTeacherData);
 router.get("/allinvitations", authenticateToken, AllInvitationData);
+router.post("/acceptinvtation/:id", authenticateToken, acceptInvtation);
+router.post("/rejectinvtation/:id", authenticateToken, rejectInvtation);
+router.post("/closeinvtation/:id", authenticateToken, closeInvtation);
 
 module.exports = router;

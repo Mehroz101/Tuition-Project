@@ -111,3 +111,67 @@ export const GetInvitationData = async () => {
     return;
   }
 };
+
+export const acceptRequest = async (id) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/acceptinvtation/${id}`,
+      {},
+      config
+    );
+    notify("success", "Invitation", "Invitation accepted");
+    return response;
+  } catch (error) {
+    notify("error", "Invitation", "Invitation not accepted");
+    console.log(error.message);
+  }
+};
+export const rejectRequest = async (id) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/rejectinvtation/${id}`,
+      {},
+      config
+    );
+    notify("success", "Invitation", "Invitation rejected");
+    return response;
+  } catch (error) {
+    notify("error", "Invitation", "Invitation not rejected");
+    console.log(error.message);
+  }
+};
+export const closeRequest = async (id) => {
+  try {
+    const token = localStorage.getItem("usertoken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/closeinvtation/${id}`,
+      {},
+      config
+    );
+    notify("success", "Invitation", "Invitation closed");
+    return response;
+  } catch (error) {
+    notify("error", "Invitation", "Invitation not closed");
+    console.log(error.message);
+  }
+};

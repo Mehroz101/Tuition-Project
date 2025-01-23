@@ -7,6 +7,7 @@ import {
   rejectRequest,
   updateLink,
 } from "../../services/TeacherServices/StudentInvitationService";
+import { useQueryClient } from "@tanstack/react-query";
 const API_BASE_URL = import.meta.env.REACT_APP_API_BASE_URL;
 
 const StudentRequestCard = ({ request, refetchInvitations }) => {
@@ -14,6 +15,7 @@ const StudentRequestCard = ({ request, refetchInvitations }) => {
   const handleChange = (e) => {
     setLink(e.target.value);
   };
+  const queryClient = useQueryClient();
   const updateLinkMutation = useMutation({
     mutationFn: updateLink,
     onSuccess: (data) => {

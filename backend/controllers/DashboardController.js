@@ -91,6 +91,7 @@ const AllInvitationData = async (req, res) => {
     if (InvitationData && InvitationData.length > 0) {
       const sendData = InvitationData.map((invitation) => {
         return {
+          id: invitation._id,
           studentName: `${invitation.studentId.studentId.fName} ${invitation.studentId.studentId.lName}`,
           teacherName: `${invitation.teacherId.teacherId.fName} ${invitation.teacherId.teacherId.lName}`,
           offeredPrice: invitation.offeredPrice,
