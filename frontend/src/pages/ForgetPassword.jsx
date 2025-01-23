@@ -21,7 +21,7 @@ const ForgetPassword = () => {
       <div className="login-page">
         <div className="website-name">
           <h1>
-            <Link to="/">Tutor</Link>{" "}
+            <Link to="/">The Tutor Ground</Link>{" "}
           </h1>
         </div>
         <div className="form-box">

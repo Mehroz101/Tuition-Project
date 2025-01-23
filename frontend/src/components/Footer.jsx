@@ -8,7 +8,7 @@ const Footer = () => {
   <div className="footer-upper">
     {/* <!-- Left Side --> */}
     <div className="footer-left">
-      <h2>Tutor</h2>
+      <h2>The Tutor Ground</h2>
       <p>
         Empowering students and teachers with a platform designed to bring quality education right to your doorstep.
       </p>

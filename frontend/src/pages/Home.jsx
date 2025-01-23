@@ -36,10 +36,10 @@ const Home = () => {
         <section className="hero-section">
           <div className="hero-content">
             <h1 className="tagline">
-              Great education starts with finding the right <span>tutor</span>{" "}
+              Great education starts with finding the right <span>Tutor Ground</span>{" "}
             </h1>
             <p className="supporting_text">
-              Discover top tutors who can tailor their teaching to your needs,
+              Discover top The Tutor Grounds who can tailor their teaching to your needs,
               helping you achieve academic excellence and build confidence.
             </p>
 
@@ -97,17 +97,17 @@ const Home = () => {
             <div className="steps">
               <div className="step">
                 <img src={SearchIcon} alt="" />
-                <h3 className="step-title">Search for Tutors</h3>
+                <h3 className="step-title">Search for The Tutor Grounds</h3>
                 <p className="step-description">
-                  Enter your subject or location to find the best tutors in your
+                  Enter your subject or location to find the best Tutor Grounds in your
                   area.
                 </p>
               </div>
               <div className="step">
                 <img src={SelectIcon} alt="" />
-                <h3 className="step-title">Choose Your Tutor</h3>
+                <h3 className="step-title">Choose Your The Tutor Ground</h3>
                 <p className="step-description">
-                  Review tutor profiles and select the one that best fits your
+                  Review The Tutor Ground profiles and select the one that best fits your
                   needs.
                 </p>
               </div>
@@ -115,7 +115,7 @@ const Home = () => {
                 <img src={CalenderIcon} alt="" />
                 <h3 className="step-title">Schedule a Session</h3>
                 <p className="step-description">
-                  Set up a convenient time for your tutoring sessions and start
+                  Set up a convenient time for your The Tutor Grounding sessions and start
                   learning.
                 </p>
               </div>
@@ -123,7 +123,7 @@ const Home = () => {
                 <img src={MadelIcon} alt="" />
                 <h3 className="step-title">Achieve Your Goals</h3>
                 <p className="step-description">
-                  Work with your tutor to reach your educational objectives and
+                  Work with your The Tutor Ground to reach your educational objectives and
                   track your progress.
                 </p>
               </div>
@@ -164,10 +164,10 @@ const Home = () => {
           <div className="container">
             <div className="stats-row">
               <div className="stat-item">
-                <img src={TeacherIcon} alt="Tutors" className="stat-icon" />
+                <img src={TeacherIcon} alt="The Tutor Grounds" className="stat-icon" />
                 <div className="stat-number">200+</div>
                 <div className="stat-label">
-                  Expert Tutors Available to Guide You
+                  Expert The Tutor Grounds Available to Guide You
                 </div>
               </div>
               <div className="stat-item">
@@ -188,7 +188,7 @@ const Home = () => {
                 <img src={ScheduleIcon} alt="Hours" className="stat-icon" />
                 <div className="stat-number">10,000+</div>
                 <div className="stat-label">
-                  Total Hours of Personalized Tutoring Provided
+                  Total Hours of Personalized The Tutor Grounding Provided
                 </div>
               </div>
             </div>
