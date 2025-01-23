@@ -18,6 +18,9 @@ const ActionsBtns = ({
   onAccept = null,
   onReject = null,
   onClose = null,
+  onView = null,
+  onEdit = null,
+  onDelete = null,
 }) => {
   const navigate = useNavigate();
 
@@ -36,14 +39,14 @@ const ActionsBtns = ({
           tooltipOptions={{ position: "left" }}
         />
       )}
-      {/* {onView && (
+      {onView && (
         <Button
           icon={<FontAwesomeIcon icon={faEye} />}
           className="p-button p-button-info mr-2"
           onClick={() => onView && onView(rowData)}
           tooltip="view"
         />
-      )} */}
+      )}
       {onReject && rowData.status === "pending" && (
         <Button
           icon={<FontAwesomeIcon icon={faBan} />}
@@ -58,6 +61,24 @@ const ActionsBtns = ({
           icon={<FontAwesomeIcon icon={faCircleCheck} />}
           className="p-button p-button-info mr-2"
           onClick={() => onClose && onClose(rowData)}
+          tooltip="close"
+          tooltipOptions={{ position: "left" }}
+        />
+      )}
+      {onEdit && (
+        <Button
+          icon={<FontAwesomeIcon icon={faPencil} />}
+          className="p-button p-button-info mr-2"
+          onClick={() => onEdit && onEdit(rowData)}
+          tooltip="close"
+          tooltipOptions={{ position: "left" }}
+        />
+      )}
+      {onDelete && (
+        <Button
+          icon={<FontAwesomeIcon icon={faTrash} />}
+          className="p-button p-button-danger mr-2"
+          onClick={() => onDelete && onDelete(rowData)}
           tooltip="close"
           tooltipOptions={{ position: "left" }}
         />

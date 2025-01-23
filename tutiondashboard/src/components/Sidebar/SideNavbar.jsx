@@ -67,10 +67,26 @@ const CustomSidebar = ({ visible, onHide }) => {
               Settings
             </Link>
           </li>
-          <li className=" py-2 px-4 rext-black" onClick={() => handleLogout()}>
-            <i className="pi pi-sign-out pr-2"></i>
-            Logout
+          <li>
+            <Link
+              to={ROUTES.BOOKS}
+              className="sidebar-link "
+              onClick={handleLinkClick}
+            >
+              <i className="pi pi-book"></i>
+              Books
+            </Link>
           </li>
+          <li>
+            <Link
+              className="sidebar-link "
+              onClick={() => handleLogout()}
+            >
+               <i className="pi pi-sign-out pr-2"></i>
+            Logout
+            </Link>
+          </li>
+          
         </ul>
       </div>
 

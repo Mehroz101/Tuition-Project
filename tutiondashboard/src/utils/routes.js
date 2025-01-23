@@ -5,5 +5,6 @@ export const ROUTES = {
   STUDENTS: "/students",
   TEACHERS: "/teachers",
   INVITATION: "/invitation",
+  BOOKS: "/books",
   SETTING: "/setting",
 };

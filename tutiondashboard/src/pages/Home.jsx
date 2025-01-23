@@ -16,8 +16,10 @@ const Home = () => {
     TotalTeacher: 0,
     TotalRevenue: 0,
   });
-  const [chartData, setChartData] = useState({});
-  const [chartOptions, setChartOptions] = useState({});
+  const [barChartData, setBarChartData] = useState({});
+  const [barChartOptions, setBarChartOptions] = useState({});
+  const [doughnutChartData, setDoughnutChartData] = useState({});
+  const [doughnutChartOptions, setDoughnutChartOptions] = useState({});
 
   const { data: Dashboarddata } = useQuery({
     queryKey: ["dashboarddata"],
@@ -33,12 +35,12 @@ const Home = () => {
         TotalRevenue: Dashboarddata?.TotalRevenue,
       });
 
-      // Extract last 7 days' data for the chart
+      // Extract last 7 days' data for the bar chart
       const last7DaysData = Dashboarddata?.Last7DaysInvitations || [];
-      const labels = last7DaysData.map((entry) => entry.date); // Assuming each entry has a `date` field
-      const data = last7DaysData.map((entry) => entry.count); // Assuming each entry has a `count` field
+      const labels = last7DaysData.map((entry) => entry.date); // Dates
+      const data = last7DaysData.map((entry) => entry.count); // Counts
 
-      const chartData = {
+      const barChartData = {
         labels: labels,
         datasets: [
           {
@@ -51,7 +53,7 @@ const Home = () => {
         ],
       };
 
-      const chartOptions = {
+      const barChartOptions = {
         scales: {
           y: {
             beginAtZero: true,
@@ -75,8 +77,60 @@ const Home = () => {
         },
       };
 
-      setChartData(chartData);
-      setChartOptions(chartOptions);
+      setBarChartData(barChartData);
+      setBarChartOptions(barChartOptions);
+
+      // Extract invitation status counts for the doughnut chart
+      const statusCounts = Dashboarddata?.InvitationStatusCounts || {};
+      const doughnutChartData = {
+        labels: ["Pending", "Closed", "Rejected", "Confirmed"],
+        datasets: [
+          {
+            data: [
+              statusCounts.pending || 0,
+              statusCounts.closed || 0,
+              statusCounts.rejected || 0,
+              statusCounts.accepted || 0, // Assuming 'accepted' is the status for confirmed invitations
+            ],
+            backgroundColor: [
+              "rgba(54, 162, 235, 0.5)", // Blue for Pending
+              "rgba(255, 206, 86, 0.5)", // Yellow for Closed
+              "rgba(255, 99, 132, 0.5)", // Red for Rejected
+              "rgba(75, 192, 192, 0.5)", // Green for Confirmed
+            ],
+            hoverBackgroundColor: [
+              "rgba(54, 162, 235, 0.8)",
+              "rgba(255, 206, 86, 0.8)",
+              "rgba(255, 99, 132, 0.8)",
+              "rgba(75, 192, 192, 0.8)",
+            ],
+          },
+        ],
+      };
+
+      const doughnutChartOptions = {
+        cutout: "60%",
+        plugins: {
+          legend: {
+            position: "bottom",
+          },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                let label = context.label || "";
+                if (label) {
+                  label += ": ";
+                }
+                label += context.raw;
+                return label;
+              },
+            },
+          },
+        },
+      };
+
+      setDoughnutChartData(doughnutChartData);
+      setDoughnutChartOptions(doughnutChartOptions);
     }
   }, [Dashboarddata]);
 
@@ -111,17 +165,30 @@ const Home = () => {
             className="card"
             style={{
               width: "45%",
+              height:"450px"
+
             }}
           >
-            <Chart type="bar" data={chartData} options={chartOptions} />
+            <Chart type="bar" pt={{
+              root:{
+                style:{
+                  height:"100%"
+                }
+              }
+            }} data={barChartData} options={barChartOptions} />
           </div>
           <div
             className="card"
             style={{
               width: "45%",
+              height:"450px"
             }}
           >
-            <Chart type="bar" data={chartData} options={chartOptions} />
+            <Chart
+              type="doughnut"
+              data={doughnutChartData}
+              options={doughnutChartOptions}
+            />
           </div>
         </div>
       </div>
