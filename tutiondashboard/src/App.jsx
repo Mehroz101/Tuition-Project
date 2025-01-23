@@ -8,6 +8,7 @@ import {
   Setting,
   Signup,
   Students,
+  Teachers,
 } from "./utils/LazyLoadComponent";
 import { Suspense } from "react";
 import { ROUTES } from "./utils/routes";
@@ -65,6 +66,7 @@ function AppRoutes() {
       <Route path="/" element={<ProtectedRoute element={<Layout />} />}>
         <Route index element={<Home />} />
         <Route path={ROUTES.STUDENTS} element={<Students />} />
+        <Route path={ROUTES.TEACHERS} element={<Teachers />} />
         <Route path={ROUTES.SETTING} element={<Setting />} />
       </Route>
     </Routes>

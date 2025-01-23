@@ -14,7 +14,7 @@ const CustomSidebar = ({ visible, onHide }) => {
     onHide(); // Close the sidebar
   };
   const handleLogout = () => {
-    logout();
+    localStorage.removeItem("tuitionAdminToken");
     navigate("/login");
   };
   return (
@@ -25,11 +25,7 @@ const CustomSidebar = ({ visible, onHide }) => {
         </div>
         <ul className="sidebar-links">
           <li>
-            <Link
-              to={"/"}
-              className="sidebar-link"
-              onClick={handleLinkClick}
-            >
+            <Link to={"/"} className="sidebar-link" onClick={handleLinkClick}>
               <i className="pi pi-home"></i> Dashboard
             </Link>
           </li>
@@ -40,6 +36,15 @@ const CustomSidebar = ({ visible, onHide }) => {
               onClick={handleLinkClick}
             >
               <i className="pi pi-users"></i> Students
+            </Link>
+          </li>
+          <li>
+            <Link
+              to={ROUTES.TEACHERS}
+              className="sidebar-link"
+              onClick={handleLinkClick}
+            >
+              <i className="pi pi-users"></i> Teachers
             </Link>
           </li>
 

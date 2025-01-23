@@ -31,18 +31,42 @@ const AllStudentData = async (req, res) => {
   try {
     const studentData = await Student.find();
     if (studentData) {
-        console.log(studentData.fName)
-        const sendData =studentData.map((std,i)=>{
-            return {
-                id:i,
-                name:`${std.fName} ${std.fName}`,
-                schoolName:std.schoolName,
-                number:std.number,
-                className:std.className,
-                city:std.city,
-            }
-        })
-        console.log(sendData)
+      console.log(studentData.fName);
+      const sendData = studentData.map((std, i) => {
+        return {
+          id: i,
+          name: `${std.fName} ${std.fName}`,
+          schoolName: std.schoolName,
+          number: std.number,
+          className: std.className,
+          city: std.city,
+        };
+      });
+      console.log(sendData);
+      res.status(201).send({ success: true, data: sendData });
+    } else {
+      res.status(404).send({ success: false, message: "No data found" });
+    }
+  } catch (error) {
+    res.status(500).send({ success: false, message: "server error" });
+  }
+};
+const AllTeacherData = async (req, res) => {
+  try {
+    const teacherData = await Teacher.find();
+    if (teacherData) {
+      console.log(teacherData.fName);
+      const sendData = teacherData.map((std, i) => {
+        return {
+          id: i,
+          name: `${std.fName} ${std.fName}`,
+          fee: std.fee,
+          number: std.number,
+          rating: std.rating,
+          city: std.city,
+        };
+      });
+      console.log(sendData);
       res.status(201).send({ success: true, data: sendData });
     } else {
       res.status(404).send({ success: false, message: "No data found" });
@@ -54,4 +78,5 @@ const AllStudentData = async (req, res) => {
 module.exports = {
   GetDashboardData,
   AllStudentData,
+  AllTeacherData,
 };
