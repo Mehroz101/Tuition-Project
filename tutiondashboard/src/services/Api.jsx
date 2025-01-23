@@ -90,7 +90,7 @@ export const GetTeacherData = async () => {
   }
 };
 
-export const GetReservationData = async () => {
+export const GetInvitationData = async () => {
   try {
     const token = localStorage.getItem("tuitionAdminToken");
     const config = {
@@ -99,12 +99,9 @@ export const GetReservationData = async () => {
         Authorization: "Bearer " + token,
       },
     };
-    const response = await axios.get(
-      `${API_URL}/dashboard/allreservationdata`,
-      config
-    );
+    const response = await axios.get(`${API_URL}/allinvitations`, config);
     if (response.data.success) {
-      return response.data;
+      return response.data.data;
     } else {
       notify("error", response.data.message);
       return;

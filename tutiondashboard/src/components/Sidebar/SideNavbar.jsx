@@ -47,6 +47,15 @@ const CustomSidebar = ({ visible, onHide }) => {
               <i className="pi pi-users"></i> Teachers
             </Link>
           </li>
+          <li>
+            <Link
+              to={ROUTES.INVITATION}
+              className="sidebar-link"
+              onClick={handleLinkClick}
+            >
+              <i className="pi pi-users"></i> Invitations
+            </Link>
+          </li>
 
           <li>
             <Link

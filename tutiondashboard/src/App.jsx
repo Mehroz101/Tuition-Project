@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import {
   Home,
+  Invitation,
   Layout,
   Login,
   ProtectedRoute,
@@ -67,6 +68,7 @@ function AppRoutes() {
         <Route index element={<Home />} />
         <Route path={ROUTES.STUDENTS} element={<Students />} />
         <Route path={ROUTES.TEACHERS} element={<Teachers />} />
+        <Route path={ROUTES.INVITATION} element={<Invitation />} />
         <Route path={ROUTES.SETTING} element={<Setting />} />
       </Route>
     </Routes>

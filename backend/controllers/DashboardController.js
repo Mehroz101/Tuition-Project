@@ -75,8 +75,46 @@ const AllTeacherData = async (req, res) => {
     res.status(500).send({ success: false, message: "server error" });
   }
 };
+
+const AllInvitationData = async (req, res) => {
+  try {
+    const InvitationData = await Invitation.find()
+      .populate({
+        path: "teacherId",
+        populate: { path: "teacherId", model: "Teacher" },
+      })
+      .populate({
+        path: "studentId",
+        populate: { path: "studentId", model: "Student" },
+      });
+
+    if (InvitationData && InvitationData.length > 0) {
+      const sendData = InvitationData.map((invitation) => {
+        return {
+          studentName: `${invitation.studentId.studentId.fName} ${invitation.studentId.studentId.lName}`,
+          teacherName: `${invitation.teacherId.teacherId.fName} ${invitation.teacherId.teacherId.lName}`,
+          offeredPrice: invitation.offeredPrice,
+          subject: invitation.subject,
+          rating: invitation.rating,
+          status: invitation.status,
+          review: invitation.review,
+        };
+      });
+      console.log(sendData);
+      res.status(200).send({ success: true, data: sendData });
+    } else {
+      res.status(404).send({ success: false, message: "No data found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ success: false, message: "Server error" });
+  }
+};
+
+module.exports = { AllInvitationData };
 module.exports = {
   GetDashboardData,
   AllStudentData,
   AllTeacherData,
+  AllInvitationData,
 };
