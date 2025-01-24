@@ -11,10 +11,9 @@ import { MultiSelect } from "primereact/multiselect";
 import { Tag } from "primereact/tag";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import {
-  acceptRequest,
-  closeRequest,
-  GetInvitationData,
-  rejectRequest,
+  AddorUpdateBook,
+  GetBooksData,
+  DeleteBook
 } from "../services/Api";
 import ActionsBtns from "../components/ActionsBtns";
 import { Button } from "primereact/button";
@@ -24,7 +23,7 @@ import CustomTextInput from "../components/FormComponents/CustomTextInput";
 import { useForm } from "react-hook-form";
 
 export default function Books() {
-  const [customers, setCustomers] = useState(null);
+  const [Books, setBooks] = useState(null);
   const [bookVisible, setBookVisible] = useState(false);
   const [filters, setFilters] = useState({
     studentName: { value: null, matchMode: FilterMatchMode.STARTS_WITH },
@@ -32,34 +31,26 @@ export default function Books() {
   });
   const queryClient = useQueryClient();
   const [loading, setLoading] = useState(true);
-  const { data: Invitationdata } = useQuery({
-    queryKey: ["Invitationdata"],
-    queryFn: GetInvitationData,
+  
+  const method = useForm({
+    defaultValues: {
+      bookName: "",
+      bokkDesc: "",
+      bookImgUrl:"",
+      bookUrl: "",
+    },
   });
-  const method = useForm()
-  // const [statuses] = useState(["Pending", "Confirmed", "Closed", "Rejected"]);
-  // const getSeverity = (status) => {
-  //   switch (status) {
-  //     case "Pending":
-  //       return "info";
-
-  //     case "Confirmed":
-  //       return "success";
-
-  //     case "Rejected":
-  //       return "danger";
-
-  //     case "Closed":
-  //       return "warning";
-  //   }
-  // };
+ const {data:BookData,refetch} = useQuery({
+  queryKey:["booksdata"],
+  queryFn:GetBooksData
+ })
   useEffect(() => {
-    if (Invitationdata) {
-      console.log(Invitationdata);
-      setCustomers(Invitationdata);
+    if (BookData) {
+      console.log(BookData.data);
+      setBooks(BookData.data);
       setLoading(false);
     }
-  }, [Invitationdata]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [BookData]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const snoBodyTemplate = (rowData, options) => {
     return options.rowIndex + 1; // Row index starts from 0, so add 1 for 1-based numbering
@@ -92,21 +83,41 @@ export default function Books() {
   //     refetchInvitations();
   //   },
   // });
-  // const closeMutation = useMutation({
-  //   mutationFn: closeRequest,
-  //   onSuccess: (data) => {
-  //     queryClient.invalidateQueries(["teacherInvitations"]);
-  //     refetchInvitations();
-  //   },
-  // });
+  const AddorUpdateMutation = useMutation({
+    mutationFn: AddorUpdateBook,
+    onSuccess: (data) => {
+      console.log(data)
+      if(data.success){
+        refetch()
+
+        setBookVisible(false)
+        method.reset()
+      }
+    },
+  });
+  const DeleteBookMutation = useMutation({
+    mutationFn: DeleteBook,
+    onSuccess: (data) => {
+      // console.log(data)
+      if(data){
+        refetch()
+        // setBookVisible(false)
+        // method.reset()
+      }
+    },
+  });
   const AcceptRequest = async (id) => {
     // acceptMutation.mutate(id);
   };
   const RejectRequest = async (id) => {
     // rejectMutation.mutate(id);
   };
-  const CloseRequest = async (id) => {
-    // closeMutation.mutate(id);
+  const Deletebook = async (id) => {
+    DeleteBookMutation.mutate(id);
+  };
+  const onsubmit =  (data) => {
+    console.log(data)
+    AddorUpdateMutation.mutate(data);
   };
   const statusItemTemplate = (option) => {
     return <Tag value={option} severity={getSeverity(option)} />;
@@ -118,8 +129,8 @@ export default function Books() {
         rowData={rowData}
         // onAccept={() => AcceptRequest(rowData.id)}
         // onReject={() => RejectRequest(rowData.id)}
-        onEdit={() => EditRequest(rowData.id)}
-        onDelete={() => DeleteRequest(rowData.id)}
+        // onEdit={() => EditRequest(rowData.id)}
+        onDelete={() => Deletebook(rowData.BookID)}
       />
     );
   };
@@ -134,14 +145,14 @@ export default function Books() {
         ></Button>
       </div>
       <DataTable
-        value={customers}
+        value={Books}
         paginator
         rows={10}
         dataKey="id"
         filters={filters}
         filterDisplay="row"
         loading={loading}
-        emptyMessage="No customers found."
+        emptyMessage="No Books found."
       >
         <Column
           body={snoBodyTemplate}
@@ -149,19 +160,20 @@ export default function Books() {
           style={{ minWidth: "6rem" }}
         />
         <Column
-          field="bookName"
+          field="BookName"
           header="Book Name"
           filter
           filterPlaceholder="Search by book name"
           style={{ minWidth: "12rem" }}
         />
         <Column
-          field="Description"
+          field="BookDesc"
           header="description"
           style={{ minWidth: "12rem" }}
         />
 
-        <Column field="link" header="Link" />
+        <Column field="ImgUrl" header="Image URL" />
+        <Column field="BookUrl" header="Book URL" />
         <Column body={ActionTemplate} header="Action" />
       </DataTable>
       <Dialog
@@ -171,15 +183,55 @@ export default function Books() {
         onHide={() => {
           if (!bookVisible) return;
           setBookVisible(false);
+          method.reset()
         }}
       >
-       <FormRow>
-        <FormColumn>
-          {/* <CustomTextInput
-
-          /> */}
-        </FormColumn>
-       </FormRow>
+        <form onSubmit={method.handleSubmit(onsubmit)}>
+        <FormRow>
+          <FormColumn>
+            <CustomTextInput
+              control={method.control}
+              name={"bookName"}
+              label="Book Name"
+              className="w-full"
+              required={true}
+            />
+          </FormColumn>
+          <FormColumn>
+            <CustomTextInput
+              control={method.control}
+              name={"bookDesc"}
+              label="Book Description"
+              className="w-full"
+              required={true}
+            />
+          </FormColumn>
+          <FormColumn>
+            <CustomTextInput
+              control={method.control}
+              name={"bookImgUrl"}
+              label="Book Image Url"
+              className="w-full"
+              required={true}
+            />
+          </FormColumn>
+          <FormColumn>
+            <CustomTextInput
+              control={method.control}
+              name={"bookUrl"}
+              label="Book Url"
+              className="w-full"
+              required={true}
+            />
+          </FormColumn>
+          <FormColumn>
+            <Button
+            label="Add"
+            type="submit"
+            />
+          </FormColumn>
+        </FormRow>
+          </form>
       </Dialog>
     </div>
   );

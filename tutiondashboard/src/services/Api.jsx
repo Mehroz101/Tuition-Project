@@ -114,7 +114,7 @@ export const GetInvitationData = async () => {
 
 export const acceptRequest = async (id) => {
   try {
-    const token = localStorage.getItem("usertoken");
+    const token = localStorage.getItem("tuitionAdminToken");
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -126,16 +126,16 @@ export const acceptRequest = async (id) => {
       {},
       config
     );
-    notify("success", "Invitation", "Invitation accepted");
+    notify("success", "Invitation accepted");
     return response;
   } catch (error) {
-    notify("error", "Invitation", "Invitation not accepted");
+    notify("error", "Invitation not accepted");
     console.log(error.message);
   }
 };
 export const rejectRequest = async (id) => {
   try {
-    const token = localStorage.getItem("usertoken");
+    const token = localStorage.getItem("tuitionAdminToken");
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -147,16 +147,16 @@ export const rejectRequest = async (id) => {
       {},
       config
     );
-    notify("success", "Invitation", "Invitation rejected");
+    notify("success", "Invitation rejected");
     return response;
   } catch (error) {
-    notify("error", "Invitation", "Invitation not rejected");
+    notify("error", "Invitation not rejected");
     console.log(error.message);
   }
 };
 export const closeRequest = async (id) => {
   try {
-    const token = localStorage.getItem("usertoken");
+    const token = localStorage.getItem("tuitionAdminToken");
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -168,10 +168,74 @@ export const closeRequest = async (id) => {
       {},
       config
     );
-    notify("success", "Invitation", "Invitation closed");
+    notify("success", "Invitation closed");
     return response;
   } catch (error) {
-    notify("error", "Invitation", "Invitation not closed");
+    notify("error", "Invitation not closed");
+    console.log(error.message);
+  }
+};
+export const AddorUpdateBook = async (data) => {
+  try {
+    const token = localStorage.getItem("tuitionAdminToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.post(
+      `${API_URL}/addorupdatebook`,
+      data,
+      config
+    );
+    if (response.data) {
+      notify("success", response.data.message);
+      return response.data;
+    } else {
+      notify("error", response.data.message);
+      return response.data;
+    }
+  } catch (error) {
+    notify("error", error.response.data.message);
+    console.log(error.message);
+  }
+};
+export const GetBooksData = async () => {
+  try {
+    const token = localStorage.getItem("tuitionAdminToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.get(`${API_URL}/getbooks`);
+    return response.data;
+  } catch (error) {
+    notify("error", error.response.data.message);
+    console.log(error.message);
+  }
+};
+export const DeleteBook = async (id) => {
+  try {
+    const token = localStorage.getItem("tuitionAdminToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const {data} = await axios.post(`${API_URL}/deletebook/${id}`,{}, config);
+    if(data.success){
+      notify("success", data.message);
+      return true
+    }
+    else{
+      notify("error", data.message);
+    }
+  } catch (error) {
+    notify("error", error.response.data.message);
     console.log(error.message);
   }
 };

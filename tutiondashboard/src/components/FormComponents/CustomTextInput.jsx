@@ -1,11 +1,11 @@
 import React from "react";
 import { Controller } from "react-hook-form";
 import { InputText } from "primereact/inputtext";
+import "../../styles/CustomTextInput.css"
 const CustomTextInput = ({
   control,
   name,
-  rules,
-  required,
+  required=false,
   defaultValue = "",
   label = "",
   isEnable = true,
@@ -23,7 +23,7 @@ const CustomTextInput = ({
         name={name}
         control={control}
         defaultValue={defaultValue}
-        rules={rules}
+        rules={required ? { required: errorMessage } : {}}
         render={({ field, fieldState: { error } }) => (
           <>
             <label htmlFor={field.name} className={`custom-label `}>
