@@ -45,3 +45,19 @@ export const GetStudentProfile = async () => {
     return [];
   }
 };
+export const GetBooksData = async () => {
+  try {
+    const token = localStorage.getItem("tuitionAdminToken");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = await axios.get(`${API_BASE_URL}/api/admin/getbooks`);
+    return response.data;
+  } catch (error) {
+    notify("error", error.response.data.message);
+    console.log(error.message);
+  }
+};

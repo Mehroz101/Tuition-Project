@@ -12,6 +12,9 @@ const {
   AllStudentData,
   AllTeacherData,
   AllInvitationData,
+  AddorUpdateBook,
+  GetBooks,
+  DeleteBook
 } = require("../controllers/DashboardController");
 const {
   acceptInvtation,
@@ -34,5 +37,8 @@ router.get("/allinvitations", authenticateToken, AllInvitationData);
 router.post("/acceptinvtation/:id", authenticateToken, acceptInvtation);
 router.post("/rejectinvtation/:id", authenticateToken, rejectInvtation);
 router.post("/closeinvtation/:id", authenticateToken, closeInvtation);
+router.post("/addorupdatebook", authenticateToken, AddorUpdateBook);
+router.get("/getbooks", GetBooks);
+router.post("/deletebook/:id",authenticateToken, DeleteBook);
 
 module.exports = router;
