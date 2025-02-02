@@ -20,6 +20,10 @@ const SignUpForm = () => {
       if(signup.email === "" || signup.password === "" || signup.cPassword === "" || signup.role === ""){
         return pushNotify(400, "Missing", "All fields are required")
       }
+      if(signup.password.length <8){
+        return pushNotify(400, "Minimum", "Minimum 8 character required")
+
+      }
       const response = await Signup(signup);
       console.log(response)
       if (response.status == 201) {

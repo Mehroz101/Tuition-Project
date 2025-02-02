@@ -10,11 +10,7 @@ import { Dropdown } from "primereact/dropdown";
 import { MultiSelect } from "primereact/multiselect";
 import { Tag } from "primereact/tag";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import {
-  AddorUpdateBook,
-  GetBooksData,
-  DeleteBook
-} from "../services/Api";
+import { AddorUpdateBook, GetBooksData, DeleteBook } from "../services/Api";
 import ActionsBtns from "../components/ActionsBtns";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
@@ -31,19 +27,19 @@ export default function Books() {
   });
   const queryClient = useQueryClient();
   const [loading, setLoading] = useState(true);
-  
+
   const method = useForm({
     defaultValues: {
       bookName: "",
       bokkDesc: "",
-      bookImgUrl:"",
+      bookImgUrl: "",
       bookUrl: "",
     },
   });
- const {data:BookData,refetch} = useQuery({
-  queryKey:["booksdata"],
-  queryFn:GetBooksData
- })
+  const { data: BookData, refetch } = useQuery({
+    queryKey: ["booksdata"],
+    queryFn: GetBooksData,
+  });
   useEffect(() => {
     if (BookData) {
       console.log(BookData.data);
@@ -86,12 +82,12 @@ export default function Books() {
   const AddorUpdateMutation = useMutation({
     mutationFn: AddorUpdateBook,
     onSuccess: (data) => {
-      console.log(data)
-      if(data.success){
-        refetch()
+      console.log(data);
+      if (data.success) {
+        refetch();
 
-        setBookVisible(false)
-        method.reset()
+        setBookVisible(false);
+        method.reset();
       }
     },
   });
@@ -99,8 +95,8 @@ export default function Books() {
     mutationFn: DeleteBook,
     onSuccess: (data) => {
       // console.log(data)
-      if(data){
-        refetch()
+      if (data) {
+        refetch();
         // setBookVisible(false)
         // method.reset()
       }
@@ -115,8 +111,8 @@ export default function Books() {
   const Deletebook = async (id) => {
     DeleteBookMutation.mutate(id);
   };
-  const onsubmit =  (data) => {
-    console.log(data)
+  const onsubmit = (data) => {
+    console.log(data);
     AddorUpdateMutation.mutate(data);
   };
   const statusItemTemplate = (option) => {
@@ -183,55 +179,58 @@ export default function Books() {
         onHide={() => {
           if (!bookVisible) return;
           setBookVisible(false);
-          method.reset()
+          method.reset();
         }}
       >
         <form onSubmit={method.handleSubmit(onsubmit)}>
-        <FormRow>
-          <FormColumn>
-            <CustomTextInput
-              control={method.control}
-              name={"bookName"}
-              label="Book Name"
-              className="w-full"
-              required={true}
-            />
-          </FormColumn>
-          <FormColumn>
-            <CustomTextInput
-              control={method.control}
-              name={"bookDesc"}
-              label="Book Description"
-              className="w-full"
-              required={true}
-            />
-          </FormColumn>
-          <FormColumn>
-            <CustomTextInput
-              control={method.control}
-              name={"bookImgUrl"}
-              label="Book Image Url"
-              className="w-full"
-              required={true}
-            />
-          </FormColumn>
-          <FormColumn>
-            <CustomTextInput
-              control={method.control}
-              name={"bookUrl"}
-              label="Book Url"
-              className="w-full"
-              required={true}
-            />
-          </FormColumn>
-          <FormColumn>
-            <Button
-            label="Add"
-            type="submit"
-            />
-          </FormColumn>
-        </FormRow>
-          </form>
+          <FormRow>
+            <FormColumn>
+              <CustomTextInput
+                control={method.control}
+                name={"bookName"}
+                label="Book Name"
+                className="w-full"
+                required={true}
+                validateOnChange={true} // Enable validation on change
+                RegexCode={/^[A-Za-z\s]*$/}
+              />
+            </FormColumn>
+            <FormColumn>
+              <CustomTextInput
+                control={method.control}
+                name={"bookDesc"}
+                label="Book Description"
+                className="w-full"
+                required={true}
+              />
+            </FormColumn>
+            <FormColumn>
+              <CustomTextInput
+                control={method.control}
+                name="bookImgUrl"
+                label="Book Image Url"
+                className="w-full"
+                required={true}
+                validateOnChange={true} // Enable validation on change
+                RegexCode="^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$" // Pass regex as a string
+              />
+            </FormColumn>
+            <FormColumn>
+              <CustomTextInput
+                control={method.control}
+                name={"bookUrl"}
+                label="Book Url"
+                className="w-full"
+                required={true}
+                validateOnChange={true} // Enable validation on change
+                RegexCode="^(https?:\/\/)?([a-z0-9-]+\.)+[a-z]{2,}(:\d+)?(\/[^\s]*)?$"
+              />
+            </FormColumn>
+            <FormColumn>
+              <Button label="Add" type="submit" />
+            </FormColumn>
+          </FormRow>
+        </form>
       </Dialog>
     </div>
   );

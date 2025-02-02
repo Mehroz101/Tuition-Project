@@ -24,7 +24,15 @@ const Books = () => {
     
 
   const handleChange = (e) => {
-    setSearchTerm(e.target.value);
+    const lettersRegex =/^[A-Za-z\s]*$/; // Only letters
+      if (lettersRegex.test(e.target.value) || e.target.value === '') {
+        // setFindParking((prevState) => ({
+        //     ...prevState,
+        //     [e.target.name]: e.target.value,
+        // }));
+        setSearchTerm(e.target.value);
+    }
+    
   };
 
   useEffect(() => {
