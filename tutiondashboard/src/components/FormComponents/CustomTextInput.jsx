@@ -28,10 +28,12 @@ const CustomTextInput = ({
         defaultValue={defaultValue}
         rules={{
           required: required ? errorMessage : false,
-          validate: (value) => {
-            const urlRegex = new RegExp(RegexCode); // Create a regex from the prop
-            return urlRegex.test(value) || "Invalid URL format!";
-          },
+          ...(validateOnChange && {
+            validate: (value) => {
+              const urlRegex = new RegExp(RegexCode); // Create a regex from the prop
+              return urlRegex.test(value) || "Invalid format!";
+            },
+          }),
         }}
         render={({ field, fieldState: { error } }) => (
           <>
@@ -53,6 +55,7 @@ const CustomTextInput = ({
                   if (!urlRegex.test(newValue)) {
                     // Optionally set an error message in the form state
                     // You can also handle this differently if needed
+                    fieldState.error = { message: "Invalid format!" }; // Set error message
                   }
                 }
 
