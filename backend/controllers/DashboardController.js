@@ -92,7 +92,7 @@ const AllStudentData = async (req, res) => {
       const sendData = studentData.map((std, i) => {
         return {
           id: i,
-          name: `${std.fName} ${std.fName}`,
+          name: `${std.fName} ${std.lName}`,
           schoolName: std.schoolName,
           number: std.number,
           className: std.className,
