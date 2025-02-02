@@ -116,7 +116,7 @@ const AllTeacherData = async (req, res) => {
       const sendData = teacherData.map((std, i) => {
         return {
           id: i,
-          name: `${std.fName} ${std.fName}`,
+          name: `${std.fName} ${std.lName}`,
           fee: std.fee,
           number: std.number,
           rating: std.rating,
