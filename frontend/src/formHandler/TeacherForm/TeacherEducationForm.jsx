@@ -23,6 +23,16 @@ const TeacherEducationForm = () => {
   };
 
   const handleSubmit = async (educationId = null) => {
+    if (
+      teacherEducation.degreeName == "" ||
+      teacherEducation.instituteName == "" ||
+      teacherEducation.startDate == "" ||
+      teacherEducation.endDate == "" ||
+      teacherEducation.description == ""
+    ) {
+      pushNotify(400,"Missing", "All fields are required");
+      return;
+    }
     try {
       if (educationId) {
         setTeacherEducation((prev) => ({

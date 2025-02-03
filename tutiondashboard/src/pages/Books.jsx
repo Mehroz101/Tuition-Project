@@ -17,6 +17,7 @@ import { Dialog } from "primereact/dialog";
 import { FormColumn, FormRow } from "../components/layoutComponent";
 import CustomTextInput from "../components/FormComponents/CustomTextInput";
 import { useForm } from "react-hook-form";
+import { notify } from "../utils/notification";
 
 export default function Books() {
   const [Books, setBooks] = useState(null);
@@ -113,6 +114,9 @@ export default function Books() {
   };
   const onsubmit = (data) => {
     console.log(data);
+    if(data.bookDesc.length < 50){
+      return notify("warning","Description must be greater then 50 character")
+    }
     AddorUpdateMutation.mutate(data);
   };
   const statusItemTemplate = (option) => {
@@ -193,6 +197,8 @@ export default function Books() {
                 required={true}
                 validateOnChange={true} // Enable validation on change
                 RegexCode={/^[A-Za-z\s]*$/}
+                placeholder="Enter title"
+
               />
             </FormColumn>
             <FormColumn>
@@ -202,6 +208,7 @@ export default function Books() {
                 label="Book Description"
                 className="w-full"
                 required={true}
+                placeholder="min 50 character"
               />
             </FormColumn>
             <FormColumn>

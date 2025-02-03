@@ -82,6 +82,7 @@ const SignupUser = async (req, res) => {
 const forget = async (req, res) => {
   const email = req.body.email;
   const role = req.body.role;
+  
   try {
     const user = await User.findOne({ email, role });
 
