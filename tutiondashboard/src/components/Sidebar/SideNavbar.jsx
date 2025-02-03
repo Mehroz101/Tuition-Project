@@ -57,7 +57,7 @@ const CustomSidebar = ({ visible, onHide }) => {
             </Link>
           </li>
 
-          <li>
+          {/* <li>
             <Link
               to={ROUTES.SETTING}
               className="sidebar-link "
@@ -66,7 +66,7 @@ const CustomSidebar = ({ visible, onHide }) => {
               <i className="pi pi-cog"></i>
               Settings
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link
               to={ROUTES.BOOKS}
@@ -96,11 +96,11 @@ const CustomSidebar = ({ visible, onHide }) => {
           v-ripple
           className="m-3 flex align-items-center cursor-pointer p-3 gap-2 border-round text-700 hover:surface-100 transition-duration-150 transition-colors p-ripple"
         >
-          <Avatar
+          {/* <Avatar
             image="https://avatars.githubusercontent.com/u/85057779?v=4"
             shape="circle"
-          />
-          <span className="font-bold">Mehroz Farooq</span>
+          /> */}
+          <span className="font-bold">Muhammad Arbakan</span>
         </a>
       </div>
     </Sidebar>
