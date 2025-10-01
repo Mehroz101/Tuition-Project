@@ -45,8 +45,12 @@ app.use("/api/user", authRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/admin", adminRoutes);
-
-// Start server
-server.listen(PORT, () => {
-  console.log(`Backend running on port ${PORT}`);
+app.get("/", (req, res) => {
+  res.send("API is running...");
 });
+// Start server
+if (process.env.NODE_ENV !== "production") {
+  server.listen(PORT, () => {
+    console.log(`Backend running on port ${PORT}`);
+  });
+} 
