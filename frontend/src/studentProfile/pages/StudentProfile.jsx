@@ -90,7 +90,7 @@ const StudentProfile = () => {
                 {/* Display preview image or default */}
                 {data?.image ? (
                   <img
-                    src={`${API_BASE_URL}/${data?.image}`}
+                    src={`${data?.image}`}
                     alt="Profile  Preview"
                   />
                 ) : (

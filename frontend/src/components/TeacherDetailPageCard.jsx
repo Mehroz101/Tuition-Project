@@ -7,7 +7,7 @@ const TeacherDetailPageCard = ({ teacher }) => {
   const [ImgUrl, setImgUrl] = React.useState("");
   useEffect(() => {
     if (teacher?.image) {
-      setImgUrl(`${API_BASE_URL}/${teacher?.image}`);
+      setImgUrl(`${teacher?.image}`);
     } else {
       setImgUrl(
         "https://static.vecteezy.com/system/resources/thumbnails/004/511/281/small_2x/default-avatar-photo-placeholder-profile-picture-vector.jpg"

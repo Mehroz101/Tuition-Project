@@ -271,10 +271,10 @@ const uploadImage = async (req, res) => {
     }
 
     // Cloudinary multer stores file info in req.file
-    console.log("Setting new image:", req.file);
+    console.log("Setting new image:", req.file.path);
 
     // Save the Cloudinary public_id (so we can delete later)
-    student.image = req.file.filename || req.file.public_id;
+    student.image = req.file.path;
 
     await student.save();
 

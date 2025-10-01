@@ -559,7 +559,7 @@ const uploadImage = async (req, res) => {
     }
 
     // Save new Cloudinary image details
-    teacher.image = req.file.public_id; // store public_id for later deletion
+    teacher.image = req.file.path; // store public_id for later deletion
 
     await teacher.save();
 

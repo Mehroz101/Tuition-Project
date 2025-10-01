@@ -41,7 +41,7 @@ const TeacherProfile = () => {
         );
         refetchDetails(); // Refresh profile details
         pushNotify("success", "Image", "Image uploaded successfully.");
-        setPreview(`${API_BASE_URL}/${response.data.image}`); // Update preview to server URL
+        setPreview(`${response.data.image}`); // Update preview to server URL
       } catch (error) {
         console.error("Error uploading image:", error);
         pushNotify("error", "Image", "Image upload failed.");
@@ -60,7 +60,7 @@ const TeacherProfile = () => {
     onSuccess: (data) => {
       if (data?.image !== undefined && data?.image !== null) {
         console.log("enterd");
-        const imageUrl = `${API_BASE_URL}/${data.image}`;
+        const imageUrl = `${data.image}`;
         setImage(imageUrl);
         setPreview(imageUrl);
       } else {
@@ -92,7 +92,7 @@ const TeacherProfile = () => {
 
   useEffect(() => {
     if (data?.image) {
-      const imageUrl = `${API_BASE_URL}/${data.image}`;
+      const imageUrl = `${data.image}`;
       setImage(imageUrl);
       setPreview(imageUrl);
     }
