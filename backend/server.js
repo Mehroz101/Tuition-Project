@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const path = require("path");
 const http = require("http");
 const socketIo = require("socket.io");
 require("dotenv").config();
@@ -14,33 +13,40 @@ const { connectDB, checkDatabaseConnection } = require("./config/db");
 const PORT = process.env.PORT || 5000;
 const app = express();
 const server = http.createServer(app);
-app.use("/uploads", express.static("uploads")); // Serve uploaded files
+
 const io = socketIo(server, {
   cors: {
     origin: "*",
     methods: ["GET", "POST", "PATCH"],
   },
 });
+
+// Attach socket.io instance to express app
 app.set("io", io);
+
 io.on("connection", (socket) => {
-  console.log("connected");
+  console.log("Socket connected:", socket.id);
 
   socket.on("disconnect", () => {
-    // Clean up on disconnect
-    console.log("disconnected");
+    console.log("Socket disconnected:", socket.id);
   });
 });
+
+// Middleware
 app.use(express.json());
 app.use(cors());
+
+// Database
 connectDB();
 app.use(checkDatabaseConnection);
-app.use(express.static(path.join(__dirname, "uploads")));
 
+// Routes
 app.use("/api/user", authRoutes);
 app.use("/api/student", studentRoutes);
 app.use("/api/teacher", teacherRoutes);
 app.use("/api/admin", adminRoutes);
 
-app.listen(PORT, (req, res) => {
-  console.log(`backend running on port ${PORT}`);
+// Start server
+server.listen(PORT, () => {
+  console.log(`Backend running on port ${PORT}`);
 });

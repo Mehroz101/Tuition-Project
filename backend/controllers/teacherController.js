@@ -2,8 +2,9 @@ const Teacher = require("../models/Teacher");
 const Education = require("../models/Education");
 const Invitation = require("../models/Invitation");
 const User = require("../models/User");
-const path = require("path");
-const fs = require("fs");
+
+const cloudinary = require("cloudinary").v2;
+
 const UpdateInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
@@ -538,49 +539,44 @@ const uploadImage = async (req, res) => {
   try {
     const teacherId = req.user.id;
     let teacher = await Teacher.findOne({ teacherId });
+
     if (!teacher) {
       teacher = new Teacher({ teacherId });
     }
-    // Check if the teacher already has an image
+
+    // If the teacher already has an image, delete it from Cloudinary
     if (teacher.image) {
-      const imagePath = path.join(__dirname, "../uploads", teacher.image);
       try {
-        // Check if the image file exists before trying to delete it
-        await fs.promises.access(imagePath, fs.constants.F_OK);
-        await fs.promises.unlink(imagePath); // Delete the existing image
+        await cloudinary.uploader.destroy(teacher.image); // teacher.image stores public_id
+        console.log("Old image deleted from Cloudinary:", teacher.image);
       } catch (err) {
-        if (err.code === "ENOENT") {
-          // If the file doesn't exist, skip the deletion step
-          console.log("Image file not found, skipping deletion.");
-        } else {
-          // Handle other types of errors, such as permission issues
-          console.error("Error deleting the image:", err);
-          return res.status(500).json({
-            success: false,
-            message: "Failed to delete existing image",
-          });
-        }
+        console.error("Error deleting the image from Cloudinary:", err);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to delete existing image from Cloudinary",
+        });
       }
     }
 
-    // Set the new image filename
-    teacher.image = req.file.filename;
+    // Save new Cloudinary image details
+    teacher.image = req.file.public_id; // store public_id for later deletion
 
-    // Save the updated teacher document with the new image
     await teacher.save();
 
     res.status(200).json({
       success: true,
       message: "Image updated successfully",
+      imageUrl: req.file.path, // Cloudinary secure URL
     });
   } catch (error) {
-    console.error(error);
+    console.error("Internal server error:", error);
     res.status(500).json({
       success: false,
       message: "Internal server error",
     });
   }
 };
+
 
 module.exports = {
   UpdateInformation,

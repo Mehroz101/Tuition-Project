@@ -1,9 +1,9 @@
 const Invitation = require("../models/Invitation");
 const Student = require("../models/Student");
 const User = require("../models/User");
-const fs = require("fs");
-const path = require("path");
+
 const Teacher = require("../models/Teacher");
+const cloudinary = require("cloudinary").v2;
 
 const studentInformation = async (req, res) => {
   try {
@@ -238,9 +238,12 @@ const cancelInvitation = async (req, res) => {
   }
 };
 
+
+// Upload image controller
 const uploadImage = async (req, res) => {
   console.log("uploadImage request:", req.body);
   console.log("Student ID:", req.user.id);
+
   try {
     const studentId = req.user.id;
 
@@ -252,27 +255,26 @@ const uploadImage = async (req, res) => {
       student = new Student({ studentId });
     }
 
+    // If an old image exists in Cloudinary, delete it
     if (student.image) {
-      console.log("Deleting old image:", student.image);
-      const imagePath = path.join(__dirname, "../uploads", student.image);
-
+      console.log("Deleting old image from Cloudinary:", student.image);
       try {
-        await fs.promises.access(imagePath, fs.constants.F_OK);
-        await fs.promises.unlink(imagePath);
+        // student.image should store the Cloudinary public_id
+        await cloudinary.uploader.destroy(student.image);
       } catch (err) {
-        console.error("Error deleting the image:", err);
-        if (err.code !== "ENOENT") {
-          return res.status(500).json({
-            success: false,
-            message: "Failed to delete existing image",
-          });
-        }
+        console.error("Error deleting the image from Cloudinary:", err);
+        return res.status(500).json({
+          success: false,
+          message: "Failed to delete existing image from Cloudinary",
+        });
       }
     }
 
-    console.log("Setting new image:", req.file.filename);
+    // Cloudinary multer stores file info in req.file
+    console.log("Setting new image:", req.file);
 
-    student.image = req.file.filename;
+    // Save the Cloudinary public_id (so we can delete later)
+    student.image = req.file.filename || req.file.public_id;
 
     await student.save();
 
@@ -283,6 +285,7 @@ const uploadImage = async (req, res) => {
       message: student.isNew
         ? "Student created and image uploaded successfully"
         : "Image updated successfully",
+      imageUrl: req.file.path, // Cloudinary URL
     });
   } catch (error) {
     console.error("Internal server error:", error);
@@ -292,6 +295,9 @@ const uploadImage = async (req, res) => {
     });
   }
 };
+
+
+
 const submitReview = async (req, res) => {
   console.log("submitReview request:", req.body);
   try {
