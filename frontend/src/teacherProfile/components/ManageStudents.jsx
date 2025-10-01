@@ -24,7 +24,6 @@ const ManageStudents = () => {
   });
 
   useEffect(() => {
-    console.log(invitations);
     if (invitations) {
       setStudentRequestData(invitations);
       setFilteredData(invitations); // Show all data initially
@@ -32,8 +31,6 @@ const ManageStudents = () => {
   }, [isLoading]);
 
   useEffect(() => {
-    // console.log(activeLink)
-
     const updateData = () => {
       if (activeLink === "all") {
         setFilteredData(studentRequestData);

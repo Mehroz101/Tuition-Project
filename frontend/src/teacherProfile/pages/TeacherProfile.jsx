@@ -59,7 +59,7 @@ const TeacherProfile = () => {
     queryFn: GetTeacherProfile,
     onSuccess: (data) => {
       if (data?.image !== undefined && data?.image !== null) {
-        console.log("enterd");
+
         const imageUrl = `${data.image}`;
         setImage(imageUrl);
         setPreview(imageUrl);
@@ -80,7 +80,7 @@ const TeacherProfile = () => {
   };
   useEffect(()=>{
     if(data){
-      console.log(data.image)
+
       setImage(data?.image)
       setPreview(data?.image); // Update preview with uploaded image
   

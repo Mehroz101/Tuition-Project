@@ -16,7 +16,6 @@ const Books = () => {
      })
       useEffect(() => {
         if (BookData) {
-          console.log(BookData.data);
           setBooksData(BookData.data);
           setFilteredBooks(BookData.data)
         }

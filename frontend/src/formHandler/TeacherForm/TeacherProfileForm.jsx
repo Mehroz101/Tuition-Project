@@ -32,9 +32,7 @@ const TeacherProfileForm = () => {
   };
   const handleSubmit = async () => {
     try {
-      // console.log(teacherProfile);
-      const data = await TeacherProfile(teacherProfile);
-      console.log(data);
+    await TeacherProfile(teacherProfile);
     } catch (error) {
       pushNotify(400, "SORRY", "Something wents wrong. Try again later");
     }

@@ -9,19 +9,14 @@ const AddNewEducation = () => {
     TeacherEducationForm();
   const { educationId } = useParams();
   if (educationId) {
-    console.log(educationId);
     const { data, isLoading, isError } = useQuery({
       queryKey: ["studentProfile"],
       queryFn: () => GetEducationDetail(educationId),
-      onSuccess: (data) => {
-        console.log(data);
-      },
+    
       onError: (error) => {
         console.error("Error fetching student profile:", error.message);
       },
-      onsettled: () => {
-        console.log("fetching student profile");
-      },
+     s
     });
 
     useEffect(() => {

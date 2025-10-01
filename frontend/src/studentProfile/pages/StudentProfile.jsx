@@ -60,7 +60,6 @@ const StudentProfile = () => {
   });
   useEffect(() => {
     if (data?.image) {
-      console.log(data.image);
       setImage(data?.image);
       setPreview(data?.image); // Update preview with uploaded image
     } else {

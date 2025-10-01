@@ -23,7 +23,6 @@ const Resetpassword = () => {
       return pushNotify(400, "Password Mismatch", "Passwords do not match");
     }
     try {
-      console.log(reset);
       const response = await ResetPassword(reset);
       pushNotify(response.status, "Reset Password", response.data.message);
       if (response.status === 200) {

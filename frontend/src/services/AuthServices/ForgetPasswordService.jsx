@@ -13,7 +13,6 @@ export const ForgetPassword = async (data) => {
     };
     // if(data.role === "teacher"){
     const response = await axios.post(`${API_URL}/forget`, data, config);
-    console.log(response);
     return response;
     // }
     // if(data.role === "student"){

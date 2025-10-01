@@ -13,11 +13,8 @@ const ForgetPasswordForm = () => {
   };
   const handleSubmit = async () => {
     try {
-      console.log(forgetPassword);
       const response = await ForgetPassword(forgetPassword);
       if (response.status == 200) {
-        console.log("response");
-        console.log(response.status);
         pushNotify(response.status, "Forget Password", response.data.message);
         return 200;
       }

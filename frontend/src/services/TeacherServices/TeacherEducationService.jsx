@@ -70,7 +70,6 @@ export const DeleteEducation = async (educationId) => {
         Authorization: "Bearer " + token,
       },
     };
-    console.log("educationId", educationId);
     const response = await axios.post(
       `${API_URL}/deleteeducation/${educationId}`,
       {},

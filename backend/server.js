@@ -25,10 +25,10 @@ const io = socketIo(server, {
 app.set("io", io);
 
 io.on("connection", (socket) => {
-  console.log("Socket connected:", socket.id);
+
 
   socket.on("disconnect", () => {
-    console.log("Socket disconnected:", socket.id);
+
   });
 });
 
@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
 // Start server
 if (process.env.NODE_ENV !== "production") {
   server.listen(PORT, () => {
-    console.log(`Backend running on port ${PORT}`);
+
   });
 }
 module.exports = app;

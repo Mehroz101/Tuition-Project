@@ -17,7 +17,7 @@ const studentInformation = async (req, res) => {
       schoolName,
     } = req.body;
     const studentId = req.user.id;
-    console.log(studentId);
+
     if (
       fName === "" ||
       lName === "" ||
@@ -33,7 +33,7 @@ const studentInformation = async (req, res) => {
       });
     } else {
       const stdFound = await Student.findOne({ studentId });
-      // console.log(stdFound);
+
       if (!stdFound) {
         const studentInfo = new Student({
           studentId,
@@ -51,8 +51,7 @@ const studentInformation = async (req, res) => {
           { $set: { studentId: createdStd._id } }, // Use an object to set the field name
           { upsert: true, new: true }
         );
-        console.log("response");
-        console.log(response);
+
 
         res.status(201).json({
           success: true,
@@ -73,8 +72,7 @@ const studentInformation = async (req, res) => {
           { $set: { studentId: updatedStd._id } }, // Use an object to set the field name
           { upsert: true, new: true }
         );
-        console.log("response");
-        console.log(response);
+
 
         res.status(201).json({
           success: true,
@@ -83,7 +81,7 @@ const studentInformation = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error.message);
+
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
@@ -94,7 +92,7 @@ const getStudentInformation = async (req, res) => {
   try {
     const studentId = req.user.id;
     const stdFound = await Student.findOne({ studentId });
-    console.log(stdFound);
+
     if (stdFound) {
       res.status(200).json(stdFound);
     } else {
@@ -104,7 +102,7 @@ const getStudentInformation = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error);
+
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
@@ -123,7 +121,7 @@ const sendInvitation = async (req, res) => {
       description,
       teacherId,
     } = req.body;
-    console.log(req.body);
+
     // Check for missing fields
     if (
       !offeredPrice ||
@@ -208,7 +206,7 @@ const getInvitation = async (req, res) => {
     }
     3;
   } catch (error) {
-    console.log(error.message);
+
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -238,18 +236,15 @@ const cancelInvitation = async (req, res) => {
   }
 };
 
-
-// Upload image controller
 const uploadImage = async (req, res) => {
-  console.log("uploadImage request:", req.body);
-  console.log("Student ID:", req.user.id);
+
 
   try {
     const studentId = req.user.id;
 
     let student = await Student.findOne({ studentId });
 
-    console.log("Student found:", student);
+
 
     if (!student) {
       student = new Student({ studentId });
@@ -257,10 +252,14 @@ const uploadImage = async (req, res) => {
 
     // If an old image exists in Cloudinary, delete it
     if (student.image) {
-      console.log("Deleting old image from Cloudinary:", student.image);
       try {
-        // student.image should store the Cloudinary public_id
-        await cloudinary.uploader.destroy(student.image);
+        const parts = student.image.split("/uploads/")[1]; // "1759304512171-67146676.png"
+        const publicId = "uploads/" + parts.split(".")[0]; // "uploads/1759304512171-67146676"
+
+
+
+        const result = await cloudinary.uploader.destroy(publicId);
+
       } catch (err) {
         console.error("Error deleting the image from Cloudinary:", err);
         return res.status(500).json({
@@ -271,14 +270,14 @@ const uploadImage = async (req, res) => {
     }
 
     // Cloudinary multer stores file info in req.file
-    console.log("Setting new image:", req.file.path);
+
 
     // Save the Cloudinary public_id (so we can delete later)
     student.image = req.file.path;
 
     await student.save();
 
-    console.log("Student saved:", student);
+
 
     res.status(200).json({
       success: true,
@@ -299,12 +298,12 @@ const uploadImage = async (req, res) => {
 
 
 const submitReview = async (req, res) => {
-  console.log("submitReview request:", req.body);
+
   try {
     const { rating, review, InvitationId } = req.body;
-    console.log("InvitationId:", InvitationId);
+
     if (!InvitationId) {
-      console.log("Invitation not found");
+
       return res.status(400).json({
         success: false,
         message: "Invitation not found",
@@ -316,30 +315,30 @@ const submitReview = async (req, res) => {
       { $set: { rating, review } },
       { upsert: true, new: true }
     );
-    console.log("Invitation updated:", response);
+
     const updateTeacher = await Teacher.findOne({
       teacherId: response.teacherId,
     });
-    console.log("Teacher found:", updateTeacher);
+
     updateTeacher.rating = (updateTeacher.rating + rating) / 2;
     updateTeacher.ratingCount = updateTeacher.ratingCount + 1;
     await updateTeacher.save();
-    console.log("Teacher updated:", updateTeacher);
+
     if (response) {
-      console.log("Review submitted successfully");
+
       res.status(200).json({
         success: true,
         message: "Review submitted successfully",
       });
     } else {
-      console.log("Student not found");
+
       res.status(404).json({
         success: false,
         message: "Student not found",
       });
     }
   } catch (error) {
-    console.log("submitReview error:", error.message);
+
     res.status(500).json({
       success: false,
       message: "Internal server error",

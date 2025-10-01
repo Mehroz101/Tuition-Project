@@ -28,7 +28,6 @@ const Home = () => {
 
   useEffect(() => {
     if (Dashboarddata) {
-      console.log(Dashboarddata);
       setDashboard({
         TotalStudent: Dashboarddata?.TotalStudent,
         TotalTeacher: Dashboarddata?.TotalTeacher,

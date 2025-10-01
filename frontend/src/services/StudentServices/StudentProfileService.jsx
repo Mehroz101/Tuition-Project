@@ -13,7 +13,6 @@ export const StudentProfile = async (stdData) => {
         Authorization: "Bearer " + token,
       },
     };
-    console.log(stdData);
     const response = await axios.post(
       `${API_URL}/information`,
       stdData,
@@ -23,8 +22,6 @@ export const StudentProfile = async (stdData) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Profile", error.response.data.message);
-
-    console.log(error.message);
   }
 };
 export const GetStudentProfile = async () => {
@@ -38,7 +35,6 @@ export const GetStudentProfile = async () => {
       },
     };
     const data = await axios.get(`${API_URL}/getinformation`, config);
-    console.log(data.data);
     return data.data;
   } catch (error) {
     console.log(error);
@@ -48,16 +44,10 @@ export const GetStudentProfile = async () => {
 export const GetBooksData = async () => {
   try {
     const token = localStorage.getItem("tuitionAdminToken");
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-    };
+    
     const response = await axios.get(`${API_BASE_URL}/api/admin/getbooks`);
     return response.data;
   } catch (error) {
     notify("error", error.response.data.message);
-    console.log(error.message);
   }
 };

@@ -15,7 +15,6 @@ const TeacherSubjectForm = () => {
   };
   const handleSubmit = async () => {
     try {
-      console.log(teacherSubject);
       const response = await TeacherSubject(teacherSubject);
       if (response === 200) {
         return response;

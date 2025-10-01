@@ -10,6 +10,5 @@ export const Signup = async (userData) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Registration", error.response.data.message);
-    console.log(error.message);
   }
 };

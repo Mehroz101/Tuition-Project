@@ -18,9 +18,7 @@ const TeacherContactForm = () => {
   };
   const handleSubmit = async () => {
     try {
-      console.log(teacherContact);
-      const data = await TeacherContact(teacherContact);
-      console.log(data);
+       await TeacherContact(teacherContact);
     } catch (error) {}
   };
   return {

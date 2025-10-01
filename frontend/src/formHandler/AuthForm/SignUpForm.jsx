@@ -25,7 +25,6 @@ const SignUpForm = () => {
 
       }
       const response = await Signup(signup);
-      console.log(response)
       if (response.status == 201) {
         return response;
       }

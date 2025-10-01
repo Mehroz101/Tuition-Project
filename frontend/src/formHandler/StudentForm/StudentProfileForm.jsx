@@ -25,9 +25,7 @@ const StudentProfileForm = () => {
   };
   const handleSubmit = async () => {
     try {
-      console.log(studentProfile);
       const response = await StudentProfile(studentProfile);
-      console.log(response);
     } catch (error) {
       console.log(error.message);
       // pushNotify(400, "SORRY", "Something wents wrong. Try again later");

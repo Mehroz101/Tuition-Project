@@ -25,7 +25,6 @@ export default function Students() {
   useEffect(() => {
     if(Studentdata)
     {
-      console.log(Studentdata)
       setCustomers(Studentdata);
       setLoading(false);
     }

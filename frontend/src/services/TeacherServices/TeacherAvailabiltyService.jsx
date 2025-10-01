@@ -18,7 +18,6 @@ export const TeacherAvailabilty = async (availability) => {
       availability,
       config
     );
-    console.log(response);
     pushNotify(response.status, "Availability", response.data.message);
   } catch (error) {
     pushNotify(error.status, "Availability", error.response.data.message);
@@ -35,7 +34,6 @@ export const GetTeacherAvailabilty = async () => {
       },
     };
     const { data } = await axios.get(`${API_URL}/getavailabilty`, config);
-    console.log(data.data.availability);
     return data.data.availability[0];
   } catch (error) {
     pushNotify(error.status, "Availability", error.response.data.message);

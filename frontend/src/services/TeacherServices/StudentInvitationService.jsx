@@ -39,7 +39,6 @@ export const acceptRequest = async (id) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Invitation", "Invitation not accepted");
-    console.log(error.message);
   }
 };
 export const rejectRequest = async (id) => {
@@ -60,7 +59,6 @@ export const rejectRequest = async (id) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Invitation", "Invitation not rejected");
-    console.log(error.message);
   }
 };
 export const closeRequest = async (id) => {
@@ -81,7 +79,6 @@ export const closeRequest = async (id) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Invitation", "Invitation not closed");
-    console.log(error.message);
   }
 };
 export const updateLink = async ({ id, link }) => {
@@ -102,6 +99,5 @@ export const updateLink = async ({ id, link }) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Invitation", error.response.data.message);
-    console.log(error.message);
   }
 };

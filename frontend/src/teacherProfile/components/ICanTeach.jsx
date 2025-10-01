@@ -17,16 +17,12 @@ const ICanTeach = () => {
   } = useQuery({
     queryKey: ["studentProfile"],
     queryFn: () => GetTeacherSubject(),
-    onSuccess: (data) => {
-      console.log(data);
-    },
+  
     onError: (error) => {
       console.error("Error fetching student profile:", error.message);
       pushNotify(400, "SORRY", "Something went wrong. Try again later.");
     },
-    onsettled: () => {
-      console.log("fetching student profile");
-    },
+  
   });
   const removeSubjectMutation = useMutation({
     mutationFn: removeSubject,

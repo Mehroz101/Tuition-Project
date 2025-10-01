@@ -43,7 +43,6 @@ export default function Books() {
   });
   useEffect(() => {
     if (BookData) {
-      console.log(BookData.data);
       setBooks(BookData.data);
       setLoading(false);
     }
@@ -83,7 +82,6 @@ export default function Books() {
   const AddorUpdateMutation = useMutation({
     mutationFn: AddorUpdateBook,
     onSuccess: (data) => {
-      console.log(data);
       if (data.success) {
         refetch();
 
@@ -95,7 +93,6 @@ export default function Books() {
   const DeleteBookMutation = useMutation({
     mutationFn: DeleteBook,
     onSuccess: (data) => {
-      // console.log(data)
       if (data) {
         refetch();
         // setBookVisible(false)
@@ -113,7 +110,6 @@ export default function Books() {
     DeleteBookMutation.mutate(id);
   };
   const onsubmit = (data) => {
-    console.log(data);
     if(data.bookDesc.length < 50){
       return notify("warning","Description must be greater then 50 character")
     }

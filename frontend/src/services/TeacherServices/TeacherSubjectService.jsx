@@ -22,14 +22,12 @@ export const TeacherSubject = async (subjectData) => {
     if (response.status === 200) {
       return response.status;
     }
-    console.log(response);
   } catch (error) {
     pushNotify(error.status, "Subject", error.response.data.message);
   }
 };
 export const GetTeacherSubject = async () => {
   try {
-    console.log("called");
     const token = localStorage.getItem("usertoken");
 
     const config = {
@@ -39,7 +37,6 @@ export const GetTeacherSubject = async () => {
       },
     };
     const { data } = await axios.get(`${API_URL}/getsubject`, config);
-    console.log(data.data.subjects);
     return data.data.subjects;
   } catch (error) {}
 };
@@ -54,7 +51,6 @@ export const removeSubject = async (sub) => {
       },
     };
     const response = await axios.post(`${API_URL}/deletesubject`, sub, config);
-    console.log(response);
     pushNotify(response.status, "Subject", response.data.message);
   } catch (error) {
     pushNotify(error.status, "Subject", error.response.data.message);

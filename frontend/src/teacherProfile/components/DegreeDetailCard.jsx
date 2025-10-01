@@ -7,9 +7,7 @@ import { DeleteEducation } from "../../services/TeacherServices/TeacherEducation
 const DegreeDetailCard = ({ degree }) => {
   const deleteDegree = useMutation({
     mutationFn: DeleteEducation,
-    onSuccess: (data) => {
-      console.log(data);
-    },
+  
   });
   return (
     <>

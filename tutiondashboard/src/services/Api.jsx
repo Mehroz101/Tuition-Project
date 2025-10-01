@@ -34,7 +34,6 @@ export const DashboardData = async () => {
       },
     };
 
-    console.log(token);
     const response = await axios.get(`${API_URL}/stats`, config);
     if (response.data.success) {
       return response.data.data;
@@ -130,7 +129,6 @@ export const acceptRequest = async (id) => {
     return response;
   } catch (error) {
     notify("error", "Invitation not accepted");
-    console.log(error.message);
   }
 };
 export const rejectRequest = async (id) => {
@@ -151,7 +149,6 @@ export const rejectRequest = async (id) => {
     return response;
   } catch (error) {
     notify("error", "Invitation not rejected");
-    console.log(error.message);
   }
 };
 export const closeRequest = async (id) => {
@@ -172,7 +169,6 @@ export const closeRequest = async (id) => {
     return response;
   } catch (error) {
     notify("error", "Invitation not closed");
-    console.log(error.message);
   }
 };
 export const AddorUpdateBook = async (data) => {
@@ -198,7 +194,6 @@ export const AddorUpdateBook = async (data) => {
     }
   } catch (error) {
     notify("error", error.response.data.message);
-    console.log(error.message);
   }
 };
 export const GetBooksData = async () => {
@@ -214,7 +209,6 @@ export const GetBooksData = async () => {
     return response.data;
   } catch (error) {
     notify("error", error.response.data.message);
-    console.log(error.message);
   }
 };
 export const DeleteBook = async (id) => {
@@ -236,6 +230,5 @@ export const DeleteBook = async (id) => {
     }
   } catch (error) {
     notify("error", error.response.data.message);
-    console.log(error.message);
   }
 };

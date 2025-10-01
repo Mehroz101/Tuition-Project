@@ -20,7 +20,6 @@ export const TeacherProfile = async (teacherData) => {
     );
     pushNotify(response.status, "Profile", response.data.message);
   } catch (error) {
-    console.log(error.message);
     pushNotify(error.status, "Profile", error.response.data.message);
   }
 };
@@ -35,7 +34,6 @@ export const GetTeacherProfile = async () => {
       },
     };
     const data = await axios.get(`${API_URL}/getinformation`, config);
-    console.log(data.data.data);
     return data.data.data;
   } catch (error) {
     console.log(error);

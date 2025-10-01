@@ -45,7 +45,7 @@ const UpdateInformation = async (req, res) => {
 const UpdateSubjectInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    // console.log("Teacher ID:", teacherId);
+
 
     const { level, subject } = req.body;
 
@@ -90,7 +90,7 @@ const UpdateSubjectInformation = async (req, res) => {
 const GetSubjectInformation = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    // console.log("Teacher ID:", teacherId);
+
 
     const response = await Teacher.findOne(
       { teacherId },
@@ -119,8 +119,8 @@ const GetSubjectInformation = async (req, res) => {
 const RemoveSubject = async (req, res) => {
   try {
     const teacherId = req.user.id; // Assuming req.user.id is the authenticated user's ID
-    // console.log("Teacher ID:", teacherId);
-    // console.log(req.body);
+
+
 
     const { subject } = req.body;
 
@@ -183,7 +183,7 @@ const setAvailabilty = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log(error.message);
+
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -279,7 +279,7 @@ const getTeacherInvitations = async (req, res) => {
         message: "No invitations found for this teacher",
       });
     }
-    // console.log(invitations);
+
 
     res.status(200).json({
       success: true,
@@ -366,8 +366,7 @@ const closeInvtation = async (req, res) => {
   }
 };
 const updateLink = async (req, res) => {
-  console.log("updateLink request:", req.body);
-  console.log("updateLink request id:", req.user.id);
+
   try {
     // const reqId = req.user.id;
     const { link } = req.body;
@@ -377,7 +376,7 @@ const updateLink = async (req, res) => {
       { link },
       { upsert: true, new: true }
     );
-    console.log("updateLink response:", response);
+
     if (response) {
       res.status(200).json({
         success: true,
@@ -390,7 +389,7 @@ const updateLink = async (req, res) => {
       });
     }
   } catch (error) {
-    console.log("updateLink error:", error.message);
+
     res.status(500).json({
       success: false,
       message: "Internal server error",
@@ -455,10 +454,10 @@ const getEducation = async (req, res) => {
 const getTeacherEducation = async (req, res) => {
   try {
     const { teacherId } = req.params;
-    console.log(teacherId);
+
     const response = await Teacher.findById(teacherId);
     const educations = await Education.find({ teacherId: response.teacherId });
-    console.log(educations);
+
 
     res.status(200).json({
       success: true,
@@ -477,7 +476,7 @@ const getSpecificEducation = async (req, res) => {
     if (educationId) {
       const response = await Education.findById(educationId);
       if (response) {
-        console.log(response);
+
         res.status(200).json({
           success: true,
           data: response,
@@ -490,7 +489,7 @@ const getSpecificEducation = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error.message);
+
     res.status(500).json({
       success: false,
       message: "Internal Server Error",
@@ -547,8 +546,13 @@ const uploadImage = async (req, res) => {
     // If the teacher already has an image, delete it from Cloudinary
     if (teacher.image) {
       try {
-        await cloudinary.uploader.destroy(teacher.image); // teacher.image stores public_id
-        console.log("Old image deleted from Cloudinary:", teacher.image);
+        const parts = teacher.image.split("/uploads/")[1]; // "1759304512171-67146676.png"
+        const publicId = "uploads/" + parts.split(".")[0]; // "uploads/1759304512171-67146676"
+
+
+
+        const result = await cloudinary.uploader.destroy(publicId);
+
       } catch (err) {
         console.error("Error deleting the image from Cloudinary:", err);
         return res.status(500).json({

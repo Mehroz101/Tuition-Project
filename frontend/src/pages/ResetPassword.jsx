@@ -7,14 +7,11 @@ const ResetPassword = () => {
 
   const { role } = useParams();
   const { token } = useParams();
-  console.log(role)
   const navigate = useNavigate();
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    console.log(reset);
     const response = await handleSubmit();
     if (response === 200) {
-      console.log("success");
       navigate(`/login/${role}`);
     }
   };

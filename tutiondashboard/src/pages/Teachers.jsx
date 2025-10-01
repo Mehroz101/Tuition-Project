@@ -24,7 +24,6 @@ export default function Teachers() {
   });
   useEffect(() => {
     if (Teacherdata) {
-      console.log(Teacherdata);
       setCustomers(Teacherdata);
       setLoading(false);
     }

@@ -22,7 +22,6 @@ const SendInvitationForm = () => {
   };
   const handleSubmit = async () => {
     try {
-      console.log(sendInvitation);
       const data = await SendInvitation(sendInvitation);
       if (data.data.success) {
         navigate("/studentProfile/tuitions");

@@ -70,7 +70,7 @@ const ReviewsPage = () => {
 
   useEffect(() => {
     setReview(reviews);
-    console.log(reviews);
+
   }, []);
   return (
     <>

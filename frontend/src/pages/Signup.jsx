@@ -10,9 +10,7 @@ const Signup = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     const response = await handleSubmit();
-    console.log(response)
     if (response.status == 201) {
-      console.log("entered")
       navigate(`/login/${role}`);
     }
   };

@@ -20,7 +20,6 @@ function Fallback({ error }) {
   const match = error.stack.match(regex);
   if (match) {
     const filePath = match[1];
-    console.log("File path:", filePath); // Output: http://localhost:5173/src/App.jsx?t=1732289155098
     // If you want just the file name
     var fileName = filePath.substring(
       filePath.lastIndexOf("/") + 1,

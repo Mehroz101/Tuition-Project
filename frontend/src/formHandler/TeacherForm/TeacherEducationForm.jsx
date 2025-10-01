@@ -42,7 +42,6 @@ const TeacherEducationForm = () => {
       }
 
       const data = await TeacherEducation(teacherEducation);
-      console.log(data);
       if (data === true) {
         navigate("/profile/educationinformation");
       } else {

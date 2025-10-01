@@ -23,7 +23,6 @@ export const SendInvitation = async (invitationData) => {
 
     return response;
   } catch (error) {
-    console.log(error.message);
     pushNotify(error.status, "Invitation", error.response.data.message);
   }
 };
@@ -37,7 +36,6 @@ export const getInvitation = async () => {
   };
   try {
     const response = await axios.get(`${API_URL}/getinvtation`, config);
-    console.log(response.data.data);
 
     return response.data.data;
   } catch (error) {
@@ -63,7 +61,6 @@ export const cancelInvitation = async (invitationId) => {
     return response;
   } catch (error) {
     pushNotify(error.status, "Invitation", error.response.data.message);
-    console.log(error.message);
   }
 };
 export const SubmitReview = async (reviewData) => {
@@ -88,6 +85,5 @@ export const SubmitReview = async (reviewData) => {
     }
   } catch (error) {
     pushNotify(error.status, "Review", error.response.data.message);
-    console.log(error.message);
   }
 };

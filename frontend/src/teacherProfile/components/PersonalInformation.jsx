@@ -202,14 +202,14 @@ const PersonalInformation = () => {
     queryKey: ["studentProfile"],
     queryFn: GetTeacherProfile,
     onSuccess: (data) => {
-      console.log(data);
+
     },
     onError: (error) => {
       console.error("Error fetching student profile:", error.message);
       pushNotify(400, "SORRY", "Something went wrong. Try again later.");
     },
     onsettled: () => {
-      console.log("fetching student profile");
+
     },
   });
 

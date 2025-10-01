@@ -20,7 +20,6 @@ export const TeacherContact = async (ContactDetail) => {
     );
     pushNotify(response.status, "Contact", response.data.message);
 
-    console.log(response);
   } catch (error) {
     pushNotify(error.status, "Contact", error.response.data.message);
   }
@@ -36,7 +35,6 @@ export const GetContactDetail = async () => {
       },
     };
     const { data } = await axios.get(`${API_URL}/getinformation`, config);
-    console.log(data.data);
     return data.data;
   } catch (error) {
     console.log(error);

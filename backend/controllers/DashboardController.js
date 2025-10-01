@@ -77,7 +77,7 @@ const GetDashboardData = async (req, res) => {
       },
     };
 
-    console.log(sendData);
+
     res.status(201).send({ success: true, data: sendData });
   } catch (error) {
     console.error("Error in GetDashboardData:", error.message);
@@ -88,7 +88,7 @@ const AllStudentData = async (req, res) => {
   try {
     const studentData = await Student.find();
     if (studentData) {
-      console.log(studentData.fName);
+
       const sendData = studentData.map((std, i) => {
         return {
           id: i,
@@ -99,7 +99,7 @@ const AllStudentData = async (req, res) => {
           city: std.city,
         };
       });
-      console.log(sendData);
+
       res.status(201).send({ success: true, data: sendData });
     } else {
       res.status(404).send({ success: false, message: "No data found" });
@@ -112,7 +112,7 @@ const AllTeacherData = async (req, res) => {
   try {
     const teacherData = await Teacher.find();
     if (teacherData) {
-      console.log(teacherData.fName);
+
       const sendData = teacherData.map((std, i) => {
         return {
           id: i,
@@ -123,7 +123,7 @@ const AllTeacherData = async (req, res) => {
           city: std.city,
         };
       });
-      console.log(sendData);
+
       res.status(201).send({ success: true, data: sendData });
     } else {
       res.status(404).send({ success: false, message: "No data found" });
@@ -157,7 +157,7 @@ const AllInvitationData = async (req, res) => {
           review: invitation?.review,
         };
       });
-      console.log(sendData);
+
       res.status(200).send({ success: true, data: sendData });
     } else {
       res.status(404).send({ success: false, message: "No data found" });
@@ -169,7 +169,7 @@ const AllInvitationData = async (req, res) => {
 };
 const AddorUpdateBook = async (req, res) => {
   try {
-    const { bookName, bookDesc, bookImgUrl,bookUrl } = req.body;
+    const { bookName, bookDesc, bookImgUrl, bookUrl } = req.body;
     const lastBook = await Book.findOne().sort({ BookID: -1 });
     const nextBookID = lastBook ? lastBook.BookID + 1 : 1;
 
@@ -185,7 +185,7 @@ const AddorUpdateBook = async (req, res) => {
         .status(200)
         .send({ message: "Book added successfully", success: true });
     }
-    else{
+    else {
       res
         .status(400)
         .send({ message: "Book not added", success: false });
@@ -195,38 +195,38 @@ const AddorUpdateBook = async (req, res) => {
     res.status(500).send({ success: false, message: "Server error" });
   }
 };
-const GetBooks = async (req,res)=>{
+const GetBooks = async (req, res) => {
   try {
     const books = await Book.find()
     if (books) {
       res
         .status(200)
-        .send({ message: "", success: true , data:books});
+        .send({ message: "", success: true, data: books });
     }
-    else{
+    else {
       res
         .status(200)
-        .send({ message: "Book not found", success: false, data:[] });
+        .send({ message: "Book not found", success: false, data: [] });
     }
   } catch (error) {
     console.error(error.message);
     res.status(500).send({ success: false, message: "Server error" });
   }
 }
-const DeleteBook = async (req,res)=>{
+const DeleteBook = async (req, res) => {
   try {
     const bookId = req.params.id
-    console.log(bookId)
-    const book = await Book.findOneAndDelete({BookID:bookId})
+
+    const book = await Book.findOneAndDelete({ BookID: bookId })
     if (book) {
       res
         .status(200)
-        .send({ message: "Book deleted successfully", success: true , });
+        .send({ message: "Book deleted successfully", success: true, });
     }
-    else{
+    else {
       res
         .status(200)
-        .send({ message: "Book not found", success: false,});
+        .send({ message: "Book not found", success: false, });
     }
   } catch (error) {
     console.error(error.message);

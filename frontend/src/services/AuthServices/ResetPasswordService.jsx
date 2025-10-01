@@ -12,10 +12,8 @@ const config = {
 
 export const ResetPassword = async (data) => {
   try {
-    console.log(data);
     // if(data.role === "teacher"){
     const response = await axios.put(`${API_URL}/reset`, data, config);
-    console.log(response);
     return response;
     //   }
     // if(data.role === "student"){

@@ -13,23 +13,14 @@ const EducationInformation = () => {
   } = useQuery({
     queryKey: ["studentProfile"],
     queryFn: GetTeacherEducation,
-    onSuccess: (data) => {
-      console.log(data);
-    },
+   
     onError: (error) => {
       console.error("Error fetching teacher education:", error.message);
       pushNotify(400, "SORRY", "Something went wrong. Try again later.");
     },
-    onsettled: () => {
-      console.log("fetching teacher detail");
-    },
+   
   });
-  // useEffect(()=>{
-  //   if(educations){
-  //     console.log(educations)
-  //     setEducation(educations)
-  //     }
-  // },[])
+
 
   if (isLoading) {
     return <div>Loading...</div>;

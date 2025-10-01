@@ -48,7 +48,6 @@ export default function Invitation() {
   };
   useEffect(() => {
     if (Invitationdata) {
-      console.log(Invitationdata);
       setCustomers(Invitationdata);
       setLoading(false);
     }

@@ -21,7 +21,6 @@ const TeacherDetail = () => {
     queryKey: ["teacherDetails"],
     queryFn: async () => {
       const response = await axios.get(`${API_URL}/teacherdetail/${teacherId}`);
-      console.log(response.data.data);
       return response.data.data;
     },
     refetchOnWindowFocus: false,
@@ -29,16 +28,13 @@ const TeacherDetail = () => {
     // refetchOnReconnect: false,
     // retry: false,
   });
-  if (isError) {
-    console.log(error);
-  }
+ 
   const { data: teacherEducationDetail } = useQuery({
     queryKey: ["teacherEducationDetails"],
     queryFn: async () => {
       const response = await axios.get(
         `${API_URL}/teachereducationdetail/${teacherId}`
       );
-      console.log(response.data.data);
       return response.data.data;
     },
     refetchOnWindowFocus: false,
@@ -47,12 +43,8 @@ const TeacherDetail = () => {
     // retry: false,
   });
   if (isError) {
-    console.log(error);
   }
-  useEffect(() => {
-    console.log(teacherId);
-    console.log(error);
-  }, [teacherDetail, isError]);
+
   return (
     <>
       <Navbar />
