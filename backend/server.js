@@ -38,7 +38,7 @@ app.use(cors());
 
 // Database
 connectDB();
-app.use(checkDatabaseConnection);
+// app.use(checkDatabaseConnection);
 
 // Routes
 app.use("/api/user", authRoutes);
